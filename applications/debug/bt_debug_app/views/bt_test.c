@@ -107,10 +107,10 @@ static void bt_test_draw_callback(Canvas* canvas, void* _model) {
         }
     } else if(model->state == BtTestStateStopped) {
         if(model->packets_num_rx) {
-            snprintf(info_str, sizeof(info_str), "%" PRIu32 " pack rcv", model->packets_num_rx);
+            snprintf(info_str, sizeof(info_str), "%" PRIu32 " pak. prij.", model->packets_num_rx);
             canvas_draw_str_aligned(canvas, 124, 60, AlignRight, AlignBottom, info_str);
         } else if(model->packets_num_tx) {
-            snprintf(info_str, sizeof(info_str), "%" PRIu32 " pack sent", model->packets_num_tx);
+            snprintf(info_str, sizeof(info_str), "%" PRIu32 " pak. odes.", model->packets_num_tx);
             canvas_draw_str_aligned(canvas, 124, 60, AlignRight, AlignBottom, info_str);
         }
     }
