@@ -270,7 +270,7 @@ static void byte_input_draw_input(Canvas* canvas, ByteInputModel* model) {
         char str[20];
 
         canvas_set_font(canvas, FontSecondary);
-        snprintf(str, 20, "Selected index");
+        snprintf(str, 20, "Vybrany index");
         canvas_draw_str(canvas, text_x, text_y2, str);
 
         canvas_set_font(canvas, FontPrimary);
@@ -642,7 +642,7 @@ static void byte_input_view_draw_callback(Canvas* canvas, void* _model) {
         // Draw the header
         canvas_set_font(canvas, FontSecondary);
         if(model->selected_row == -1) {
-            canvas_draw_str(canvas, 10, 9, "Move up for alternate input");
+            canvas_draw_str(canvas, 10, 9, "Nahoru pro dalsi znaky");
             canvas_draw_icon(canvas, 3, 4, &I_SmallArrowUp_3x5);
         } else {
             canvas_draw_str(canvas, 2, 9, model->header);
