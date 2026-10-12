@@ -35,7 +35,7 @@ jobs:
           test -d artifact/dist/f7-C
           mkdir -p release-assets
           zip -r release-assets/DONNY-BOY-1.0.0-firmware-package.zip artifact/dist/f7-C
-          find artifact/dist/f7-C -maxdepth 2 -type f \\( -name '*.tgz' -o -name '*.dfu' -o -name '*.zip' \\) -exec cp {} release-assets/ \\;
+          for file in artifact/dist/f7-C/*; do case "$file" in *.tgz|*.dfu|*.zip) cp "$file" release-assets/ ;; esac; done
           echo "Assets prepared:"
           ls -lh release-assets
           test -n "$(find release-assets -maxdepth 1 -type f -print -quit)"
