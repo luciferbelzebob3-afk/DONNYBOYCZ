@@ -5,8 +5,6 @@
 
 **Vlastní sestavení firmwaru pro Flipper Zero s cílem přinést české prostředí a přehlednější používání.**
 
-[![Build DONNY BOY](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions/workflows/build-donny-boy.yml/badge.svg?branch=dev)](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions/workflows/build-donny-boy.yml)
-[![Build & analyze](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions/workflows/pr-build.yml/badge.svg?branch=dev)](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions/workflows/pr-build.yml)
 [![Verze](https://img.shields.io/badge/verze-DONNY%20BOY%201.0.0-39ff14?style=for-the-badge&labelColor=080b0a)](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.0)
 [![Jazyk](https://img.shields.io/badge/jazyk-%C4%8De%C5%A1tina-39ff14?style=flat-square&labelColor=080b0a)](#cesky-preklad)
 [![Licence](https://img.shields.io/badge/licence-GPL--3.0-39ff14?style=flat-square&labelColor=080b0a)](LICENSE)
@@ -46,7 +44,7 @@
 
 Projekt je určen lidem, kteří si chtějí své zařízení lépe přizpůsobit, zajímají se o elektroniku, vestavěné systémy, bezdrátové technologie a vývoj open-source softwaru.
 
-**DONNY BOY 1.0.0 je první vydaná verze tohoto sestavení.** Build a kontrola výstupních souborů proběhly v GitHub Actions úspěšně. To potvrzuje úspěšnou kompilaci; samo o sobě to ale není náhradou za testování na fyzickém zařízení.
+**DONNY BOY 1.0.0 je první vydaná verze tohoto sestavení.** Historický build a kontrola výstupních souborů proběhly v GitHub Actions úspěšně. Automatické buildy firmwaru a automatické kontroly jsou nyní vypnuté; GitHub Actions zůstává pouze pro publikování webové stránky projektu. Úspěšná kompilace sama o sobě není náhradou za testování na fyzickém zařízení.
 
 ## Hlavní cíle
 
@@ -128,16 +126,18 @@ Tento seznam popisuje oblasti funkcí základního projektu, nikoli záruku, že
 | Verze sestavení | 1.0.0 |
 | Cílové zařízení | Flipper Zero |
 | Větev vývoje | `dev` |
-| Build DONNY BOY | Úspěšný |
-| Build & analyze | Úspěšný |
+| Historický build verze 1.0.0 | Úspěšný |
+| Automatické buildy a kontroly | Vypnuté |
+| Automatické nasazení webu | Povoleno |
 | Zdrojový commit sestavení | `01393aeb8889f9a238df8ae01bef9116f7bc8112` |
 | Stav českého překladu | Průběžně rozpracovaný |
 | Distribuce | GitHub Releases |
 
-Průběh kompilace lze ověřit zde:
+Historické běhy sestavení verze 1.0.0:
 - [Build DONNY BOY firmware](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions/runs/38215806636)
 - [Build & analyze](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions/runs/38215806376)
-- [Všechny běhy CI](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions)
+
+Tyto odkazy slouží pouze jako záznam dřívějších běhů. Automatické sestavování nových firmwarů ani automatické kontroly už nejsou aktivní.
 
 ## Řešení problémů
 
