@@ -47,7 +47,7 @@ void bad_usb_scene_config_ble_persist_pairing_callback(VariableItem* item) {
 }
 
 const char* const ble_pairing_mode_names[GapPairingCount] = {
-    "AnoNe",
+    "Ano/Ne",
     "Typ PINu",
     "PIN ano/ne",
 };
