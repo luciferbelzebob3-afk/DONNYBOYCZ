@@ -51,7 +51,7 @@ void subghz_test_static_draw(Canvas* canvas, SubGhzTestStaticModel* model) {
 
     canvas_set_color(canvas, ColorBlack);
     canvas_set_font(canvas, FontPrimary);
-    canvas_draw_str(canvas, 0, 8, "CC1101 Static");
+    canvas_draw_str(canvas, 0, 8, "CC1101 - staticky test");
 
     canvas_set_font(canvas, FontSecondary);
     // Frequency
@@ -63,7 +63,7 @@ void subghz_test_static_draw(Canvas* canvas, SubGhzTestStaticModel* model) {
         model->real_frequency / 1000 % 1000,
         model->real_frequency % 1000);
     canvas_draw_str(canvas, 0, 20, buffer);
-    snprintf(buffer, sizeof(buffer), "Key: %d", model->button);
+    snprintf(buffer, sizeof(buffer), "Tlacitko: %d", model->button);
     canvas_draw_str(canvas, 0, 31, buffer);
 }
 
