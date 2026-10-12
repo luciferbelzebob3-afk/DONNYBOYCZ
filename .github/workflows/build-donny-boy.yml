@@ -45,10 +45,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test -d dist
-          find dist -maxdepth 2 -type f -printf '%p (%s bytes)\n'
-          if ! find dist -maxdepth 2 -type f \( -name '*.tgz' -o -name '*.zip' -o -name '*.dfu' \) | grep -q .; then
-            echo "ERROR: No updater/archive/DFU artifact was found in dist/."
+          test -d dist/f7-C
+          find dist/f7-C -type f -printf '%p (%s bytes)\\n'
+          if ! find dist/f7-C -type f -size +0c | grep -q .; then
+            echo "ERROR: No non-empty firmware/updater artifact was found in dist/f7-C/."
             exit 1
           fi
 
@@ -58,7 +58,7 @@ jobs:
         with:
           name: DONNY-BOY-1.0.0-build
           path: |
-            dist/**
+            dist/f7-C/**
             build/**/*.log
           if-no-files-found: warn
           retention-days: 14
