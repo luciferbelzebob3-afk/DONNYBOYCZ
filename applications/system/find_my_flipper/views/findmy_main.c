@@ -72,7 +72,7 @@ static void findmy_main_draw_callback(Canvas* canvas, void* _model) {
     canvas_set_font(canvas, FontSecondary);
     canvas_draw_str(canvas, 4, 21, "Stiskni <- pro beh na pozadi");
     canvas_set_font(canvas, FontSecondary);
-    char interval_str[20];
+    char interval_str[24];
     snprintf(interval_str, sizeof(interval_str), "Interval pingu: %d s", model->interval);
     canvas_draw_str(canvas, 4, 62, interval_str);
 
