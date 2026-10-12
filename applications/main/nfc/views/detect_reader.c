@@ -43,17 +43,17 @@ static void detect_reader_draw_callback(Canvas* canvas, void* model) {
     // Draw collected nonces
     if(m->state == DetectReaderStateStart) {
         canvas_set_font(canvas, FontPrimary);
-        canvas_draw_str_aligned(canvas, 51, 22, AlignLeft, AlignTop, "Emulating...");
+        canvas_draw_str_aligned(canvas, 51, 22, AlignLeft, AlignTop, "Emulace...");
         canvas_set_font(canvas, FontSecondary);
         canvas_draw_str_aligned(canvas, 51, 35, AlignLeft, AlignTop, "MIFARE MFkey32");
     } else {
         if(m->state == DetectReaderStateDone) {
             canvas_set_font(canvas, FontPrimary);
-            canvas_draw_str_aligned(canvas, 51, 22, AlignLeft, AlignTop, "Completed!");
+            canvas_draw_str_aligned(canvas, 51, 22, AlignLeft, AlignTop, "Dokonceno!");
             canvas_draw_icon(canvas, 24, 23, &I_check_big_20x17);
         } else {
             canvas_set_font(canvas, FontPrimary);
-            canvas_draw_str_aligned(canvas, 51, 22, AlignLeft, AlignTop, "Collecting...");
+            canvas_draw_str_aligned(canvas, 51, 22, AlignLeft, AlignTop, "Nacitani...");
         }
         canvas_set_font(canvas, FontSecondary);
         snprintf(text, sizeof(text), "Nonce pairs: %d/%d", m->nonces, m->nonces_max);
