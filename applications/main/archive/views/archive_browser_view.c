@@ -250,7 +250,7 @@ static void render_item_menu(Canvas* canvas, ArchiveBrowserViewModel* model) {
         calc_height,
         model->menu_idx);*/
     if(model->menu_file_manage) {
-        canvas_draw_str(canvas, 82, menu_y + line_height - 1, "Sprava");
+        canvas_draw_str(canvas, 82, menu_y + line_height - 1, "Spravovat");
     } else {
         canvas_draw_str(canvas, 82, menu_y + line_height - 1, "Akce");
     }
