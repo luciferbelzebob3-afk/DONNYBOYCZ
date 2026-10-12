@@ -1,0 +1,68 @@
+name: Publish DONNY BOY 1.0.0 release
+
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  publish:
+    name: Publish firmware release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out release source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download verified firmware artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: DONNY-BOY-1.0.0-build
+          run-id: 38215806636
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: artifact
+
+      - name: Prepare release assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d artifact/dist/f7-C
+          mkdir -p release-assets
+          zip -r release-assets/DONNY-BOY-1.0.0-firmware-package.zip artifact/dist/f7-C
+          find artifact/dist/f7-C -maxdepth 2 -type f \\( -name '*.tgz' -o -name '*.dfu' -o -name '*.zip' \\) -exec cp {} release-assets/ \\;
+          echo "Assets prepared:"
+          ls -lh release-assets
+          test -n "$(find release-assets -maxdepth 1 -type f -print -quit)"
+
+      - name: Create or update DONNY BOY 1.0.0 release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          NOTES="$(mktemp)"
+          cat > "$NOTES" <<'EOF'
+          # DONNY BOY 1.0.0
+
+          První sestavení projektu **Unleashed Firmware CZ** pod názvem DONNY BOY.
+
+          - Firmware byl sestaven v GitHub Actions a kontrola výstupů proběhla úspěšně.
+          - Zdrojový commit sestavení: `01393aeb8889f9a238df8ae01bef9116f7bc8112`.
+          - Balíček obsahuje výstupy sestavení z adresáře `dist/f7-C`.
+          - Projekt je komunitní úprava firmwaru pro Flipper Zero a není oficiálním produktem Flipper Devices.
+          - Používej zařízení a jeho funkce pouze v souladu se zákony a s oprávněním vlastníka zařízení/systému.
+
+          Jde o první vydání; některé části českého překladu mohou být stále rozpracované.
+          EOF
+          if gh release view v1.0.0 >/dev/null 2>&1; then
+            gh release upload v1.0.0 release-assets/* --clobber
+            gh release edit v1.0.0 --title "DONNY BOY 1.0.0" --notes-file "$NOTES"
+          else
+            gh release create v1.0.0 release-assets/* --target 01393aeb8889f9a238df8ae01bef9116f7bc8112 --title "DONNY BOY 1.0.0" --notes-file "$NOTES" --latest
+          fi
