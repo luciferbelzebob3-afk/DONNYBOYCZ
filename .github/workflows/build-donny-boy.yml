@@ -1,0 +1,64 @@
+name: Build DONNY BOY firmware
+
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: donny-boy-firmware-build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Compile firmware and updater package
+    runs-on: ubuntu-22.04
+    timeout-minutes: 90
+    steps:
+      - name: Check out source and submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Show build environment
+        run: |
+          git --version
+          python --version
+          git submodule status --recursive
+
+      - name: Build DONNY BOY updater package
+        run: |
+          set -o pipefail
+          ./fbt COMPACT=1 DEBUG=0 DIST_SUFFIX=1.0.0 UPDATE_VERSION_STRING=1.0.0 updater_package
+
+      - name: Verify build outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d dist
+          find dist -maxdepth 2 -type f -printf '%p (%s bytes)\n'
+          if ! find dist -maxdepth 2 -type f \( -name '*.tgz' -o -name '*.zip' -o -name '*.dfu' \) | grep -q .; then
+            echo "ERROR: No updater/archive/DFU artifact was found in dist/."
+            exit 1
+          fi
+
+      - name: Upload firmware build and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: DONNY-BOY-1.0.0-build
+          path: |
+            dist/**
+            build/**/*.log
+          if-no-files-found: warn
+          retention-days: 14
