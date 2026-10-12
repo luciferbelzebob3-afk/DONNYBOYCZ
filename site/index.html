@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070b09">
+<meta name="description" content="DONNY BOY — komunitní firmware pro Flipper Zero s českým prostředím. Stažení, instalace, stav projektu a zdrojový kód.">
+<title>DONNY BOY // Flipper Zero</title>
+<style>
+:root{color-scheme:dark;--bg:#070b09;--panel:#0d1510;--line:#203b29;--green:#39ff78;--muted:#9bb3a1;--white:#edf8ef;--amber:#ffd166}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#173b24 0,transparent 48%),var(--bg);color:var(--white);font:16px/1.65 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}a{color:var(--green);text-decoration:none}a:hover{text-decoration:underline} .wrap{width:min(1060px,calc(100% - 36px));margin:auto}.top{padding:24px 0;border-bottom:1px solid var(--line);font-size:.85rem;color:var(--muted);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}.top strong{color:var(--green)}header{padding:86px 0 68px;text-align:center} .tag{display:inline-block;border:1px solid var(--line);background:#0a120c;padding:6px 12px;color:var(--green);font-size:.78rem;letter-spacing:.12em}h1{font-size:clamp(3rem,10vw,6.5rem);line-height:.98;letter-spacing:-.08em;margin:24px 0 18px;text-shadow:0 0 30px #39ff7830}h1 span{color:var(--green)}.lead{max-width:720px;margin:0 auto;color:#c3d5c7;font-size:clamp(1rem,2.4vw,1.25rem)}.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-block;padding:12px 18px;border:1px solid var(--green);font-weight:bold}.primary{background:var(--green);color:#061009}.secondary{color:var(--green);background:#09110c}.status{margin:34px auto 0;max-width:700px;border:1px solid var(--line);padding:12px 16px;color:var(--muted);font-size:.85rem;text-align:left;background:#08100b}.status b{color:var(--green)}main{padding-bottom:60px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:20px 0 46px}.card{border:1px solid var(--line);background:linear-gradient(145deg,#101b13,var(--panel));padding:22px}.card .num{color:var(--green);font-size:.8rem}.card h2{font-size:1.08rem;margin:9px 0}.card p{margin:0;color:var(--muted);font-size:.92rem}.section{border-top:1px solid var(--line);padding:32px 0}.section h2{font-size:1.35rem;margin:0 0 12px}.section p,.section li{color:#c0d1c4}.section ul,.section ol{padding-left:24px}.warning{border-left:3px solid var(--amber);padding:12px 16px;background:#17140a;color:#e7dcb8}.links{display:flex;gap:18px;flex-wrap:wrap}.small{font-size:.84rem;color:var(--muted)}footer{border-top:1px solid var(--line);padding:26px 0 36px;color:var(--muted);font-size:.82rem}code{color:var(--green)}@media(max-width:760px){header{padding:62px 0 48px}.grid{grid-template-columns:1fr}.top{font-size:.75rem}.card{padding:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top"><div><strong>DONNY BOY</strong> // FIRMWARE LAB</div><div>[ SYSTEM: COMMUNITY BUILD ] [ DEVICE: FLIPPER ZERO ]</div></nav>
+<header>
+<div class="tag">ČESKÝ KOMUNITNÍ FIRMWARE · VERZE 1.0.0</div>
+<h1>DONNY <span>BOY</span></h1>
+<p class="lead">Vlastní sestavení firmwaru pro Flipper Zero. Cíl: srozumitelnější české prostředí, otevřený vývoj a sestavení, jehož stav lze ověřit.</p>
+<div class="actions">
+<a class="btn primary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.0">⬇ STÁHNOUT FIRMWARE</a>
+<a class="btn secondary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ">ZOBRAZIT ZDROJOVÝ KÓD</a>
+</div>
+<div class="status"><b>[ BUILD STATUS ]</b> DONNY BOY 1.0.0 · automatická kompilace v GitHub Actions proběhla úspěšně. Úspěšný build není totéž co test na fyzickém zařízení.</div>
+</header>
+<main>
+<div class="grid">
+<article class="card"><div class="num">01 // DOWNLOAD</div><h2>Stažení</h2><p>Vydání obsahuje soubory firmwaru a balíčky sestavení. Před instalací ověř, že vybíráš správný soubor pro své zařízení.</p><p style="margin-top:16px"><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.0">Otevřít vydání →</a></p></article>
+<article class="card"><div class="num">02 // LOCALIZATION</div><h2>Čeština bez diakritiky</h2><p>Překlad uživatelského rozhraní je průběžná práce. Cílem jsou české texty na displeji bez háčků a čárek; zatím nelze tvrdit, že je přeložen úplně každý řetězec.</p><p style="margin-top:16px"><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ">Sledovat vývoj →</a></p></article>
+<article class="card"><div class="num">03 // OPEN SOURCE</div><h2>Otevřený vývoj</h2><p>Prohlédni si změny, zkontroluj stav buildů nebo nahlas chybu. Projekt navazuje na otevřený Unleashed Firmware.</p><p style="margin-top:16px"><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues">Chyby a návrhy →</a></p></article>
+</div>
+<section class="section"><h2>Rychlá instalace</h2><ol><li>Nejdřív zazálohuj důležitá data a vlastní soubory v zařízení.</li><li>Otevři <a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.0">vydání DONNY BOY 1.0.0</a> a vyber soubor určený pro Flipper Zero.</li><li>Řiď se oficiálním postupem aktualizace a pokyny projektu. Nezaměňuj DFU, update balíček a SDK.</li><li>Po aktualizaci ověř start zařízení a základní funkce.</li></ol><p class="small">Pokud si nejsi jistý, který soubor zvolit, nepokračuj naslepo — nejprve si ověř typ souboru a způsob instalace.</p></section>
+<section class="section"><h2>Bezpečnost a odpovědné použití</h2><div class="warning">DONNY BOY není oficiální firmware Flipper Devices. Používej zařízení a jeho funkce pouze na vlastních systémech nebo s výslovným oprávněním a v souladu s platnými zákony.</div><p>Firmware je komunitní projekt poskytovaný bez záruky. Automatická kompilace potvrzuje sestavitelnost daného commitu, nikoli bezchybnost ani ověření všech funkcí na fyzickém zařízení.</p></section>
+<section class="section"><h2>Projektové odkazy</h2><div class="links"><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ">Repozitář</a><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions">Buildy a kontroly</a><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues">Nahlásit problém</a><a href="https://github.com/DarkFlippers/unleashed-firmware">Upstream: Unleashed Firmware</a><a href="https://docs.flipper.net/">Dokumentace Flipper Zero</a></div></section>
+</main>
+<footer><div>DONNY BOY // komunitní projekt · otevřený vývoj</div><div>Flipper Zero je ochranná známka příslušného vlastníka. Tento projekt není s výrobcem oficiálně spojen.</div></footer>
+</div>
+</body>
+</html>
