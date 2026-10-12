@@ -3,7 +3,7 @@ import posixpath
 
 # For more details on these options, run 'fbt -h'
 
-FIRMWARE_ORIGIN = "Unleashed"
+FIRMWARE_ORIGIN = "DONNY BOY"
 
 # Default hardware target
 TARGET_HW = 7
@@ -16,7 +16,10 @@ DEBUG = 1
 
 # Suffix to add to files when building distribution
 # If OS environment has DIST_SUFFIX set, it will be used instead
-DIST_SUFFIX = "local"
+DIST_SUFFIX = "1.0.0"
+
+# Version string embedded in the updater package
+UPDATE_VERSION_STRING = "1.0.0"
 
 # Coprocessor firmware
 COPRO_OB_DATA = "scripts/ob.data"
