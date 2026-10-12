@@ -737,7 +737,7 @@ static NotificationAppSettings* alloc_settings(void) {
     variable_item_set_current_value_index(item, value_index);
     variable_item_set_current_value_text(item, rgb_backlight_get_color_text(value_index));
     variable_item_set_locked(
-        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "RGB MOD \nOFF!");
+        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "REZIM RGB \nVYP!");
 
     // led_2 color
     item = variable_item_list_add(
@@ -750,7 +750,7 @@ static NotificationAppSettings* alloc_settings(void) {
     variable_item_set_current_value_index(item, value_index);
     variable_item_set_current_value_text(item, rgb_backlight_get_color_text(value_index));
     variable_item_set_locked(
-        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "RGB MOD \nOFF!");
+        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "REZIM RGB \nVYP!");
 
     // led 3 color
     item = variable_item_list_add(
@@ -763,7 +763,7 @@ static NotificationAppSettings* alloc_settings(void) {
     variable_item_set_current_value_index(item, value_index);
     variable_item_set_current_value_text(item, rgb_backlight_get_color_text(value_index));
     variable_item_set_locked(
-        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "RGB MOD \nOFF!");
+        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "REZIM RGB \nVYP!");
 
     // Efects
     item = variable_item_list_add(
@@ -779,7 +779,7 @@ static NotificationAppSettings* alloc_settings(void) {
     variable_item_set_current_value_index(item, value_index);
     variable_item_set_current_value_text(item, rgb_backlight_rainbow_mode_text[value_index]);
     variable_item_set_locked(
-        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "RGB MOD \nOFF!");
+        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "REZIM RGB \nVYP!");
 
     item = variable_item_list_add(
         app->variable_item_list_rgb,
@@ -794,7 +794,7 @@ static NotificationAppSettings* alloc_settings(void) {
     variable_item_set_current_value_index(item, value_index);
     variable_item_set_current_value_text(item, rgb_backlight_rainbow_speed_text[value_index]);
     variable_item_set_locked(
-        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "RGB MOD \nOFF!");
+        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "REZIM RGB \nVYP!");
 
     item = variable_item_list_add(
         app->variable_item_list_rgb,
@@ -809,7 +809,7 @@ static NotificationAppSettings* alloc_settings(void) {
     variable_item_set_current_value_index(item, value_index);
     variable_item_set_current_value_text(item, rgb_backlight_rainbow_step_text[value_index]);
     variable_item_set_locked(
-        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "RGB MOD \nOFF!");
+        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "REZIM RGB \nVYP!");
 
     item = variable_item_list_add(
         app->variable_item_list_rgb,
@@ -823,7 +823,7 @@ static NotificationAppSettings* alloc_settings(void) {
     snprintf(valtext, sizeof(valtext), "%d", value_index);
     variable_item_set_current_value_text(item, valtext);
     variable_item_set_locked(
-        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "RGB MOD \nOFF!");
+        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "REZIM RGB \nVYP!");
 
     item = variable_item_list_add(
         app->variable_item_list_rgb,
@@ -838,7 +838,7 @@ static NotificationAppSettings* alloc_settings(void) {
     variable_item_set_current_value_index(item, value_index);
     variable_item_set_current_value_text(item, rgb_backlight_rainbow_wide_text[value_index]);
     variable_item_set_locked(
-        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "RGB MOD \nOFF!");
+        item, (app->notification->settings.rgb.rgb_backlight_installed == 0), "REZIM RGB \nVYP!");
 
     //--- RGB BACKLIGHT END ---
 
