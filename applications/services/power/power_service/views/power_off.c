@@ -26,14 +26,14 @@ static void power_off_draw_callback(Canvas* canvas, void* _model) {
 
     canvas_set_font(canvas, FontSecondary);
     if(model->response == PowerOffResponseDefault) {
-        snprintf(buff, sizeof(buff), "Charge me!\nOff in %lus!", model->time_left_sec);
+        snprintf(buff, sizeof(buff), "Nabij me!\nVypnu se za %lus!", model->time_left_sec);
         elements_multiline_text_aligned(canvas, 70, 23, AlignLeft, AlignTop, buff);
 
         elements_button_left(canvas, "Zrusit");
         elements_button_center(canvas, "OK");
-        elements_button_right(canvas, "Hide");
+        elements_button_right(canvas, "Skryt");
     } else {
-        snprintf(buff, sizeof(buff), "Charge me!\nDon't forget!");
+        snprintf(buff, sizeof(buff), "Nabij me!\nNezapomen!");
         elements_multiline_text_aligned(canvas, 70, 23, AlignLeft, AlignTop, buff);
 
         canvas_draw_str_aligned(canvas, 64, 60, AlignCenter, AlignBottom, "Chvili podrzte...");
