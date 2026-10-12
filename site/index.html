@@ -7,8 +7,48 @@
 <meta name="description" content="DONNY BOY — komunitní firmware pro Flipper Zero s českým prostředím. Stažení, instalace, stav projektu a zdrojový kód.">
 <title>DONNY BOY // Flipper Zero</title>
 <style>
-:root{color-scheme:dark;--bg:#070b09;--panel:#0d1510;--line:#203b29;--green:#39ff78;--muted:#9bb3a1;--white:#edf8ef;--amber:#ffd166}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#173b24 0,transparent 48%),var(--bg);color:var(--white);font:16px/1.65 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}a{color:var(--green);text-decoration:none}a:hover{text-decoration:underline} .wrap{width:min(1060px,calc(100% - 36px));margin:auto}.top{padding:24px 0;border-bottom:1px solid var(--line);font-size:.85rem;color:var(--muted);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}.top strong{color:var(--green)}header{padding:86px 0 68px;text-align:center} .tag{display:inline-block;border:1px solid var(--line);background:#0a120c;padding:6px 12px;color:var(--green);font-size:.78rem;letter-spacing:.12em}h1{font-size:clamp(3rem,10vw,6.5rem);line-height:.98;letter-spacing:-.08em;margin:24px 0 18px;text-shadow:0 0 30px #39ff7830}h1 span{color:var(--green)}.lead{max-width:720px;margin:0 auto;color:#c3d5c7;font-size:clamp(1rem,2.4vw,1.25rem)}.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-block;padding:12px 18px;border:1px solid var(--green);font-weight:bold}.primary{background:var(--green);color:#061009}.secondary{color:var(--green);background:#09110c}.status{margin:34px auto 0;max-width:700px;border:1px solid var(--line);padding:12px 16px;color:var(--muted);font-size:.85rem;text-align:left;background:#08100b}.status b{color:var(--green)}main{padding-bottom:60px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:20px 0 46px}.card{border:1px solid var(--line);background:linear-gradient(145deg,#101b13,var(--panel));padding:22px}.card .num{color:var(--green);font-size:.8rem}.card h2{font-size:1.08rem;margin:9px 0}.card p{margin:0;color:var(--muted);font-size:.92rem}.section{border-top:1px solid var(--line);padding:32px 0}.section h2{font-size:1.35rem;margin:0 0 12px}.section p,.section li{color:#c0d1c4}.section ul,.section ol{padding-left:24px}.warning{border-left:3px solid var(--amber);padding:12px 16px;background:#17140a;color:#e7dcb8}.links{display:flex;gap:18px;flex-wrap:wrap}.small{font-size:.84rem;color:var(--muted)}footer{border-top:1px solid var(--line);padding:26px 0 36px;color:var(--muted);font-size:.82rem}code{color:var(--green)}@media(max-width:760px){header{padding:62px 0 48px}.grid{grid-template-columns:1fr}.top{font-size:.75rem}.card{padding:18px}}
+:root{color-scheme:dark;--bg:#070b09;--panel:#0d1510;--line:#203b29;--green:#39ff78;--muted:#9bb3a1;--white:#edf8ef;--amber:#ffd166;--page-width:1120px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;min-width:280px;background:radial-gradient(ellipse at 50% -15%,#173b24 0,transparent 48%),var(--bg);color:var(--white);font:clamp(14px,1.05vw,17px)/1.7 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;overflow-wrap:anywhere}
+a{color:var(--green);text-decoration:none;text-underline-offset:4px}
+a:hover{text-decoration:underline}
+a:focus-visible{outline:2px solid var(--green);outline-offset:5px}
+.wrap{width:min(var(--page-width),calc(100% - clamp(24px,5vw,64px)));margin-inline:auto}
+.top{padding:22px 0;border-bottom:1px solid var(--line);font-size:.82rem;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:12px 24px;flex-wrap:wrap}
+.top strong{color:var(--green)}
+header{padding:clamp(48px,8vw,94px) 0 clamp(42px,6vw,72px);text-align:center}
+.tag{display:inline-block;max-width:100%;border:1px solid var(--line);background:#0a120c;padding:7px 12px;color:var(--green);font-size:clamp(.68rem,.9vw,.8rem);letter-spacing:.1em}
+h1{font-size:clamp(3rem,9.5vw,7rem);line-height:.98;letter-spacing:-.08em;margin:clamp(20px,3vw,30px) 0 18px;text-shadow:0 0 30px #39ff7830}
+h1 span{color:var(--green)}
+.lead{max-width:760px;margin:0 auto;color:#c3d5c7;font-size:clamp(1rem,1.7vw,1.28rem);line-height:1.65}
+.actions{display:flex;justify-content:center;align-items:stretch;gap:12px;flex-wrap:wrap;margin-top:30px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;max-width:100%;padding:12px 18px;border:1px solid var(--green);font-weight:bold;text-align:center;overflow-wrap:anywhere}
+.primary{background:var(--green);color:#061009}
+.secondary{color:var(--green);background:#09110c}
+.status{margin:34px auto 0;max-width:760px;border:1px solid var(--line);padding:12px 16px;color:var(--muted);font-size:.85rem;text-align:left;background:#08100b}
+.status b{color:var(--green)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:20px 0 clamp(36px,5vw,54px)}
+.card{min-width:0;border:1px solid var(--line);background:linear-gradient(145deg,#101b13,var(--panel));padding:clamp(16px,2.2vw,24px)}
+.card .num{color:var(--green);font-size:.8rem}
+.card h2{font-size:1.08rem;line-height:1.4;margin:9px 0}
+.card p{margin:0;color:var(--muted);font-size:.92rem}
+.section{border-top:1px solid var(--line);padding:clamp(26px,4vw,38px) 0}
+.section h2{font-size:clamp(1.2rem,2vw,1.45rem);line-height:1.35;margin:0 0 12px}
+.section p,.section li{color:#c0d1c4}
+.section ul,.section ol{padding-left:clamp(20px,3vw,28px)}
+.section li+li{margin-top:8px}
+.warning{border-left:3px solid var(--amber);padding:12px 16px;background:#17140a;color:#e7dcb8}
+.links{display:flex;gap:12px 20px;flex-wrap:wrap}
+.small{font-size:.84rem;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:26px 0 36px;color:var(--muted);font-size:.82rem}
+footer div+div{margin-top:8px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.top{align-items:flex-start}.top div:last-child{line-height:1.6}.card{padding:20px}}
+@media(min-width:761px) and (max-width:1020px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.card:last-child:nth-child(odd){grid-column:1/-1}}
+@media(max-width:420px){.wrap{width:calc(100% - 28px)}.top{font-size:.72rem}.tag{letter-spacing:.045em;padding:7px 9px}.actions{flex-direction:column}.btn{width:100%}.status{padding:11px 12px}.links{flex-direction:column;gap:10px}}
+@media(min-width:1800px){:root{--page-width:1200px}.grid{gap:20px}}
+@media(hover:none){a:hover{text-decoration:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
