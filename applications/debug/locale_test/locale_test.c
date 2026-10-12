@@ -26,7 +26,7 @@ static void locale_test_view_draw_callback(Canvas* canvas, void* _model) {
         furi_string_printf(tmp_string, "Teplota: %5.1fC", (double)temp);
     } else {
         temp = locale_celsius_to_fahrenheit(temp);
-        furi_string_printf(tmp_string, "Temp: %5.1fF", (double)temp);
+        furi_string_printf(tmp_string, "Teplota: %5.1fF", (double)temp);
     }
     canvas_draw_str(canvas, 0, 10, furi_string_get_cstr(tmp_string));
 
