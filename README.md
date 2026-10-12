@@ -15,7 +15,8 @@
 
 [ **⬇ STÁHNOUT DONNY BOY 1.0.0** ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.0) ·
 [ Zdrojový kód ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ) ·
-[ Hlášení chyb ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues)
+[ Hlášení chyb ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues) ·
+[ Web projektu ](https://luciferbelzebob3-afk.github.io/DONNYBOYCZ/)
 
 </div>
 
