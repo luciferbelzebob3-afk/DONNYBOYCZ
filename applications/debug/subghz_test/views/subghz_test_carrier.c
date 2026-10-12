@@ -66,7 +66,7 @@ void subghz_test_carrier_draw(Canvas* canvas, SubGhzTestCarrierModel* model) {
     } else if(model->path == FuriHalSubGhzPath868) {
         path_name = "868MHz";
     }
-    snprintf(buffer, sizeof(buffer), "Path: %d - %s", model->path, path_name);
+    snprintf(buffer, sizeof(buffer), "Cesta: %d - %s", model->path, path_name);
     canvas_draw_str(canvas, 0, 31, buffer);
     if(model->status == SubGhzTestCarrierModelStatusRx) {
         snprintf(
