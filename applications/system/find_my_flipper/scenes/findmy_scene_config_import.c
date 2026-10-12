@@ -155,7 +155,7 @@ void findmy_scene_config_import_on_enter(void* context) {
 
     item = variable_item_list_add(var_item_list, "OpenHaystack (.keys)", 0, NULL, NULL);
 
-    item = variable_item_list_add(var_item_list, "Register Tag Manually", 0, NULL, NULL);
+    item = variable_item_list_add(var_item_list, "Registrovat stitek rucne", 0, NULL, NULL);
 
     // This scene acts more like a submenu than a var item list tbh
     UNUSED(item);
