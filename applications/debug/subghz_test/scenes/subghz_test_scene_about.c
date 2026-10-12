@@ -18,7 +18,7 @@ void subghz_test_scene_about_on_enter(void* context) {
     furi_string_cat_printf(temp_str, "Vyvinul: %s\n", SUBGHZ_TEST_DEVELOPED);
     furi_string_cat_printf(temp_str, "Github: %s\n\n", SUBGHZ_TEST_GITHUB);
 
-    furi_string_cat_printf(temp_str, "\e#%s\n", "Description");
+    furi_string_cat_printf(temp_str, "\e#%s\n", "Popis");
     furi_string_cat_printf(
         temp_str,
         "This application is designed\nto test the functionality of the\nbuilt-in CC1101 module.\n\n");
