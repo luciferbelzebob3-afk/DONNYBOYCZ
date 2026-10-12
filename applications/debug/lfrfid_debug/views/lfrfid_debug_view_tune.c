@@ -24,7 +24,7 @@ static void lfrfid_debug_view_tune_draw_callback(Canvas* canvas, void* _model) {
     if(model->fine) {
         canvas_draw_box(
             canvas,
-            128 - canvas_string_width(canvas, "Fine") - 4,
+            128 - canvas_string_width(canvas, "Jemne") - 4,
             0,
             canvas_string_width(canvas, "Fine") + 4,
             canvas_current_font_height(canvas) + 1);
