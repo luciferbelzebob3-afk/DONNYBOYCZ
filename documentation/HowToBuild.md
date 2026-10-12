@@ -1,64 +1,64 @@
-# How to Build by yourself:
+# Build DONNY BOY firmware (version 1.0.0)
 
-## Install required software
+This repository builds the DONNY BOY firmware. The default firmware branding is configured in `fbt_options.py`:
 
-- Git - [Download](https://git-scm.com/downloads) for Windows, on Linux/Mac install via package manager (`brew`, `apt`, ...)
+- `FIRMWARE_ORIGIN = "DONNY BOY"` — firmware origin shown in device version information.
+- `DIST_SUFFIX = "1.0.0"` — build/distribution version identifier.
+- `UPDATE_VERSION_STRING = "1.0.0"` — version embedded in the updater package.
+- `scripts/version.py` identifies this fork as `https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ.git`.
 
-For development:
+## Requirements
+
 - Git
-- VSCode
+- Python version supported by the repository's build system
+- The toolchain dependencies downloaded/managed by FBT
+- For Windows, use PowerShell or the terminal supplied with Git
 
-## Clone the Repository
+## Clone the repository
 
-You should clone with 
-```shell
-$ git clone --recursive https://github.com/DarkFlippers/unleashed-firmware.git
+Clone this fork with all submodules:
+
+```sh
+git clone --recursive https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ.git
+cd unleashed-firmware-CZ
 ```
 
-## VSCode integration
+If the repository is already cloned, run:
 
-`fbt` includes basic development environment configuration for VSCode. Run `./fbt vscode_dist` to deploy it. That will copy the initial environment configuration to the `.vscode` folder. After that, you can use that configuration by starting VSCode and choosing the firmware root folder in the `File > Open Folder` menu.
+```sh
+git submodule update --init --recursive
+```
 
-# Build on Linux/macOS
+## Build on Windows
 
-Check out `documentation/fbt.md` for details on building and flashing firmware. 
+Run from the repository root in PowerShell:
 
-### Compile plugin and run it on connected flipper
+```powershell
+git submodule update --init --recursive
+.\fbt.cmd COMPACT=1 DEBUG=0 DIST_SUFFIX=1.0.0 UPDATE_VERSION_STRING=1.0.0 updater_package
+```
+
+## Build on Linux/macOS
+
+Run from the repository root:
+
+```sh
+git submodule update --init --recursive
+./fbt COMPACT=1 DEBUG=0 DIST_SUFFIX=1.0.0 UPDATE_VERSION_STRING=1.0.0 updater_package
+```
+
+## Output and verification
+
+Check the `dist/` directory for the generated updater package. The package name includes the hardware target and version suffix. Verify that the command finishes successfully and that the output archive exists before installing it on the Flipper Zero.
+
+For troubleshooting and other FBT targets, see [fbt.md](fbt.md).
+
+## Build a single external app
+
+This builds an application, not the whole firmware:
 
 ```sh
 ./fbt COMPACT=1 DEBUG=0 launch_app APPSRC=applications_user/yourplugin
 ```
 
-
-### Compile everything + get updater package to update from microSD card
-
-```sh
-./fbt COMPACT=1 DEBUG=0 updater_package
-```
-
-Check `dist/` for build outputs.
-
-Use `flipper-z-{target}-update-{suffix}.tgz` to flash your device.
-
-# Build on Windows
-
-Check out `documentation/fbt.md` for details on building and flashing firmware. 
-
-
-### Compile everything + get updater package to update from microSD card
-
-```powershell
-./fbt.cmd COMPACT=1 DEBUG=0 updater_package
-```
-
-**You may need to change `/` to `\` in front of fbt command (Only for Windows)!**
-
-Check `dist/` for build outputs.
-
-Use `flipper-z-{target}-update-{suffix}.tgz` to flash your device.
-
-If compilation fails, make sure all submodules are all initialized. Either clone with `--recursive` or use `git submodule update --init --recursive`.
-
-# Build apps on Android (no PC)
-
-Applications (`.fap`) can also be built on an Android phone with `ufbt` running inside Termux — see [Building FAPs on Android with Termux](BuildingFapsOnAndroid.md). This covers apps only, not the firmware.
+On Windows, use `./fbt.cmd` instead of `./fbt`.
