@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://luciferbelzebob3-afk.github.io/DONNYBOYCZ/sitemap.xml
