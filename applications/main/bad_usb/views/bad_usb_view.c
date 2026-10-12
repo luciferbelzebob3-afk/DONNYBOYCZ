@@ -140,7 +140,7 @@ static void bad_usb_draw_callback(Canvas* canvas, void* _model) {
         }
         uint32_t delay = model->state.delay_remain / 10;
         if(delay) {
-            furi_string_printf(disp_str, "Delay %lus", delay);
+            furi_string_printf(disp_str, "Prodleva %lus", delay);
             canvas_draw_str_aligned(
                 canvas, 4, 61, AlignLeft, AlignBottom, furi_string_get_cstr(disp_str));
         }
@@ -160,7 +160,7 @@ static void bad_usb_draw_callback(Canvas* canvas, void* _model) {
             canvas_draw_icon(canvas, 4, 23, &I_EviWaiting2_18x21);
         }
         if(state != BadUsbStateWaitForBtn) {
-            canvas_draw_str_aligned(canvas, 4, 61, AlignLeft, AlignBottom, "Paused");
+            canvas_draw_str_aligned(canvas, 4, 61, AlignLeft, AlignBottom, "Pozastaveno");
         }
         furi_string_printf(disp_str, "%zu/%zu", model->state.line_cur, model->state.line_nb);
         canvas_draw_str_aligned(
