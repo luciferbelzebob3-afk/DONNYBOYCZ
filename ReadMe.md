@@ -1,21 +1,21 @@
 <div align="center">
 
 # ☠ DONNY BOY 1.0.0
-### UNLEASHED FIRMWARE CZ · FLIPPER ZERO
+### FIRMWARE ČESKY · FLIPPER ZERO
 
 **Vlastní sestavení firmwaru pro Flipper Zero s cílem přinést české prostředí a přehlednější používání.**
 
-[![Build DONNY BOY](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/actions/workflows/build-donny-boy.yml/badge.svg?branch=dev)](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/actions/workflows/build-donny-boy.yml)
-[![Build & analyze](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/actions/workflows/pr-build.yml/badge.svg?branch=dev)](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/actions/workflows/pr-build.yml)
-[![Verze](https://img.shields.io/badge/verze-DONNY%20BOY%201.0.0-39ff14?style=for-the-badge&labelColor=080b0a)](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/releases/tag/v1.0.0)
+[![Build DONNY BOY](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions/workflows/build-donny-boy.yml/badge.svg?branch=dev)](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions/workflows/build-donny-boy.yml)
+[![Build & analyze](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions/workflows/pr-build.yml/badge.svg?branch=dev)](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions/workflows/pr-build.yml)
+[![Verze](https://img.shields.io/badge/verze-DONNY%20BOY%201.0.0-39ff14?style=for-the-badge&labelColor=080b0a)](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.0)
 [![Jazyk](https://img.shields.io/badge/jazyk-%C4%8De%C5%A1tina-39ff14?style=flat-square&labelColor=080b0a)](#cesky-preklad)
 [![Licence](https://img.shields.io/badge/licence-GPL--3.0-39ff14?style=flat-square&labelColor=080b0a)](LICENSE)
 
 <br>
 
-[ **⬇ STÁHNOUT DONNY BOY 1.0.0** ](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/releases/tag/v1.0.0) ·
-[ Zdrojový kód ](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ) ·
-[ Hlášení chyb ](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/issues)
+[ **⬇ STÁHNOUT DONNY BOY 1.0.0** ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.0) ·
+[ Zdrojový kód ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ) ·
+[ Hlášení chyb ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues)
 
 </div>
 
@@ -59,7 +59,7 @@ Projekt je určen lidem, kteří si chtějí své zařízení lépe přizpůsobi
 
 ### Nejjednodušší cesta
 
-➡️ **[Otevřít vydání DONNY BOY 1.0.0 a stáhnout soubory](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/releases/tag/v1.0.0)**
+➡️ **[Otevřít vydání DONNY BOY 1.0.0 a stáhnout soubory](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.0)**
 
 V části **Assets** vyber soubor firmwaru nebo balíček sestavení. Pokud chceš pouze zdrojové kódy, použij tlačítko **Code → Download ZIP** nebo si repozitář naklonuj.
 
@@ -76,7 +76,7 @@ V části **Assets** vyber soubor firmwaru nebo balíček sestavení. Pokud chce
 Užitečné odkazy:
 - [Oficiální dokumentace Flipper Zero](https://docs.flipper.net/)
 - [Návod k instalaci v projektu Unleashed](https://github.com/DarkFlippers/unleashed-firmware/blob/dev/documentation/HowToInstall.md)
-- [Vydání tohoto forku](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/releases)
+- [Vydání tohoto forku](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases)
 
 Pokud si nejsi jistý, který soubor vybrat, neinstaluj ho naslepo. Nejprve otevři issue a uveď model zařízení, název souboru a postup, který chceš použít.
 
@@ -92,7 +92,7 @@ Při překladu dodržujeme několik pravidel:
 - Nepřidávat diakritiku do textů určených pro firmware, pokud by mohla způsobit problém se zobrazením.
 - Po změně textů kontrolovat kompilaci, protože i zdánlivě drobná změna může odhalit chybu v kódu.
 
-Překlad se vyvíjí postupně. **Vydání 1.0.0 neznamená, že je každá obrazovka firmwaru již kompletně přeložená.** Pokud narazíš na anglický text v uživatelském rozhraní, můžeš ho nahlásit v [Issues](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/issues) včetně názvu nabídky nebo aplikace.
+Překlad se vyvíjí postupně. **Vydání 1.0.0 neznamená, že je každá obrazovka firmwaru již kompletně přeložená.** Pokud narazíš na anglický text v uživatelském rozhraní, můžeš ho nahlásit v [Issues](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues) včetně názvu nabídky nebo aplikace.
 
 ## Funkce a možnosti
 
@@ -123,7 +123,7 @@ Tento seznam popisuje oblasti funkcí základního projektu, nikoli záruku, že
 
 | Položka | Stav |
 |---|---|
-| Projekt | DONNY BOY / Unleashed Firmware CZ |
+| Projekt | DONNY BOY |
 | Verze sestavení | 1.0.0 |
 | Cílové zařízení | Flipper Zero |
 | Větev vývoje | `dev` |
@@ -134,9 +134,9 @@ Tento seznam popisuje oblasti funkcí základního projektu, nikoli záruku, že
 | Distribuce | GitHub Releases |
 
 Průběh kompilace lze ověřit zde:
-- [Build DONNY BOY firmware](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/actions/runs/38215806636)
-- [Build & analyze](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/actions/runs/38215806376)
-- [Všechny běhy CI](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/actions)
+- [Build DONNY BOY firmware](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions/runs/38215806636)
+- [Build & analyze](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions/runs/38215806376)
+- [Všechny běhy CI](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions)
 
 ## Řešení problémů
 
@@ -152,7 +152,7 @@ Překlad není ve verzi 1.0.0 kompletní. Otevři issue a připoj přesný text,
 1. Otevři kartu **Actions** a vyber neúspěšný běh.
 2. Najdi první skutečnou chybu kompilátoru; závěrečné `Error 1` nebo `exit code 2` je obvykle jen souhrn.
 3. Zkopíruj chybovou hlášku a uveď commit, na kterém build selhal.
-4. Nahlas problém přes [Issues](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/issues).
+4. Nahlas problém přes [Issues](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues).
 
 ### Něco nefunguje jako dřív
 Uveď očekávané chování, skutečný výsledek, kroky k reprodukci a případně fotografie obrazovky. Nezveřejňuj citlivá data ani soubory, které nepatří tobě.
@@ -173,13 +173,13 @@ DONNY BOY je komunitní projekt. Není oficiálně vyvíjen, schválen ani podpo
 
 Chceš pomoct s překladem nebo s opravou chyby? Příspěvky jsou vítané.
 
-1. Projdi existující [issues](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/issues), aby se stejný problém neřešil vícekrát.
+1. Projdi existující [issues](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues), aby se stejný problém neřešil vícekrát.
 2. Pro překlad uveď původní text, navrhovaný český text a místo, kde se zobrazuje.
 3. U změny kódu zachovej formátování, zástupné symboly a technické identifikátory.
 4. Ověř, že změna neblokuje build.
 5. Popiš změnu v commitu nebo pull requestu stručně a konkrétně.
 
-Repozitář: [luciferbelzebob3-afk/unleashed-firmware-CZ](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ)
+Repozitář: [DONNY BOY CZ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ)
 
 ## Poděkování a licence
 
@@ -195,8 +195,8 @@ Tento fork je nezávislý komunitní projekt. Ochranné známky a názvy přísl
 
 `STAY CURIOUS · TEST RESPONSIBLY · KEEP IT OPEN SOURCE`
 
-[⬇ Stáhnout vydání](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/releases/tag/v1.0.0) ·
-[Prohlédnout zdrojový kód](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ) ·
-[Nahlásit chybu](https://github.com/luciferbelzebob3-afk/unleashed-firmware-CZ/issues)
+[⬇ Stáhnout vydání](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.0) ·
+[Prohlédnout zdrojový kód](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ) ·
+[Nahlásit chybu](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues)
 
 </div>
