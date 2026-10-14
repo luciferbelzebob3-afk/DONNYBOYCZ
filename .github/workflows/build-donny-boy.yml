@@ -53,12 +53,8 @@ jobs:
             automake \
             texinfo
 
-      - name: Build DONNY BOY firmware
-        run: ./fbt firmware_all
-
-      - name: Build updater package
-        if: ${{ inputs.build_updater }}
-        run: ./fbt updater_package
+      - name: Build compact release firmware and updater
+        run: ./fbt -j "$(nproc)" COMPACT=1 DEBUG=0 updater_package
 
       - name: Upload firmware output
         if: always()
@@ -67,7 +63,5 @@ jobs:
           name: DONNY-BOY-1.0.0-firmware
           path: |
             dist/f7-C/**
-            dist/f7-firmware-C/**
-            build/f7-firmware-C/.extapps/**/*.elf
           if-no-files-found: warn
           retention-days: 14
