@@ -1,0 +1,72 @@
+name: Sync upstream Unleashed firmware
+
+on:
+  schedule:
+    - cron: "17 */3 * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/sync-unleashed.yml"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: unleashed-upstream-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout DONNYBOYCZ
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+
+      - name: Fetch upstream Unleashed
+        run: |
+          git remote add upstream https://github.com/DarkFlippers/unleashed-firmware.git
+          git fetch upstream dev
+
+      - name: Merge upstream while preferring existing DONNYBOYCZ text on conflicts
+        id: merge
+        shell: bash
+        run: |
+          set +e
+          git checkout -B automation/upstream-sync origin/dev
+          git merge --no-edit -X ours upstream/dev
+          result=$?
+          set -e
+          if [ "$result" -ne 0 ]; then
+            echo "::error::Upstream merge has unresolved conflicts. No update was pushed."
+            git merge --abort || true
+            exit 1
+          fi
+          if git diff --quiet origin/dev...HEAD; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push sync branch
+        if: steps.merge.outputs.changed == 'true'
+        run: git push --force-with-lease origin automation/upstream-sync
+
+      - name: Create or update pull request
+        if: steps.merge.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          body=$(cat <<'EOF'
+          Automated synchronization from https://github.com/DarkFlippers/unleashed-firmware (branch `dev`).
+
+          **Important review notes**
+          - The merge uses Git's `-X ours` strategy, preferring DONNYBOYCZ content when a merge conflict occurs. This helps protect existing Czech/localized text in conflicting lines, but it is not a guarantee that every translated string in every file is preserved.
+          - Review changed UI/localization files for new or changed English text and translate it into Czech before merging.
+          - This workflow does not automatically translate new strings or build/test the firmware. Do not merge until the review and build checks pass.
+          EOF
+          )
+          gh pr create --repo "$GITHUB_REPOSITORY" --base dev --head automation/upstream-sync --title "Automated Unleashed firmware sync" --body "$body" 2>/dev/null ||           gh pr edit --repo "$GITHUB_REPOSITORY" automation/upstream-sync --title "Automated Unleashed firmware sync" --body "$body"
