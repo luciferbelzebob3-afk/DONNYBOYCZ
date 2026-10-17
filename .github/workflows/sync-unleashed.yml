@@ -51,6 +51,18 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Translate newly introduced English strings
+        if: steps.merge.outputs.changed == 'true'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          TRANSLATION_BASE_REF: origin/dev
+        run: |
+          python3 .github/scripts/translate_new_strings.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "Translate new upstream UI strings to Czech"
+
       - name: Push sync branch
         if: steps.merge.outputs.changed == 'true'
         run: git push --force-with-lease origin automation/upstream-sync
@@ -65,8 +77,9 @@ jobs:
 
           **Important review notes**
           - The merge uses Git's `-X ours` strategy, preferring DONNYBOYCZ content when a merge conflict occurs. This helps protect existing Czech/localized text in conflicting lines, but it is not a guarantee that every translated string in every file is preserved.
-          - Review changed UI/localization files for new or changed English text and translate it into Czech before merging.
-          - This workflow does not automatically translate new strings or build/test the firmware. Do not merge until the review and build checks pass.
+          - The workflow attempts to translate newly introduced English user-facing string literals into Czech using OpenAI, while leaving existing DONNYBOYCZ strings untouched.
+          - Translation is conservative and may skip ambiguous or unsupported strings. Review the diff and build/test the firmware before merging.
+          - Configure the repository Actions secret OPENAI_API_KEY for automatic translation; without it, synchronization still runs but translation is skipped.
           EOF
           )
           gh pr create --repo "$GITHUB_REPOSITORY" --base dev --head automation/upstream-sync --title "Automated Unleashed firmware sync" --body "$body" 2>/dev/null ||           gh pr edit --repo "$GITHUB_REPOSITORY" automation/upstream-sync --title "Automated Unleashed firmware sync" --body "$body"
