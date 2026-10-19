@@ -5,7 +5,7 @@
 
 **Vlastní sestavení firmwaru pro Flipper Zero s cílem přinést české prostředí a přehlednější používání.**
 
-[![Verze](https://img.shields.io/badge/verze-DONNY%20BOY%201.0.1-39ff14?style=for-the-badge&labelColor=080b0a)](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.1)
+[![Verze](https://img.shields.io/badge/verze-DONNY%20BOY%201.0.1-39ff14?style=for-the-badge&labelColor=080b0a)](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases)
 [![Jazyk](https://img.shields.io/badge/jazyk-%C4%8De%C5%A1tina-39ff14?style=flat-square&labelColor=080b0a)](#cesky-preklad)
 [![Licence](https://img.shields.io/badge/licence-GPL--3.0-39ff14?style=flat-square&labelColor=080b0a)](LICENSE)
 
@@ -69,7 +69,7 @@ V části **Assets** vyber soubor firmwaru nebo balíček sestavení. Pokud chce
 - Nové vydání projektu DONNY BOY pro Flipper Zero.
 - **Fyzické testování:** aktualizace byla podle výsledku testu spuštěna na fyzickém zařízení Flipper Zero a při provedeném testování běžela bez pozorovaných chyb.
 - Test na jednom zařízení nenahrazuje ověření všech funkcí, příslušenství a konfigurací.
-- **[Otevřít vydání 1.0.1](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.1)**
+- **[Otevřít vydání 1.0.1](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases)**
 
 ## Instalace
 
@@ -134,7 +134,8 @@ Tento seznam popisuje oblasti funkcí základního projektu, nikoli záruku, že
 | Cílové zařízení | Flipper Zero |
 | Větev vývoje | `dev` |
 | Fyzický test DONNY BOY 1.0.1 | Proveden; na testovaném Flipper Zero bez pozorovaných chyb |
-| Automatické buildy a kontroly | Vypnuté |
+| Sestavení 1.0.1 | Probíhá v GitHub Actions; vydání až po úspěšném sestavení |
+| Automatické buildy a kontroly | Spuštění ručně nebo při změně workflow |
 | Automatické nasazení webu | Povoleno |
 | Zdrojový commit sestavení | `01393aeb8889f9a238df8ae01bef9116f7bc8112` |
 | Stav českého překladu | Průběžně rozpracovaný |
