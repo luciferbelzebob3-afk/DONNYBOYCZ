@@ -1,17 +1,17 @@
 <div align="center">
 
-# ☠ DONNY BOY 1.0.0
+# ☠ DONNY BOY 1.0.1
 ### FIRMWARE ČESKY · FLIPPER ZERO
 
 **Vlastní sestavení firmwaru pro Flipper Zero s cílem přinést české prostředí a přehlednější používání.**
 
-[![Verze](https://img.shields.io/badge/verze-DONNY%20BOY%201.0.0-39ff14?style=for-the-badge&labelColor=080b0a)](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.0)
+[![Verze](https://img.shields.io/badge/verze-DONNY%20BOY%201.0.1-39ff14?style=for-the-badge&labelColor=080b0a)](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.1)
 [![Jazyk](https://img.shields.io/badge/jazyk-%C4%8De%C5%A1tina-39ff14?style=flat-square&labelColor=080b0a)](#cesky-preklad)
 [![Licence](https://img.shields.io/badge/licence-GPL--3.0-39ff14?style=flat-square&labelColor=080b0a)](LICENSE)
 
 <br>
 
-[ **⬇ STÁHNOUT DONNY BOY 1.0.0** ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.0) ·
+[ **⬇ STÁHNOUT DONNY BOY 1.0.1** ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.0) ·
 [ Zdrojový kód ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ) ·
 [ Hlášení chyb ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues) ·
 [ Web projektu ](https://luciferbelzebob3-afk.github.io/DONNYBOYCZ/)
@@ -20,7 +20,7 @@
 
 ---
 
-> `[ SYSTEM ONLINE ]`  `[ TARGET: FLIPPER ZERO ]`  `[ BUILD: DONNY BOY 1.0.0 ]`
+> `[ SYSTEM ONLINE ]`  `[ TARGET: FLIPPER ZERO ]`  `[ BUILD: DONNY BOY 1.0.1 ]`
 >
 > **Nejde o oficiální firmware Flipper Devices.** DONNY BOY je komunitní fork založený na projektu Unleashed Firmware. Používej ho zodpovědně a pouze v souladu se zákony.
 
@@ -44,7 +44,7 @@
 
 Projekt je určen lidem, kteří si chtějí své zařízení lépe přizpůsobit, zajímají se o elektroniku, vestavěné systémy, bezdrátové technologie a vývoj open-source softwaru.
 
-**DONNY BOY 1.0.0 je první vydaná verze tohoto sestavení.** Historický build a kontrola výstupních souborů proběhly v GitHub Actions úspěšně. Automatické buildy firmwaru a automatické kontroly jsou nyní vypnuté; GitHub Actions zůstává pouze pro publikování webové stránky projektu. Úspěšná kompilace sama o sobě není náhradou za testování na fyzickém zařízení.
+**DONNY BOY 1.0.1 je aktualizované sestavení projektu.** Podle testování provedeného na fyzickém zařízení Flipper Zero firmware běží bez pozorovaných chyb při běžném používání. Testování na konkrétním zařízení není zárukou, že byly ověřeny všechny funkce nebo všechny konfigurace. Historická verze 1.0.0 zůstává dostupná v předchozím vydání.
 
 ## Hlavní cíle
 
@@ -63,6 +63,13 @@ Projekt je určen lidem, kteří si chtějí své zařízení lépe přizpůsobi
 V části **Assets** vyber soubor firmwaru nebo balíček sestavení. Pokud chceš pouze zdrojové kódy, použij tlačítko **Code → Download ZIP** nebo si repozitář naklonuj.
 
 **Důležité:** artefakt z GitHub Actions je balíček sestavení; nemusí to být samostatný instalační program pro každou metodu aktualizace. Před instalací si přečti pokyny níže a ověř, že vybraný soubor odpovídá tvému zařízení.
+
+## Aktualizace DONNY BOY 1.0.1
+
+- Nové vydání projektu DONNY BOY pro Flipper Zero.
+- **Fyzické testování:** aktualizace byla podle výsledku testu spuštěna na fyzickém zařízení Flipper Zero a při provedeném testování běžela bez pozorovaných chyb.
+- Test na jednom zařízení nenahrazuje ověření všech funkcí, příslušenství a konfigurací.
+- **[Otevřít vydání 1.0.1](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.1)**
 
 ## Instalace
 
@@ -91,7 +98,7 @@ Při překladu dodržujeme několik pravidel:
 - Nepřidávat diakritiku do textů určených pro firmware, pokud by mohla způsobit problém se zobrazením.
 - Po změně textů kontrolovat kompilaci, protože i zdánlivě drobná změna může odhalit chybu v kódu.
 
-Překlad se vyvíjí postupně. **Vydání 1.0.0 neznamená, že je každá obrazovka firmwaru již kompletně přeložená.** Pokud narazíš na anglický text v uživatelském rozhraní, můžeš ho nahlásit v [Issues](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues) včetně názvu nabídky nebo aplikace.
+Překlad se vyvíjí postupně. **Vydání 1.0.1 neznamená, že je každá obrazovka firmwaru již kompletně přeložená.** Pokud narazíš na anglický text v uživatelském rozhraní, můžeš ho nahlásit v [Issues](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues) včetně názvu nabídky nebo aplikace.
 
 ## Funkce a možnosti
 
@@ -123,10 +130,10 @@ Tento seznam popisuje oblasti funkcí základního projektu, nikoli záruku, že
 | Položka | Stav |
 |---|---|
 | Projekt | DONNY BOY |
-| Verze sestavení | 1.0.0 |
+| Verze sestavení | 1.0.1 |
 | Cílové zařízení | Flipper Zero |
 | Větev vývoje | `dev` |
-| Historický build verze 1.0.0 | Úspěšný |
+| Fyzický test DONNY BOY 1.0.1 | Proveden; na testovaném Flipper Zero bez pozorovaných chyb |
 | Automatické buildy a kontroly | Vypnuté |
 | Automatické nasazení webu | Povoleno |
 | Zdrojový commit sestavení | `01393aeb8889f9a238df8ae01bef9116f7bc8112` |
@@ -147,7 +154,7 @@ Tyto odkazy slouží pouze jako záznam dřívějších běhů. Automatické ses
 - Nepřerušuj aktualizaci a neodpojuj zařízení v průběhu zápisu.
 
 ### V menu zůstává angličtina
-Překlad není ve verzi 1.0.0 kompletní. Otevři issue a připoj přesný text, název aplikace a cestu v menu, kde se zobrazuje.
+Překlad není ve verzi 1.0.1 kompletní. Otevři issue a připoj přesný text, název aplikace a cestu v menu, kde se zobrazuje.
 
 ### Build selže
 1. Otevři kartu **Actions** a vyber neúspěšný běh.
