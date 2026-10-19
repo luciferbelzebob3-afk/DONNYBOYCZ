@@ -1,0 +1,121 @@
+name: Build and release DONNY BOY CZ
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (for example 1.0.1)"
+        required: true
+        default: "1.0.1"
+  push:
+    branches:
+      - dev
+    paths:
+      - ".github/workflows/build-release.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: donny-boy-release
+  cancel-in-progress: false
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 120
+    steps:
+      - name: Checkout source and submodules
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate release version
+        id: version
+        shell: bash
+        env:
+          INPUT_VERSION: ${{ github.event.inputs.version || '1.0.1' }}
+        run: |
+          set -euo pipefail
+          version="${INPUT_VERSION#v}"
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Version must use semantic format X.Y.Z (example 1.0.1)."
+            exit 1
+          fi
+          tag="v$version"
+          if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
+            echo "::error::Tag $tag already exists; refusing to overwrite a release."
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Show build environment
+        run: |
+          git log -1 --oneline
+          python --version
+          git submodule status
+
+      - name: Build DONNY BOY updater package
+        run: ./fbt COMPACT=1 DEBUG=0 DIST_SUFFIX=${{ steps.version.outputs.version }} UPDATE_VERSION_STRING=${{ steps.version.outputs.version }} updater_package
+
+      - name: Verify build outputs
+        shell: bash
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          firmware="dist/f7-C/flipper-z-f7-full-$VERSION.dfu"
+          updater="dist/f7-C/flipper-z-f7-updater-$VERSION.dfu"
+          package="dist/f7-C/flipper-z-f7-update-$VERSION.tgz"
+          for file in "$firmware" "$updater" "$package"; do
+            if [[ ! -s "$file" ]]; then
+              echo "::error::Required build output missing or empty: $file"
+              exit 1
+            fi
+          done
+          mkdir -p release-assets
+          cp "$firmware" "$updater" "$package" release-assets/
+          if [[ -s "dist/f7-C/flipper-z-f7-sdk-$VERSION.zip" ]]; then
+            cp "dist/f7-C/flipper-z-f7-sdk-$VERSION.zip" release-assets/
+          fi
+          cp "dist/f7-C/flipper-z-f7-full-$VERSION.json" release-assets/
+          (
+            cd dist/f7-C
+            zip -qr "../../release-assets/DONNY-BOY-$VERSION-firmware-package.zip" .
+          )
+          (cd release-assets && sha256sum * > SHA256SUMS.txt)
+          echo "Release assets:"
+          ls -lh release-assets
+          cat release-assets/SHA256SUMS.txt
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: DONNY-BOY-${{ steps.version.outputs.version }}-build
+          path: release-assets/*
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          set -euo pipefail
+          gh release create "$TAG" release-assets/*             --repo "$GITHUB_REPOSITORY"             --target "$GITHUB_SHA"             --title "DONNY BOY $VERSION"             --notes "DONNY BOY CZ firmware release $VERSION for Flipper Zero.
+
+          Build source: $GITHUB_SHA
+          Build command: ./fbt COMPACT=1 DEBUG=0 DIST_SUFFIX=$VERSION UPDATE_VERSION_STRING=$VERSION updater_package
+
+          Assets include the full firmware DFU, updater DFU, update package, SDK archive when available, build metadata, and SHA-256 checksums.
+
+          This is a community firmware fork based on Unleashed. Successful compilation does not replace testing on a physical device."
