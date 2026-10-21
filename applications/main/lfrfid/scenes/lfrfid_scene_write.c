@@ -46,7 +46,7 @@ static void lfrfid_scene_write_set_status(LfRfid* app, const char* target) {
     } else {
         snprintf(app->text_store, LFRFID_TEXT_STORE_SIZE, "[%s]\nUnsaved Tag", proto);
     }
-    popup_set_text(app->popup, app->text_store, 94, 29, AlignCenter, AlignTop);
+    popup_set_text(app->popup, app->text_store, 94, 14, AlignCenter, AlignTop);
 }
 
 // Replace the "Zapisuji" popup with a final error. Only for the two results the worker returns
