@@ -52,6 +52,9 @@ static void lfrfid_cli_read(PipeSide* pipe, FuriString* args) {
            furi_string_cmp_str(type_string, "ask") == 0) {
             // ask
             type = LFRFIDWorkerReadTypeASKOnly;
+        } else if(furi_string_cmp_str(type_string, "ask134") == 0) {
+            // ask, 134.2kHz carrier
+            type = LFRFIDWorkerReadTypeASK134;
         } else if(
             furi_string_cmp_str(type_string, "indala") == 0 ||
             furi_string_cmp_str(type_string, "psk") == 0) {
@@ -413,6 +416,9 @@ static void lfrfid_cli_raw_read(PipeSide* pipe, FuriString* args) {
                furi_string_cmp_str(type_string, "ask") == 0) {
                 // ask
                 type = LFRFIDWorkerReadTypeASKOnly;
+            } else if(furi_string_cmp_str(type_string, "ask134") == 0) {
+                // ask, 134.2kHz carrier
+                type = LFRFIDWorkerReadTypeASK134;
             } else if(
                 furi_string_cmp_str(type_string, "indala") == 0 ||
                 furi_string_cmp_str(type_string, "psk") == 0) {

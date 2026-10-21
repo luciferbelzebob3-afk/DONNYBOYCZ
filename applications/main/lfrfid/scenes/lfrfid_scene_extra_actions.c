@@ -4,6 +4,7 @@
 typedef enum {
     SubmenuIndexASK,
     SubmenuIndexPSK,
+    SubmenuIndexASK134,
     SubmenuIndexClearT5577,
     SubmenuIndexWipeT5577,
     SubmenuIndexRAW,
@@ -83,6 +84,11 @@ bool lfrfid_scene_extra_actions_on_event(void* context, SceneManagerEvent event)
             consumed = true;
         } else if(event.event == SubmenuIndexPSK) {
             app->read_type = LFRFIDWorkerReadTypePSKOnly;
+            scene_manager_next_scene(app->scene_manager, LfRfidSceneRead);
+            dolphin_deed(DolphinDeedRfidRead);
+            consumed = true;
+        } else if(event.event == SubmenuIndexASK134) {
+            app->read_type = LFRFIDWorkerReadTypeASK134;
             scene_manager_next_scene(app->scene_manager, LfRfidSceneRead);
             dolphin_deed(DolphinDeedRfidRead);
             consumed = true;
