@@ -125,4 +125,40 @@ class LocalizationTests(unittest.TestCase):
             records=json.loads(p.read_text())
             self.assertTrue(any('type_name' in x.get('reason','') and x['kind']=='technical' for x in records.values()))
 
+    def test_draft_can_exist_before_tag(self):
+        draft=dict(id=123,tag_name='v1.0.2',draft=True)
+        with patch.object(pipeline,'api',side_effect=[None,[draft]]) as api:
+            self.assertEqual(pipeline.find_release('1.0.2'),draft)
+            self.assertIn('/releases?per_page=100',api.call_args.args[0])
+
+    def test_incomplete_draft_is_not_published(self):
+        with patch.object(pipeline,'api') as api:
+            with self.assertRaisesRegex(RuntimeError,'neni kompletni'):
+                pipeline.recover_draft(dict(target_commitish='source',assets=[]),dict(version='1.0.2'),'source')
+            api.assert_not_called()
+
+    def test_complete_draft_recovers_without_build_or_upload(self):
+        import hashlib
+        v='1.0.2'
+        pending=dict(version=v,upstream_sha='upstream')
+        metadata=json.dumps(dict(source_sha='source',version=v,upstream=pending,run_id=42)).encode()
+        names=[f'flipper-z-f7-full-{v}.dfu',f'flipper-z-f7-updater-{v}.dfu',f'flipper-z-f7-update-{v}.tgz',f'flipper-z-f7-full-{v}.json',f'DONNY-BOY-{v}-firmware-package.zip']
+        contents={name:b'build output' for name in names}
+        contents['sestaveni.json']=metadata
+        contents['SHA256SUMS.txt']=''.join(hashlib.sha256(data).hexdigest()+'  '+name+'\n' for name,data in contents.items()).encode()
+        draft=dict(id=123,draft=True,target_commitish='source',assets=[dict(name=n,size=len(b),digest='sha256:'+hashlib.sha256(b).hexdigest()) for n,b in contents.items()])
+        def run(*args,**kwargs):
+            self.assertEqual(args[:3],('gh','release','download'))
+            folder=Path(args[args.index('--dir')+1])
+            for name in ('sestaveni.json','SHA256SUMS.txt'): (folder/name).write_bytes(contents[name])
+        def api(path,method='GET',data=None):
+            if '/actions/runs/' in path:return dict(jobs=[dict(name='Sestavení přesného českého zdroje / build',conclusion='success')])
+            if method=='PATCH':return dict(draft=False)
+            if '/git/ref/' in path:return dict(object=dict(sha='source'))
+            raise AssertionError(path)
+        with patch.object(pipeline,'run',side_effect=run) as run_mock,patch.object(pipeline,'api',side_effect=api):
+            result=pipeline.recover_draft(draft,pending,'source')
+            self.assertFalse(result['draft'])
+            self.assertEqual(run_mock.call_count,1)
+
 if __name__=='__main__': unittest.main()

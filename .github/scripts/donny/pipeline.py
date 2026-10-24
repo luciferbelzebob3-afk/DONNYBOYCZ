@@ -63,6 +63,81 @@ def load(path, default=None):
     return json.loads(Path(path).read_text()) if Path(path).exists() else default
 
 
+def find_release(version):
+    release = api(f'/repos/{REPO}/releases/tags/v{version}')
+    if release is not None:
+        return release
+    # GitHub does not create a tag for a draft. The tag endpoint can return 404
+    # even though an authenticated releases listing already contains the draft.
+    for page in range(1, 11):
+        batch = api(f'/repos/{REPO}/releases?per_page=100&page={page}')
+        if batch is None:
+            raise RuntimeError('Nelze nacist seznam vydani')
+        for item in batch:
+            if item['tag_name'] == 'v' + version:
+                return item
+        if len(batch) < 100:
+            return None
+    raise RuntimeError('Seznam vydani prekrocil bezpecny limit stranek')
+
+
+def controls_only(source, head):
+    if run('git', 'merge-base', '--is-ancestor', source, head, check=False).returncode:
+        return False
+    paths = git('diff', '--name-only', source, head).splitlines()
+    return all(x.startswith(('.github/scripts/donny/', '.github/workflows/', '.github/tests/'))
+               or x == '.donny/README.md' for x in paths)
+
+
+def recover_draft(release, pending, source):
+    """Finish only a complete, previously verified draft; do not upload or rebuild."""
+    if release['target_commitish'] != source:
+        raise RuntimeError('Koncept vydani neodpovida overenemu zdroji')
+    v = pending['version']
+    mandatory = {f'flipper-z-f7-full-{v}.dfu', f'flipper-z-f7-updater-{v}.dfu',
+                 f'flipper-z-f7-update-{v}.tgz', f'flipper-z-f7-full-{v}.json',
+                 f'DONNY-BOY-{v}-firmware-package.zip', 'sestaveni.json', 'SHA256SUMS.txt'}
+    assets = {x['name']: x for x in release['assets']}
+    if not mandatory.issubset(assets):
+        raise RuntimeError('Koncept neni kompletni; zustava zachovan pro opakovani publikace')
+    with tempfile.TemporaryDirectory() as folder:
+        run('gh', 'release', 'download', 'v' + v, '--repo', REPO, '--dir', folder,
+            '--pattern', 'sestaveni.json', '--pattern', 'SHA256SUMS.txt')
+        metadata = load(Path(folder) / 'sestaveni.json')
+        if (metadata.get('source_sha') != source or metadata.get('version') != v or
+                metadata.get('upstream', {}).get('upstream_sha') != pending['upstream_sha']):
+            raise RuntimeError('Metadata konceptu neodpovidaji kandidatu')
+        jobs = api(f'/repos/{REPO}/actions/runs/{int(metadata["run_id"])}/jobs?per_page=100')
+        if not jobs or not any(j['name'] == 'Sestavení přesného českého zdroje / build' and
+                               j['conclusion'] == 'success' for j in jobs['jobs']):
+            raise RuntimeError('Nelze dolozit uspesny build konceptu')
+        manifest = (Path(folder) / 'SHA256SUMS.txt').read_text()
+        expected = {}
+        for line in manifest.splitlines():
+            match = re.fullmatch(r'([0-9a-f]{64})  ([A-Za-z0-9_.-]+)', line)
+            if not match:
+                raise RuntimeError('Neplatny manifest kontrolnich souctu')
+            checksum, name = match.groups()
+            if name in expected:
+                raise RuntimeError('Duplicitni soubor v manifestu')
+            expected[name] = checksum
+        if not (mandatory - {'SHA256SUMS.txt'}).issubset(expected):
+            raise RuntimeError('Neuplny manifest kontrolnich souctu')
+        expected['SHA256SUMS.txt'] = hashlib.sha256((Path(folder) / 'SHA256SUMS.txt').read_bytes()).hexdigest()
+        if hashlib.sha256((Path(folder) / 'sestaveni.json').read_bytes()).hexdigest() != expected['sestaveni.json']:
+            raise RuntimeError('Nesouhlasi soucet metadat sestaveni')
+        for name, checksum in expected.items():
+            if name not in assets or assets[name]['size'] <= 0 or assets[name].get('digest') != 'sha256:' + checksum:
+                raise RuntimeError('Nesouhlasi serverovy soucet konceptu: ' + name)
+    result = api(f'/repos/{REPO}/releases/{release["id"]}', 'PATCH', {'draft': False, 'make_latest': 'true'})
+    if not result or result['draft']:
+        raise RuntimeError('Koncept se nepodarilo publikovat')
+    tag = api(f'/repos/{REPO}/git/ref/tags/v{v}')
+    if not tag or tag['object']['sha'] != source:
+        raise RuntimeError('Publikovany tag neodpovida sestaveni')
+    return result
+
+
 def save(path, data):
     Path(path).parent.mkdir(parents=True, exist_ok=True)
     Path(path).write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
@@ -112,9 +187,14 @@ def prepare():
         git('fetch', '--no-tags', 'origin', BRANCH)
         pending_text = read('FETCH_HEAD', '.donny/pending.json')
         pending = json.loads(pending_text) if pending_text else None
-        release = api(f'/repos/{REPO}/releases/tags/v{pending["version"]}') if pending else None
+        release = find_release(pending['version']) if pending else None
         candidate_sha = git('rev-parse', 'FETCH_HEAD')
-        if pending and pending['upstream_sha'] == target and (base in (pending['base_sha'], candidate_sha) or (release and not release['draft'])):
+        unfinished = pending and state.get('version') != pending['version']
+        can_resume = pending and (base in (pending['base_sha'], candidate_sha) or
+                                  (release and not release['draft']) or controls_only(candidate_sha, base))
+        if pending and (pending['upstream_sha'] == target or unfinished) and can_resume:
+            if release and release['draft'] and controls_only(candidate_sha, base):
+                release = recover_draft(release, pending, candidate_sha)
             git('checkout', '--detach', 'FETCH_HEAD')
             output(changed=True, sha=git('rev-parse', 'HEAD'), version=pending['version'],
                    published=bool(release and not release['draft']))
@@ -367,7 +447,7 @@ def package():
 def publish():
     p = load(ROOT / 'pending.json')
     v, source = p['version'], git('rev-parse', 'HEAD')
-    release = api(f'/repos/{REPO}/releases/tags/v{v}')
+    release = find_release(v)
     if release and not release['draft']:
         raise RuntimeError('Publikovane vydani se nesmi prepsat; pouzij obnovu webu')
     branch = api(f'/repos/{REPO}/branches/dev')
@@ -394,12 +474,11 @@ def publish():
         run('gh', 'release', 'create', f'v{v}', '--repo', REPO, '--target', source,
             '--title', f'DONNY BOY CZ {v}', '--notes-file', str(OUT / 'release-notes.md'), '--draft')
     else:
-        tag_sha = git('rev-parse', f'v{v}^{{commit}}')
-        if tag_sha != source:
+        if release['target_commitish'] != source:
             raise RuntimeError('Koncept vydani ukazuje na jiny zdroj')
     files = [str(x) for x in sorted(Path('release-assets').iterdir())]
     run('gh', 'release', 'upload', f'v{v}', '--repo', REPO, '--clobber', *files)
-    release = api(f'/repos/{REPO}/releases/tags/v{v}')
+    release = find_release(v)
     remote = {a['name']: a for a in release['assets']}
     for file in files:
         local = Path(file)
