@@ -99,7 +99,7 @@ class LocalizationTests(unittest.TestCase):
                 if '/branches/' in path:return dict(commit=dict(sha='compiled-source'))
                 if '/releases/tags/' in path:return dict(draft=False)
                 raise AssertionError(path)
-            with patch.object(pipeline,'ROOT',Path(directory)),patch.object(pipeline,'git',side_effect=git),patch.object(pipeline,'api',side_effect=api),patch.object(pipeline,'read',return_value=json.dumps(pending)),patch.object(pipeline,'output') as out,patch.object(pipeline,'push_candidate') as push:
+            with patch.object(pipeline,'ROOT',Path(directory)),patch.object(pipeline,'git',side_effect=git),patch.object(pipeline,'api',side_effect=api),patch.object(pipeline,'read',side_effect=lambda ref,path: json.dumps(pending) if path=='.donny/pending.json' else None),patch.object(pipeline,'output') as out,patch.object(pipeline,'push_candidate') as push:
                 pipeline.prepare()
                 out.assert_called_once_with(changed=True,sha='web-commit',version='1.0.2',published=True)
                 push.assert_not_called()
@@ -162,3 +162,4 @@ class LocalizationTests(unittest.TestCase):
             self.assertEqual(run_mock.call_count,1)
 
 if __name__=='__main__': unittest.main()
+

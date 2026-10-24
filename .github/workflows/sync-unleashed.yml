@@ -15,6 +15,7 @@ on:
       - '.github/workflows/build-release.yml'
       - '.github/scripts/donny/**'
       - '.github/tests/test_donny_pipeline.py'
+      - '.github/tests/test_gemini_client.py'
       - '.donny/reviewed.json'
       - '.donny/upstream-notes-cs.json'
 
@@ -45,7 +46,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Ověřit automatizační logiku
-        run: python -m unittest discover -s .github/tests -p 'test_donny_pipeline.py' -v
+        run: python -m unittest discover -s .github/tests -p 'test_*.py' -v
       - name: Nastavit autora
         run: |
           git config user.name 'github-actions[bot]'
@@ -159,3 +160,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python .github/scripts/donny/pipeline.py verify_web
+

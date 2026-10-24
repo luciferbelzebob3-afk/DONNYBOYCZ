@@ -27,8 +27,8 @@ jobs:
       - name: Klasifikovat každý nový literal
         id: analyze
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_TRANSLATION_MODEL: ${{ vars.OPENAI_TRANSLATION_MODEL || 'gpt-4.1-mini' }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_TRANSLATION_MODEL: ${{ vars.GEMINI_TRANSLATION_MODEL || 'gemini-2.5-flash' }}
         run: python .github/scripts/donny/pipeline.py analyze
       - name: Uchovat analýzu i při chybě
         if: always()
@@ -37,3 +37,4 @@ jobs:
           name: analyza-textu-${{ github.run_id }}-${{ github.run_attempt }}
           path: /tmp/donny-output/
           if-no-files-found: ignore
+

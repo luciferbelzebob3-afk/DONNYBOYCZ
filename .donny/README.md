@@ -33,9 +33,28 @@ kandidát zůstane zachován pro novou integraci a ověření.
 ## Překlad a klíče
 
 Již zkontrolované texty a překladová paměť nepotřebují model ani API klíč.
-Nové neznámé texty používají existující secret `OPENAI_API_KEY` a volitelnou
-repository variable `OPENAI_TRANSLATION_MODEL` (výchozí `gpt-4.1-mini`).
-Volání API může čerpat kredit poskytovatele; samotný tarif ChatGPT jej neposkytuje.
+Nové neznámé texty používají Gemini a secret `GEMINI_API_KEY`. Volitelná
+repository variable `GEMINI_TRANSLATION_MODEL` dovoluje `gemini-2.5-flash`
+(výchozí) nebo `gemini-2.5-flash-lite`, oba s dokumentovaným bezplatným tarifem.
+OpenAI ani jiná placená záloha se nevolá.
+
+Vytvoř klíč na https://aistudio.google.com/api-keys v projektu **bez zapnuté
+fakturace** a ulož ho v Settings → Secrets and variables → Actions jako
+`GEMINI_API_KEY`. Samotný kód nedokáže zjistit fakturační tarif Google projektu;
+klíč z placeného projektu by Google mohl účtovat. Automatizace fakturaci
+nezapíná, nepropojuje účet a při kvótě nepřechází na jiný model ani poskytovatele.
+Bezplatný tarif podléhá kvótám a podmínkám zpracování dat Googlu.
+
+Workflow `check-gemini-key.yml` ověří skutečným minimálním požadavkem stejného
+klienta strukturovaných odpovědí. Pokud klíč chybí, výslovně uvede, že živé
+ověření nebylo provedeno; není třeba posílat klíč do chatu.
+
+Úspěšné dávky se ukládají do `gemini-cache.json` podle modelu, vstupu i schématu.
+Při HTTP 429 se kandidát zachová v integrační větvi spolu s `deferred.json`.
+Další plánované běhy respektují čas obnovení (obvykle 15 minut, denní kvóta
+24 hodin), potom pokračují bez nového čísla verze a bez opakování hotových dávek.
+Dočasné síťové chyby a HTTP 5xx mají omezené opakování, poté odklad.
+Neúplná, blokovaná nebo schématu neodpovídající odpověď nesmí povolit vydání.
 Bez klíče se běh s neznámými texty zastaví a uloží podklady k ručnímu posouzení.
 Nevydá potichu nepřeloženou aktualizaci. Nejasné texty také blokují vydání.
 
@@ -60,9 +79,10 @@ se nepředpokládá na základě výsledku staršího vydání 1.0.1.
 ## Ověření logiky
 
 ```bash
-python -m unittest discover -s .github/tests -p test_donny_pipeline.py -v
+python -m unittest discover -s .github/tests -p 'test_*.py' -v
 ```
 
 Diagnostické artefakty patří vždy ke konkrétnímu ID a pokusu workflow. Síťové
 chyby se nezaměňují za stav „žádná aktualizace“. Koncept vydání lze doplnit,
 zveřejněné vydání zůstává při chybě webu dostupné.
+

@@ -16,7 +16,7 @@ import urllib.request
 import zipfile
 
 from localization import (SOURCE_EXT, apply_memory, array_schema, bootstrap, digest,
-                          identity, literals, model_json, reverse_localized, validate)
+                          identity, literals, model_json, reverse_localized, validate, ModelDeferred)
 
 REPO = 'luciferbelzebob3-afk/DONNYBOYCZ'
 UPSTREAM = 'DarkFlippers/unleashed-firmware'
@@ -193,9 +193,19 @@ def prepare():
         can_resume = pending and (base in (pending['base_sha'], candidate_sha) or
                                   (release and not release['draft']) or controls_only(candidate_sha, base))
         if pending and (pending['upstream_sha'] == target or unfinished) and can_resume:
+            deferred_text = read('FETCH_HEAD', '.donny/deferred.json')
+            deferred = json.loads(deferred_text) if deferred_text else {}
+            import time
+            if deferred.get('retry_at', 0) > time.time():
+                output(changed=False, deferred=True, retry_at=deferred['retry_at'])
+                return
             if release and release['draft'] and controls_only(candidate_sha, base):
                 release = recover_draft(release, pending, candidate_sha)
             git('checkout', '--detach', 'FETCH_HEAD')
+            if deferred_text:
+                (ROOT / 'deferred.json').unlink()
+                commit('Obnovit odlozeny beh Gemini', ['.donny/deferred.json'])
+                push_candidate()
             output(changed=True, sha=git('rev-parse', 'HEAD'), version=pending['version'],
                    published=bool(release and not release['draft']))
             return
@@ -339,7 +349,10 @@ def analyze():
     save(OUT / 'analysis.json', load(ROOT / 'analysis.json'))
     if ambiguous:
         raise RuntimeError(f'Je nutne posoudit {len(ambiguous)} nejasnych textu')
-    sha = commit('Analyzovat nove texty stabilniho vydani', ['.donny/analysis.json'])
+    paths = ['.donny/analysis.json']
+    if (ROOT / 'gemini-cache.json').exists():
+        paths.append('.donny/gemini-cache.json')
+    sha = commit('Analyzovat nove texty stabilniho vydani', paths)
     push_candidate()
     output(sha=sha)
 
@@ -571,16 +584,42 @@ def notes():
             p['upstream_changes'], array_schema({'change': {'type': 'string'}}))['items']
         changes = [x['change'] for x in changes]
     save(ROOT / 'release-changes-cs.json', changes)
-    sha = commit('Pripravit cesky prehled prevzatych zmen', ['.donny/release-changes-cs.json'])
+    paths = ['.donny/release-changes-cs.json']
+    if (ROOT / 'gemini-cache.json').exists():
+        paths.append('.donny/gemini-cache.json')
+    sha = commit('Pripravit cesky prehled prevzatych zmen', paths)
     push_candidate()
     output(sha=sha)
+
+
+def checkpoint_model(stage, deferred=None):
+    """Preserve valid completed batches even when a later batch hits a quota."""
+    if stage not in ('analyze', 'translate', 'notes') or not (ROOT / 'pending.json').exists():
+        return
+    paths = []
+    if (ROOT / 'gemini-cache.json').exists():
+        paths.append('.donny/gemini-cache.json')
+    if deferred:
+        save(ROOT / 'deferred.json', dict(stage=stage, retry_at=deferred.retry_at))
+        paths.append('.donny/deferred.json')
+    if paths:
+        sha = commit('Ulozit hotove davky a odlozeni Gemini', paths)
+        push_candidate()
+        output(sha=sha, deferred=bool(deferred))
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('stage', choices=['prepare', 'analyze', 'translate', 'notes', 'package', 'publish', 'web', 'verify_web'])
+    stage = parser.parse_args().stage
     try:
-        globals()[parser.parse_args().stage]()
+        globals()[stage]()
+    except ModelDeferred as exc:
+        checkpoint_model(stage, exc)
+        print(f'::warning::{exc}', file=sys.stderr)
+        sys.exit(75)
     except Exception as exc:
+        checkpoint_model(stage)
         print(f'::error::{exc}', file=sys.stderr)
         raise
+
