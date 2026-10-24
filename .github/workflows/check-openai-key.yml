@@ -49,17 +49,31 @@ jobs:
                   result = json.load(response)
           except urllib.error.HTTPError as error:
               code = None
+              error_type = None
+              hint = ""
               try:
-                  code = json.loads(error.read()).get("error", {}).get("code")
+                  detail = json.loads(error.read()).get("error", {})
+                  code = detail.get("code")
+                  error_type = detail.get("type")
+                  message = str(detail.get("message", "")).lower()
+                  if any(word in message for word in ("quota", "billing", "credit", "balance")):
+                      hint = "API hlásí omezení kvóty, kreditu nebo fakturace."
+                  elif "rate limit" in message or "too many requests" in message:
+                      hint = "API hlásí překročený limit rychlosti požadavků."
               except (ValueError, AttributeError):
                   pass
               reasons = {
                   "invalid_api_key": "API odmítlo klíč jako neplatný.",
                   "insufficient_quota": "Klíč narazil na nedostatečný kredit nebo limit API účtu.",
                   "model_not_found": "Nastavený model neexistuje nebo k němu klíč nemá přístup.",
-                  "rate_limit_exceeded": "API odmítlo požadavek kvůli limitu rychlosti."
+                  "rate_limit_exceeded": "API odmítlo požadavek kvůli limitu rychlosti.",
+                  "billing_hard_limit_reached": "API účet dosáhl nastaveného limitu útraty.",
+                  "billing_not_active": "Fakturace API účtu není aktivní.",
+                  "insufficient_credits": "API účet nemá dostatečný kredit.",
+                  "usage_limit_reached": "API účet dosáhl limitu využití."
               }
-              fail(reasons.get(code, "API požadavek selhal, HTTP " + str(error.code) + "."))
+              reason = reasons.get(code) or reasons.get(error_type) or hint
+              fail((reason or "API požadavek odmítlo bez rozpoznané příčiny.") + " HTTP " + str(error.code) + ".")
           except (OSError, ValueError):
               fail("Síťová chyba nebo neplatná odpověď API; platnost klíče nelze potvrdit.")
           if result.get("status") != "completed":
