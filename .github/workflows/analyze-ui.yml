@@ -1,0 +1,39 @@
+name: DONNY BOY CZ – analýza nových textů
+on:
+  workflow_call:
+    inputs:
+      source_sha:
+        required: true
+        type: string
+    outputs:
+      sha:
+        value: ${{ jobs.analyze.outputs.sha }}
+permissions:
+  contents: write
+jobs:
+  analyze:
+    runs-on: ubuntu-22.04
+    outputs:
+      sha: ${{ steps.analyze.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_sha }}
+          fetch-depth: 0
+      - name: Nastavit autora
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - name: Klasifikovat každý nový literal
+        id: analyze
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_TRANSLATION_MODEL: ${{ vars.OPENAI_TRANSLATION_MODEL || 'gpt-4.1-mini' }}
+        run: python .github/scripts/donny/pipeline.py analyze
+      - name: Uchovat analýzu i při chybě
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: analyza-textu-${{ github.run_id }}-${{ github.run_attempt }}
+          path: /tmp/donny-output/
+          if-no-files-found: ignore

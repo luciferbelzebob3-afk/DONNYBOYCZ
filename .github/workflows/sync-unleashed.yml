@@ -1,89 +1,161 @@
-name: Sync upstream Unleashed firmware
+name: DONNY BOY CZ – automatické stabilní vydání
 
 on:
   schedule:
-    - cron: "17 */3 * * *"
+    - cron: '3-58/5 * * * *'
   workflow_dispatch:
+  repository_dispatch:
+    types: [unleashed-stable-release]
   push:
+    branches: [dev]
     paths:
-      - ".github/workflows/sync-unleashed.yml"
+      - '.github/workflows/sync-unleashed.yml'
+      - '.github/workflows/analyze-ui.yml'
+      - '.github/workflows/translate-ui.yml'
+      - '.github/workflows/build-release.yml'
+      - '.github/scripts/donny/**'
+      - '.github/tests/test_donny_pipeline.py'
+      - '.donny/reviewed.json'
+      - '.donny/upstream-notes-cs.json'
 
 permissions:
   contents: write
-  pull-requests: write
+  pages: write
+  id-token: write
 
 concurrency:
-  group: unleashed-upstream-sync
+  group: donny-boy-release
   cancel-in-progress: false
 
 jobs:
-  sync:
-    runs-on: ubuntu-latest
+  prepare:
+    name: Zjistit stabilní vydání a připravit zdroje
+    runs-on: ubuntu-22.04
+    outputs:
+      changed: ${{ steps.prepare.outputs.changed }}
+      sha: ${{ steps.prepare.outputs.sha }}
+      version: ${{ steps.prepare.outputs.version }}
+      published: ${{ steps.prepare.outputs.published }}
     steps:
-      - name: Checkout DONNYBOYCZ
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           ref: dev
           fetch-depth: 0
-
-      - name: Configure Git identity
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Ověřit automatizační logiku
+        run: python -m unittest discover -s .github/tests -p 'test_donny_pipeline.py' -v
+      - name: Nastavit autora
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Fetch upstream Unleashed
-        run: |
-          git remote add upstream https://github.com/DarkFlippers/unleashed-firmware.git
-          git fetch upstream dev
-
-      - name: Merge upstream while preferring existing DONNYBOYCZ text on conflicts
-        id: merge
-        shell: bash
-        run: |
-          set +e
-          git checkout -B automation/upstream-sync origin/dev
-          git merge --no-edit -X ours upstream/dev
-          result=$?
-          set -e
-          if [ "$result" -ne 0 ]; then
-            echo "::error::Upstream merge has unresolved conflicts. No update was pushed."
-            git merge --abort || true
-            exit 1
-          fi
-          if git diff --quiet origin/dev...HEAD; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Translate newly introduced English strings
-        if: steps.merge.outputs.changed == 'true'
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          TRANSLATION_BASE_REF: origin/dev
-        run: |
-          python3 .github/scripts/translate_new_strings.py
-          git add -A
-          git diff --cached --quiet || git commit -m "Translate new upstream UI strings to Czech"
-
-      - name: Push sync branch
-        if: steps.merge.outputs.changed == 'true'
-        run: git push --force-with-lease origin automation/upstream-sync
-
-      - name: Create or update pull request
-        if: steps.merge.outputs.changed == 'true'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - name: Připravit integrační větev a rezervovat verzi
+        id: prepare
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          body=$(cat <<'EOF'
-          Automated synchronization from https://github.com/DarkFlippers/unleashed-firmware (branch `dev`).
+        run: python .github/scripts/donny/pipeline.py prepare
+      - name: Uchovat diagnostiku
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagnostika-pripravy-${{ github.run_id }}-${{ github.run_attempt }}
+          path: /tmp/donny-output/
+          if-no-files-found: ignore
 
-          **Important review notes**
-          - The merge uses Git's `-X ours` strategy, preferring DONNYBOYCZ content when a merge conflict occurs. This helps protect existing Czech/localized text in conflicting lines, but it is not a guarantee that every translated string in every file is preserved.
-          - The workflow attempts to translate newly introduced English user-facing string literals into Czech using OpenAI, while leaving existing DONNYBOYCZ strings untouched.
-          - Translation is conservative and may skip ambiguous or unsupported strings. Review the diff and build/test the firmware before merging.
-          - Configure the repository Actions secret OPENAI_API_KEY for automatic translation; without it, synchronization still runs but translation is skipped.
-          EOF
-          )
-          gh pr create --repo "$GITHUB_REPOSITORY" --base dev --head automation/upstream-sync --title "Automated Unleashed firmware sync" --body "$body" 2>/dev/null || \
-            gh pr edit --repo "$GITHUB_REPOSITORY" automation/upstream-sync --title "Automated Unleashed firmware sync" --body "$body"
+  analyze:
+    name: Analýza textů displeje
+    needs: prepare
+    if: needs.prepare.outputs.changed == 'true' && needs.prepare.outputs.published != 'true'
+    uses: ./.github/workflows/analyze-ui.yml
+    with:
+      source_sha: ${{ needs.prepare.outputs.sha }}
+    secrets: inherit
+
+  translate:
+    name: Překlad schválených textů
+    needs: [prepare, analyze]
+    if: needs.prepare.outputs.changed == 'true' && needs.prepare.outputs.published != 'true'
+    uses: ./.github/workflows/translate-ui.yml
+    with:
+      source_sha: ${{ needs.analyze.outputs.sha }}
+    secrets: inherit
+
+  build:
+    name: Sestavení přesného českého zdroje
+    needs: [prepare, translate]
+    if: needs.prepare.outputs.changed == 'true' && needs.prepare.outputs.published != 'true'
+    uses: ./.github/workflows/build-release.yml
+    with:
+      source_sha: ${{ needs.translate.outputs.sha }}
+      version: ${{ needs.prepare.outputs.version }}
+
+  publish:
+    name: Ověřit soubory a publikovat vydání
+    needs: [prepare, translate, build]
+    runs-on: ubuntu-22.04
+    if: needs.prepare.outputs.changed == 'true' && needs.prepare.outputs.published != 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.translate.outputs.sha }}
+          fetch-depth: 0
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build.outputs.artifact_name }}
+          path: release-assets
+      - name: Ověřit součty a vazbu na zdroj
+        env:
+          EXPECTED_SHA: ${{ needs.translate.outputs.sha }}
+          EXPECTED_VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          (cd release-assets && sha256sum --check SHA256SUMS.txt)
+          python - <<'PY'
+          import json, os
+          data=json.load(open('release-assets/sestaveni.json'))
+          assert data['source_sha']==os.environ['EXPECTED_SHA']
+          assert data['version']==os.environ['EXPECTED_VERSION']
+          PY
+      - name: Nastavit autora
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - name: Publikovat ověřené vydání
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python .github/scripts/donny/pipeline.py publish
+
+  website:
+    name: Aktualizovat a nasadit projektový web
+    needs: [prepare, translate, publish]
+    if: >-
+      always() && needs.prepare.result == 'success' && needs.prepare.outputs.changed == 'true' &&
+      (needs.publish.result == 'success' || needs.prepare.outputs.published == 'true')
+    runs-on: ubuntu-22.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.translate.outputs.sha || needs.prepare.outputs.sha }}
+          fetch-depth: 0
+      - name: Nastavit autora
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - name: Aktualizovat README, metadata, šablonu hlášení a web
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python .github/scripts/donny/pipeline.py web
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - name: Nasadit GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Ověřit živý web a uzavřít vydání
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python .github/scripts/donny/pipeline.py verify_web

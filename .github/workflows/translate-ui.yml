@@ -1,0 +1,37 @@
+name: DONNY BOY CZ – překlad nových textů
+on:
+  workflow_call:
+    inputs:
+      source_sha:
+        required: true
+        type: string
+    outputs:
+      sha:
+        value: ${{ jobs.translate.outputs.sha }}
+permissions:
+  contents: write
+jobs:
+  translate:
+    runs-on: ubuntu-22.04
+    outputs:
+      sha: ${{ steps.notes.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_sha }}
+          fetch-depth: 0
+      - name: Nastavit autora
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - name: Přeložit a ověřit literály
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_TRANSLATION_MODEL: ${{ vars.OPENAI_TRANSLATION_MODEL || 'gpt-4.1-mini' }}
+        run: python .github/scripts/donny/pipeline.py translate
+      - name: Připravit české poznámky k vydání
+        id: notes
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_TRANSLATION_MODEL: ${{ vars.OPENAI_TRANSLATION_MODEL || 'gpt-4.1-mini' }}
+        run: python .github/scripts/donny/pipeline.py notes

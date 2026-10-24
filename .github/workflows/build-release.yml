@@ -1,121 +1,60 @@
-name: Build and release DONNY BOY CZ
-
+name: DONNY BOY CZ – ověřené sestavení vydání
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
-      version:
-        description: "Release version (for example 1.0.1)"
+      source_sha:
         required: true
-        default: "1.0.1"
-  push:
-    branches:
-      - dev
-    paths:
-      - ".github/workflows/build-release.yml"
-
+        type: string
+      version:
+        required: true
+        type: string
+    outputs:
+      artifact_name:
+        value: ${{ jobs.build.outputs.artifact_name }}
 permissions:
-  contents: write
-
-concurrency:
-  group: donny-boy-release
-  cancel-in-progress: false
-
+  contents: read
 jobs:
-  build-and-release:
+  build:
     runs-on: ubuntu-22.04
     timeout-minutes: 120
+    outputs:
+      artifact_name: DONNY-BOY-${{ inputs.version }}-${{ inputs.source_sha }}-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
-      - name: Checkout source and submodules
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          ref: dev
+          ref: ${{ inputs.source_sha }}
           fetch-depth: 0
           submodules: recursive
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+          persist-credentials: false
+      - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
-
-      - name: Validate release version
-        id: version
-        shell: bash
+          python-version: '3.11'
+      - name: Ověřit verzi a zdroj před sestavením
         env:
-          INPUT_VERSION: ${{ github.event.inputs.version || '1.0.1' }}
+          VERSION: ${{ inputs.version }}
+          EXPECTED_SHA: ${{ inputs.source_sha }}
         run: |
-          set -euo pipefail
-          version="${INPUT_VERSION#v}"
-          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "::error::Version must use semantic format X.Y.Z (example 1.0.1)."
-            exit 1
-          fi
-          tag="v$version"
-          if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
-            echo "::error::Tag $tag already exists; refusing to overwrite a release."
-            exit 1
-          fi
-          echo "version=$version" >> "$GITHUB_OUTPUT"
-          echo "tag=$tag" >> "$GITHUB_OUTPUT"
-
-      - name: Show build environment
-        run: |
-          git log -1 --oneline
-          python --version
-          git submodule status
-
-      - name: Build DONNY BOY updater package
-        run: ./fbt COMPACT=1 DEBUG=0 DIST_SUFFIX=${{ steps.version.outputs.version }} UPDATE_VERSION_STRING=${{ steps.version.outputs.version }} updater_package
-
-      - name: Verify build outputs
-        shell: bash
+          python - <<'PY'
+          import json,os,re,subprocess
+          p=json.load(open('.donny/pending.json'))
+          assert re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+',os.environ['VERSION'])
+          assert p['version']==os.environ['VERSION']
+          assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==os.environ['EXPECTED_SHA']
+          assert not subprocess.check_output(['git','status','--porcelain'],text=True).strip()
+          r=json.load(open('.donny/translation-report.json'))
+          assert r['upstream_sha']==p['upstream_sha'] and r['ambiguous']==r['errors']==0
+          PY
+      - name: Sestavit firmware a aktualizační balíček
         env:
-          VERSION: ${{ steps.version.outputs.version }}
-        run: |
-          set -euo pipefail
-          firmware="dist/f7-C/flipper-z-f7-full-$VERSION.dfu"
-          updater="dist/f7-C/flipper-z-f7-updater-$VERSION.dfu"
-          package="dist/f7-C/flipper-z-f7-update-$VERSION.tgz"
-          for file in "$firmware" "$updater" "$package"; do
-            if [[ ! -s "$file" ]]; then
-              echo "::error::Required build output missing or empty: $file"
-              exit 1
-            fi
-          done
-          mkdir -p release-assets
-          cp "$firmware" "$updater" "$package" release-assets/
-          if [[ -s "dist/f7-C/flipper-z-f7-sdk-$VERSION.zip" ]]; then
-            cp "dist/f7-C/flipper-z-f7-sdk-$VERSION.zip" release-assets/
-          fi
-          cp "dist/f7-C/flipper-z-f7-full-$VERSION.json" release-assets/
-          (
-            cd dist/f7-C
-            zip -qr "../../release-assets/DONNY-BOY-$VERSION-firmware-package.zip" .
-          )
-          (cd release-assets && sha256sum * > SHA256SUMS.txt)
-          echo "Release assets:"
-          ls -lh release-assets
-          cat release-assets/SHA256SUMS.txt
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+          VERSION: ${{ inputs.version }}
+          DIST_SUFFIX: ${{ inputs.version }}
+          WORKFLOW_BRANCH_OR_TAG: v${{ inputs.version }}
+        run: ./fbt COMPACT=1 DEBUG=0 "DIST_SUFFIX=$VERSION" "UPDATE_VERSION_STRING=$VERSION" updater_package
+      - name: Ověřit povinné výstupy, metadata a archivy
+        run: python .github/scripts/donny/pipeline.py package
+      - uses: actions/upload-artifact@v4
         with:
-          name: DONNY-BOY-${{ steps.version.outputs.version }}-build
+          name: DONNY-BOY-${{ inputs.version }}-${{ inputs.source_sha }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: release-assets/*
           if-no-files-found: error
           retention-days: 30
-
-      - name: Publish GitHub Release
-        env:
-          GH_TOKEN: ${{ github.token }}
-          VERSION: ${{ steps.version.outputs.version }}
-          TAG: ${{ steps.version.outputs.tag }}
-        run: |
-          set -euo pipefail
-          gh release create "$TAG" release-assets/*             --repo "$GITHUB_REPOSITORY"             --target "$GITHUB_SHA"             --title "DONNY BOY $VERSION"             --notes "DONNY BOY CZ firmware release $VERSION for Flipper Zero.
-
-          Build source: $GITHUB_SHA
-          Build command: ./fbt COMPACT=1 DEBUG=0 DIST_SUFFIX=$VERSION UPDATE_VERSION_STRING=$VERSION updater_package
-
-          Assets include the full firmware DFU, updater DFU, update package, SDK archive when available, build metadata, and SHA-256 checksums.
-
-          This is a community firmware fork based on Unleashed. Successful compilation does not replace testing on a physical device."

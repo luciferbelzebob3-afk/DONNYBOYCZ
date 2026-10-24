@@ -1,0 +1,538 @@
+{
+  "d23ab7a6eb08e6e8ad23540ac156b54dbefbe09cf0cfdae2841e8a81acd235cd": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "4a5169e19d5007af04278db05f8be85708f5e3e610a96a9d3581b4613709746e": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "c619450244b9b771f596dff2b806168d68f5cc4b632d08c5d9067b46a6b65504": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "44cbc587a451860777d1217d2d0baaa91b08c12fe806cdcbae8db25c43e0d6d5": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "382e7fe7e846c92963d785e5647d639e9b07c3b53daf53a91b10e0b32f50a061": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "9e7bff42285f932a2898fdea52730769949d7b5ce8e3ce4c9e29f23b8dc2dabe": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "c3d6e092bc90c1975c3a397c409b4265d61e8815c2d4a961ba188722bc38f6e9": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "c52db23ebd66bd7b66b7ff5993759e81db808b0304b3d0092a9e602edf02e01a": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "58c6696df18b72fdac76a75351532c4e551bdbc70a986dfc82adea83016edf34": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "eb29baf90dec5daac7908f0672a56cfb13599f8869c45c78b05bea15569d6890": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "db5cd82f521e191fdc4840a3aa3bbc9d4aebd67b91964fa9fecfd9774762ee0d": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "04d8ae53953713c333d7c96ea371730574412e11d241b9146c742304b1563533": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "d7cd6ad95bb2d537a42b0f69f5942a554bdbc9f4673def88127793d5b4265b37": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "28104ab75336e3e36ce8a15f76eed5330ed011f91d9086f766457e7a81f88413": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "3d9f29c426d6b268badfc7dc902947b3ecac21e9cb825ef685506affea07ffe4": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "ba7df04be2ebbfb94c2db2cec913eeb17add47cb99ee3b33acb2ff49957f3a43": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "76b282eabc4664f1f9548beaf758efe4391b82db0dc281f19d49afea2a13e82f": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "1918a0390c1374dc00e8bfe9e55e9b064d1795bcdde1b9724d0adc13cdd5b47f": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "4a761dd720ef4bd7f6d7461cce8f0315e32f4c4f18089b5c902d011660deadab": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "b08318e9e1d7ac044d4a2488f61328cc1f4eab8f57c3def3413cfc85d2b864ee": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "d764ca415612ef1b4dacadad70044235312ae8964ee6ed2fdbacc48e16e31ef0": {
+    "kind": "ui",
+    "translation": "\"Neplatne\"",
+    "limit": 10,
+    "reason": "Verdikt CRC ve vykresleni NFC; dynamicky FuriString a posuvny text."
+  },
+  "8b26818874c3966f43e66e6ebd2765cabecf50cf1d10fd2a1201a24e1c3546b3": {
+    "kind": "ui",
+    "translation": "\"\\nOcek. CRC: %02X\"",
+    "limit": 21,
+    "reason": "Radek ocekavaneho CRC v NFC textovem widgetu."
+  },
+  "482a2e104756d9d78d8a193d72bc6a06d229aeac3821c0941d235a7cd43cf2d1": {
+    "kind": "ui",
+    "translation": "\"\\nRamec:\"",
+    "limit": 21,
+    "reason": "Nadpis suroveho ramce v NFC textovem widgetu."
+  },
+  "debeced7e6f1c585ee85ff99be8bb6c2365ef0b2c5beae7ad3f0785c947240aa": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "bccec42ad830fe6fae7b4e906f6a1cae9c28426ba68d2b91b6d1c426e0258da8": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "da35643025bf0dac695b4cef1761c9c26676d30f29ddf765b4c62162d481e121": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Interni log, nikoli text aplikacniho displeje."
+  },
+  "8fcb2b8d797cc3d2a1277920d6f71974c95065dab5f449936c943c5e2c5a5ca8": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "becb57522a95c120a7090b08443baa3dc042f8268adbe0998f8622d6ea75e189": {
+    "kind": "ui",
+    "translation": "\"Zadejte IC v hexu\"",
+    "limit": 21,
+    "reason": "Hlavicka byte_input predavana pres promennou header."
+  },
+  "f2995c3ca1473b9da52f7900a361ceff5ef07ce124ba053e0c6bac619b51eea2": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "294b2fa6afde87360f0f8ea93eaab0619f69b1e54bf952294cbf9aca5a8901fc": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Interni log, nikoli text aplikacniho displeje."
+  },
+  "393dbbb513786f5db915ba6e81d1471625e9c9455aaf0c030ce1016923dcf5a5": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "88db6ff3989a3856231e2bc480842539d9562b6989a519ef44582acc58743911": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "40ad1069e3ef71a464402821e4fe6a3c131ddc6d97a6b5db2adecf9af093148d": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "f4c503cad1442a1ac3cf88732801401232653f1d2d5a6511e289af6fd9d7b939": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "742ee76ca16226b48151f55b5f32b6ac5e4d7f87f6a7c9acfae8852b2e08b3b6": {
+    "kind": "ui",
+    "translation": "\"Novy\"",
+    "limit": 7,
+    "reason": "Prave tlacitko canvasu, kratky popisek."
+  },
+  "42035931f3ae7cdbfbb15d8775acff8d4ccedbc1d1b282c13e855bc6477864de": {
+    "kind": "ui",
+    "translation": "\"Neni O-Code, ignor.\"",
+    "limit": 20,
+    "reason": "FuriString status zobrazeny canvas_draw_str na radku 49, sekundarni font."
+  },
+  "0d5032404d94f960186c02dcdaf43b5cdb669dc9361febb470bdcf1814c90bf1": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Prefix nazvu ukladaneho souboru, nikoli text UI."
+  },
+  "c4fd96132a9f34bc48d4fa5c48bc74f5eaca271584c2b552c27b8a2f4509bf4e": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "ed1fd48ff60e625eb221eb6c839d9b38fb85a37662af5186763208a21c967c70": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "f75ea1f203b4182258f532f6ad521587b8a3c4dd619450889b9469568543f654": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "acc0c6efb275099de4d3b495248d9e66d77b130c658351ae9438de821c30f866": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "0069f7cc75c978f47b653155fb24be6db9d68de25cef31f933bb1f68010d7a1c": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "26e12bf04f728e9419e5d1d11acfae18246ff47b6d239391d44a7ec398074755": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "bc8dca398a12d9faf21d665775ca8e2ea75949589b32517800e2fd6211e74169": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "fe684bf20716e73467ed166c49f0094ee7dec7eb86abce4fe18f2e2b7ca1cc02": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "863625e6a3144bd181fb5c4a546ff36b9eb5aace3a7cb085fd78a937626a33b7": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "802109059ef18b5d31fe9cb9c4a15396ceee72b752f8bf6b581d8e4e40b35f39": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "2f001117d53f5443c4857854d607db1ab2c44d7c8b76f80437700c8f408530c9": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "754638f17fa13dc89a3df60c9f85ba8d4e7b3cffc9883ba42dbae6fee446ca5e": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Interni log, nikoli text aplikacniho displeje."
+  },
+  "ce0752ed90dd0edb3874a91ad6fc301f16038269fcab91ac1e8c1511c2f33f77": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Interni log, nikoli text aplikacniho displeje."
+  },
+  "6f738ccc6fe2662c42a80f8726f6d0ec9cb60f812e476b42598166d6809456c1": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "900c85d2d7f2e9009fbd92bf825509da09a441b0a1f564e20fabbbfc98f3c179": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "b836f0a02a35b62b44fea88731f084676b237cfb8114ed761994088eb8dc50eb": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "efa589d78453b0c92f8857ff9e71882dcf869a21183b4928ce1bb9245f960279": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Strojovy klic nebo hodnota serializovaneho protokolu."
+  },
+  "7af78fa4e820932e8c6003d259801a3b72ad8c2a2c15e44ab008058e1976c9fc": {
+    "kind": "ui",
+    "translation": "\"Texkom (neznamy)\"",
+    "limit": 21,
+    "reason": "full_name je zobrazovany nazev; odliseno od serializovaneho type_name."
+  },
+  "4c7be30ad80463e0ebf57996a5af51fec4411369ecb82fb4d21f6966c87d41d3": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "type_name se uklada a porovnava jako hodnota formatu NFC; musi zustat Unknown."
+  },
+  "e5eba73e00d3c8712b4111fd0dcc71b98cf92afa40f4b55ce2491bcee4646c7e": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "e8f0b75d6c3cc341f7602a69bc32e7ed150c43092b5a03e840ada69a9ef3ca35": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "9b2d9426047cb1a6880ef4168b8f4a060d7287f33c4fbc214a1751ad920375e8": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "6c098e3c03115f28aa90b00ca10179c9e3304727eba0e39b8fd183025f2e7dfc": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "275ae5729575c41f3bb7f03afcc83172a6c24668d7c466347fb32fd0a5364d67": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "28c5da19caa44c13172bead38e342b3863c6e7dcd123a8ee311ec596afbdbab3": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "cd36e15997ce14b35ce890c081cf3c0d705da20e611df07589f075dd926393b9": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "2826fabfcf31f7286457eb840bb700f88d60e6d8a4b59253d3cb95ffb1b018d9": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "102eee652fc06e86fcff259a9dfa945c98665478c5e352934586de0db4b04fda": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Strojovy klic nebo hodnota serializovaneho protokolu."
+  },
+  "e00ef0eb279fd617880eeba0e03f0b63311f437b04d3bb7c1c6cbda76d5d810f": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicka diagnostika nedostupne zakladni reprezentace protokolu."
+  },
+  "a36db3869473867c2271b5b3d90e544308f4dfc9b4c34006621319c3f0b9a55b": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "a78de716cdfff827437560095ea01b75fbf9fd959e2b0cc1f3aa43dac0a7ba66": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "c619c57fdbb0e298d57955b12f43f944942eee9d66f9c6ece806a0823811bb5d": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "bc925331543180b5e23aab77cf36a1a5772e74b3dc221817e4701081b3ea6fc1": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "60f76f17c465659c261c67866795300ba3e280b60b5df18addb45080ed5e348b": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "5d670e635a17810b99ebe699ecb2ca68bc4b7b216a9c0f9f5931bcd9bf707252": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Interni log, nikoli text aplikacniho displeje."
+  },
+  "788bedecdb2af7fdcc65142a2ec0ebd92410e535948872d440c7d1f462a5e1fb": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "7c64dc3ae6f55a33b1ff9eb634e98c2195be5bd6a86edfeebfc3d69813275c58": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "e0b9972f21a8bd74708ab9b530de66fe843ebb4260def9f8d06d3f4a5d5149f3": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "1abb3580ac54d2732987b11de0c9bebcf9f263b7baaa9f005382a5fa6307da45": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "083ebd2848f05df0294d383c13d6ec93ddaa9de478be4b687c49af6ff12451d4": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "7c93d6936c7a78512b93189557726832071be11919293336ca65af81f8dbb1f9": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "3c7307ddde8110dd83e57cb8d6d64e55b958f30ff910e7526874a63cfe73072a": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "eeb9e2dbfc65fd28115805c3a230d3933eb5ae997ab17aba0caa3a19a75f67d6": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Interni log, nikoli text aplikacniho displeje."
+  },
+  "f301a35013bc329ebe5c3cbec877f01e327dd598b56ef014c37c714a79be6859": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "39489b4f34bc48621cfed505e54afe11ab203aac5211c00895ca927b706c0566": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "d1c4768b8d4f9222574ecbba5206b474e90ea0b9e43fe479a322ae7ed4ca08d5": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "8e34ebeb6eaaddb323034eae446e1fd0927890bb0b96a33afef5dfdd08ebee25": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "4b0fdbaf1d1b55c56a43a0cd62592dfd22bbbd1e5fb79fc5412652398c666a14": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "037fde36ebfc6f0dd70dc503da1d4bad9ebfd192516242bdb46bebfa14142f9a": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "a383f9999e61a037d5631dc7128d8afaf3e79048a00757f035a925d6201fb1b5": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Interni log, nikoli text aplikacniho displeje."
+  },
+  "bb2d5f849adff10be9be3c3a8c81e6d6df008b553f75ae2f38d4f690869c7921": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Strojovy klic nebo hodnota serializovaneho protokolu."
+  },
+  "55635bb953da7e2e095fb29c58c8604bf3cea5aa2176f73048b7f3f0a89604db": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Interni log, nikoli text aplikacniho displeje."
+  },
+  "b1741d6e7b34f53350f81f669eebd7c2d67f3917ff0e4698d61f90431ef87532": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Strojovy klic nebo hodnota serializovaneho protokolu."
+  },
+  "35c613c975bc3363d1bc0ca75155a4d96b7283715680640a0b4470d8901e401f": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Interni log, nikoli text aplikacniho displeje."
+  },
+  "0ad975834ae19940fe5e41c5b98b7252476b5561822e275905ad2498d343ddd1": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Interni log, nikoli text aplikacniho displeje."
+  },
+  "913bf3694c01349851809b457e72abde528ac3f4d2392db607d4c0a8b5b27351": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Interni log, nikoli text aplikacniho displeje."
+  },
+  "2e26874802058678e19221ea437ac47b636324ea8482af8027861eddce0838ba": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Strojovy klic nebo hodnota serializovaneho protokolu."
+  },
+  "aafa553634fef5d449f876d0d7589f825e637a80b35ce03ebc220c8a007afe23": {
+    "kind": "ui",
+    "translation": "\"Klic:%013llX\\r\\n\"",
+    "limit": 21,
+    "reason": "Radek dekoderu zobrazeny v Sub-GHz; zachovan format 13 hex cislic."
+  },
+  "f7d0df76766cacbcf2963f9773f074fe037626a99f21fcdb41492a8c41cd94d7": {
+    "kind": "ui",
+    "translation": "\"Chybi instal. kod\\r\\n\"",
+    "limit": 21,
+    "reason": "Radek dekoderu zobrazeny v Sub-GHz."
+  },
+  "e9b8f1e0190221dc77b1f76defb2e2d7a922faac4e5036efeef234c82c4ce9a6": {
+    "kind": "ui",
+    "translation": "\"Pouzij Nice O-Code\\r\\n\"",
+    "limit": 21,
+    "reason": "Radek dekoderu zobrazeny v Sub-GHz."
+  },
+  "26c18d6624014920995b9b6ab764186f5db37805e022ab51d4b734d01745d7ae": {
+    "kind": "ui",
+    "translation": "\"pro prijem a dekod.\"",
+    "limit": 21,
+    "reason": "Navazujici radek dekoderu zobrazeny v Sub-GHz."
+  },
+  "ebbd7891f36dc491b0400944c90365d259a411912b16a19b90084d7809d6ec6f": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "031e15159488495b9787baf32f661dbf59ce5491e47f34cb698837d002b38127": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Interni log, nikoli text aplikacniho displeje."
+  },
+  "f0fadcb9a6927827c3e6ed9b9d9c802d5368ac362dc5932b81a25cfb027f4e67": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "0307cf7e62e6b55f802e1e6e78f4693240616e94264a52e10accb474e3ae52d4": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Cesta zdroje, include nebo sestavovaci manifest."
+  },
+  "bbe66d05ade745be2b3899895137610bc0e19a64de4382fed89ed8f2d3513aca": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Diagnostika prekladace."
+  },
+  "e606f56efdb92ca8c3be9d64bfa085f6c434f21a34947a5d623fc6a15b15a9bd": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Technicky identifikator, nazev typu/protokolu, standardni zkratka nebo format bez prirozeneho jazyka."
+  },
+  "d4a0a6dc12ab1edd87d63edccfe7c3755d3e0b22e889ace1d2bdb5985f9d4c8a": {
+    "kind": "technical",
+    "limit": null,
+    "reason": "Interni log, nikoli text aplikacniho displeje."
+  }
+}
