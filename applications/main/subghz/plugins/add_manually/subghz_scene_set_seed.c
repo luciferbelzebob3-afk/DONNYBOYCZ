@@ -66,7 +66,7 @@ void subghz_scene_set_seed_on_enter(void* context) {
     // code here, so ask for each by the right name
     const char* header = "Zadejte SEED v hexu";
     if(subghz->gen_info->type == GenNiceFlorS) {
-        header = "Enter IC in hex";
+        header = "Zadejte IC v hexu";
     } else if(
         (subghz->gen_info->type == GenKeeloqSeed) &&
         (strcmp(subghz->gen_info->keeloq_seed.manuf, "Monarch") == 0)) {

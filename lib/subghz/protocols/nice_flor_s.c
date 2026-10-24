@@ -1339,10 +1339,10 @@ void subghz_protocol_decoder_nice_flor_s_get_string(void* context, FuriString* o
         furi_string_cat_printf(
             output,
             "%s %dbit\r\n"
-            "Key:%013llX\r\n"
-            "No installer code\r\n"
-            "Use Nice O-Code app\r\n"
-            "to receive and decode",
+            "Klic:%013llX\r\n"
+            "Chybi instal. kod\r\n"
+            "Pouzij Nice O-Code\r\n"
+            "pro prijem a dekod.",
             NICE_O_NAME,
             instance->generic.data_count_bit,
             instance->generic.data);

@@ -24310,5 +24310,93 @@
     "translation": "\"DFU spusteno\"",
     "context": ", 2 , 8 , ) ; canvas_draw_str ( canvas , 2 , 21 , <TEXT> ) ; canvas_commit ( canvas ) ; canvas_free",
     "origin": "existing"
+  },
+  {
+    "id": "d764ca415612ef1b4dacadad70044235312ae8964ee6ed2fdbacc48e16e31ef0",
+    "path": "applications/main/nfc/helpers/protocol_support/texkom/texkom_render.c",
+    "context": ", data - > frame [ TEXKOM_FRAME_SIZE - 1 ] , crc_valid ? : <TEXT> ) ; uint8_t expected_crc = 0 ; if",
+    "source": "\"Invalid\"",
+    "translation": "\"Neplatne\"",
+    "origin": "stable-release"
+  },
+  {
+    "id": "8b26818874c3966f43e66e6ebd2765cabecf50cf1d10fd2a1201a24e1c3546b3",
+    "path": "applications/main/nfc/helpers/protocol_support/texkom/texkom_render.c",
+    "context": "crc_valid & & texkom_get_expected_crc ( data , & expected_crc ) ) { furi_string_cat_printf ( str , <TEXT> , expected_crc ) ; } if ( format_type",
+    "source": "\"\\nExpected CRC: %02X\"",
+    "translation": "\"\\nOcek. CRC: %02X\"",
+    "origin": "stable-release"
+  },
+  {
+    "id": "482a2e104756d9d78d8a193d72bc6a06d229aeac3821c0941d235a7cd43cf2d1",
+    "path": "applications/main/nfc/helpers/protocol_support/texkom/texkom_render.c",
+    "context": "expected_crc ) ; } if ( format_type = = NfcProtocolFormatTypeFull ) { furi_string_cat_printf ( str , <TEXT> ) ; for ( size_t i = 0",
+    "source": "\"\\nFrame:\"",
+    "translation": "\"\\nRamec:\"",
+    "origin": "stable-release"
+  },
+  {
+    "id": "becb57522a95c120a7090b08443baa3dc042f8268adbe0998f8622d6ea75e189",
+    "path": "applications/main/subghz/plugins/add_manually/subghz_scene_set_seed.c",
+    "context": "if ( subghz - > gen_info - > type = = GenNiceFlorS ) { header = <TEXT> ; } else if ( ( subghz -",
+    "source": "\"Enter IC in hex\"",
+    "translation": "\"Zadejte IC v hexu\"",
+    "origin": "stable-release"
+  },
+  {
+    "id": "742ee76ca16226b48151f55b5f32b6ac5e4d7f87f6a7c9acfae8852b2e08b3b6",
+    "path": "applications/system/nice_o_code/nice_o_code.c",
+    "context": "42 , buf ) ; elements_button_center ( canvas , ) ; elements_button_right ( canvas , <TEXT> ) ; } else { elements_multiline_text_aligned ( canvas",
+    "source": "\"New\"",
+    "translation": "\"Novy\"",
+    "origin": "stable-release"
+  },
+  {
+    "id": "42035931f3ae7cdbfbb15d8775acff8d4ccedbc1d1b282c13e855bc6477864de",
+    "path": "applications/system/nice_o_code/nice_o_code.c",
+    "context": ") ; app - > packets + + ; furi_string_set ( app - > status , <TEXT> ) ; furi_mutex_release ( app - > mutex",
+    "source": "\"Not O-Code, ignored\"",
+    "translation": "\"Neni O-Code, ignor.\"",
+    "origin": "stable-release"
+  },
+  {
+    "id": "7af78fa4e820932e8c6003d259801a3b72ad8c2a2c15e44ab008058e1976c9fc",
+    "path": "lib/nfc/protocols/texkom/texkom.c",
+    "context": "= { [ TexkomTypeUnknown ] = { . type_byte = 0 x00 , . full_name = <TEXT> , . type_name = , . uid_offset",
+    "source": "\"Texkom (unknown)\"",
+    "translation": "\"Texkom (neznamy)\"",
+    "origin": "stable-release"
+  },
+  {
+    "id": "aafa553634fef5d449f876d0d7589f825e637a80b35ce03ebc220c8a007afe23",
+    "path": "lib/subghz/protocols/nice_flor_s.c",
+    "context": ". cnt_is_available = false ; subghz_block_generic_global . btn_is_available = false ; furi_string_cat_printf ( output , <TEXT> , NICE_O_NAME , instance -",
+    "source": "\"Key:%013llX\\r\\n\"",
+    "translation": "\"Klic:%013llX\\r\\n\"",
+    "origin": "stable-release"
+  },
+  {
+    "id": "f7d0df76766cacbcf2963f9773f074fe037626a99f21fcdb41492a8c41cd94d7",
+    "path": "lib/subghz/protocols/nice_flor_s.c",
+    "context": "cnt_is_available = false ; subghz_block_generic_global . btn_is_available = false ; furi_string_cat_printf ( output , <TEXT> , NICE_O_NAME , instance - >",
+    "source": "\"No installer code\\r\\n\"",
+    "translation": "\"Chybi instal. kod\\r\\n\"",
+    "origin": "stable-release"
+  },
+  {
+    "id": "e9b8f1e0190221dc77b1f76defb2e2d7a922faac4e5036efeef234c82c4ce9a6",
+    "path": "lib/subghz/protocols/nice_flor_s.c",
+    "context": "= false ; subghz_block_generic_global . btn_is_available = false ; furi_string_cat_printf ( output , <TEXT> , NICE_O_NAME , instance - > generic",
+    "source": "\"Use Nice O-Code app\\r\\n\"",
+    "translation": "\"Pouzij Nice O-Code\\r\\n\"",
+    "origin": "stable-release"
+  },
+  {
+    "id": "26c18d6624014920995b9b6ab764186f5db37805e022ab51d4b734d01745d7ae",
+    "path": "lib/subghz/protocols/nice_flor_s.c",
+    "context": "false ; subghz_block_generic_global . btn_is_available = false ; furi_string_cat_printf ( output , <TEXT> , NICE_O_NAME , instance - > generic .",
+    "source": "\"to receive and decode\"",
+    "translation": "\"pro prijem a dekod.\"",
+    "origin": "stable-release"
   }
 ]

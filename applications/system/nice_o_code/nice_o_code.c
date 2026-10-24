@@ -186,7 +186,7 @@ static void nice_o_draw_callback(Canvas* canvas, void* ctx) {
             snprintf(buf, sizeof(buf), "Seriove cislo  %07lX", app->serial);
             canvas_draw_str(canvas, 6, 42, buf);
             elements_button_center(canvas, "Ulozit");
-            elements_button_right(canvas, "New");
+            elements_button_right(canvas, "Novy");
         } else {
             elements_multiline_text_aligned(
                 canvas, 64, 32, AlignCenter, AlignCenter, furi_string_get_cstr(app->status));
@@ -261,7 +261,7 @@ static void
     if(!subghz_protocol_decoder_nice_flor_s_is_o_code_no_ic(base)) {
         furi_mutex_acquire(app->mutex, FuriWaitForever);
         app->packets++;
-        furi_string_set(app->status, "Not O-Code, ignored");
+        furi_string_set(app->status, "Neni O-Code, ignor.");
         furi_mutex_release(app->mutex);
         return;
     }

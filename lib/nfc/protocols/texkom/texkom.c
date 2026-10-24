@@ -48,7 +48,7 @@ static const TexkomFeatures texkom_features[TexkomTypeNum] = {
     [TexkomTypeUnknown] =
         {
             .type_byte = 0x00,
-            .full_name = "Texkom (unknown)",
+            .full_name = "Texkom (neznamy)",
             .type_name = "Unknown",
             .uid_offset = TEXKOM_UID_OFFSET,
             .uid_size = TEXKOM_UID_SIZE,
