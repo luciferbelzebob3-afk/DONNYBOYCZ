@@ -42,6 +42,27 @@ jobs:
               with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
                   summary.write(message + '\n')
           PY
+      - name: Ověřit autentizaci a dostupné textové modely
+        if: steps.key.outputs.available == 'true'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python - <<'PY'
+          import json, os, re, sys, urllib.request, urllib.error
+          request = urllib.request.Request('https://generativelanguage.googleapis.com/v1beta/models', headers={'x-goog-api-key': os.environ['GEMINI_API_KEY']})
+          try:
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  data = json.load(response)
+              names = [m['name'] for m in data.get('models', []) if 'generateContent' in m.get('supportedGenerationMethods', []) and re.fullmatch(r'models/gemini-[a-z0-9.-]+', m.get('name', ''))]
+              print('Autentizace seznamu modelů uspěla: HTTP 200.')
+              print('Dostupné textové modely: ' + ', '.join(names[:60]))
+          except urllib.error.HTTPError as error:
+              print('::error::Seznam modelů nelze načíst: HTTP ' + str(error.code))
+              sys.exit(1)
+          except Exception:
+              print('::error::Seznam modelů nelze bezpečně načíst.')
+              sys.exit(1)
+          PY
       - name: Jeden minimální požadavek na Gemini
         if: steps.key.outputs.available == 'true'
         env:
