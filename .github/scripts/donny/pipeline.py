@@ -340,7 +340,8 @@ def analyze():
             'Use ambiguous if the display flow or safe maximum byte length cannot be established. '
             'limit is the proven safe maximum ASCII bytes excluding NUL (account for buffer, formatting and screen); '
             'use null for technical or ambiguous. Return exact ids and a brief reason.',
-            batch, array_schema({'id': {'type': 'string'}, 'kind': {'type': 'string', 'enum': ['ui', 'technical', 'ambiguous']},
+            [{key: item[key] for key in ('id', 'path', 'source', 'context', 'code')} for item in batch],
+            array_schema({'id': {'type': 'string'}, 'kind': {'type': 'string', 'enum': ['ui', 'technical', 'ambiguous']},
                 'limit': {'type': ['integer', 'null']}, 'reason': {'type': 'string'}}))['items']
         if len(answer) != len(batch) or {x['id'] for x in answer} != {x['id'] for x in batch}:
             raise RuntimeError('Neuplna klasifikace')

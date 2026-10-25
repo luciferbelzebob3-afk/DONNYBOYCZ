@@ -177,6 +177,9 @@ def translate_literals(instruction, data, schema):
             'Return plain human text, NOT quoted C literals. Do NOT add printf placeholders, percent signs, '
             'backslashes, quotes, control characters or extra punctuation: the program preserves these. '
             'Use original_literal and context ONLY to understand the meaning. Keep protocol names such as IC. '
+            'Preserve every semantic noun, negation, number and abbreviation. '
+            'In security protocols, installer code is an access credential: Czech "instalacni kod", '
+            'never an installer program or person. Shorten grammar before dropping any meaning. '
             + ('A previous attempt failed validation. Use a shorter Czech formulation; do not truncate words. ' if attempt else '')
             + 'Do not copy C syntax from original_literal into parts.',
             query, fragment_schema, _raw_parts=True, _cache_validator=valid_parts)['items']

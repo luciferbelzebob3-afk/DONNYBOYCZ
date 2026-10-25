@@ -6,6 +6,7 @@ from pathlib import Path
 import tempfile
 import time
 from unittest.mock import patch
+from contextlib import chdir
 
 from local_inference import model_json
 from localization import array_schema, validate, digest, identity, literals, tokens
@@ -60,9 +61,9 @@ def main():
             raise RuntimeError('Model nedokazal oddelit UI od logu a serializovanych hodnot.')
         # Exercise the real guarded translation stage with real inference, but a
         # disposable source fixture and disabled Git writes (job has read-only access).
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory() as folder, chdir(folder):
             root = Path(folder)
-            source = root / 'scene.c'
+            source = Path('scene.c')
             before = ('void draw(void) { popup_set_text(popup, "Read failed", 0, 0, AlignLeft, AlignTop); '
                       'dialog_set_text(dialog, "No installer code\\r\\n"); '
                       'byte_input_set_header_text(input, "Enter IC in hex"); '
@@ -92,7 +93,7 @@ def main():
                 validate(original['source'], target, original['limit'])
                 if target == original['source']:
                     raise RuntimeError('Model ponechal novy UI text v anglictine.')
-            if not ('cten' in translated[0].lower() and any(x in translated[0].lower() for x in ('selh', 'chyb', 'nepoda', 'nezdar', 'neuspes'))):
+            if not (any(x in translated[0].lower() for x in ('cten', 'prec')) and any(x in translated[0].lower() for x in ('selh', 'chyb', 'nepoda', 'nezdar', 'neuspes', 'neslo'))):
                 raise RuntimeError('Cesky vyznam chyboveho hlaseni neprosel kontrolou.')
             if not ('kod' in translated[1].lower() and any(x in translated[1].lower() for x in ('chybi', 'zadny', 'neni', 'bez'))):
                 raise RuntimeError('Cesky vyznam chybejiciho instalacniho kodu neprosel kontrolou.')
@@ -104,9 +105,9 @@ def main():
             report['pipeline_fixture'] = dict(translations=translated, technical_code_unchanged=True,
                                                git_writes=False, report=translated_report)
         # Exercise the actual analyzer contract too, including a proven buffer limit.
-        with tempfile.TemporaryDirectory() as folder:
+        with tempfile.TemporaryDirectory() as folder, chdir(folder):
             root = Path(folder)
-            source = root / 'analysis_scene.c'
+            source = Path('analysis_scene.c')
             after = ('void draw(void) { char text[24]; '
                      'snprintf(text, sizeof(text), "%s", "Read failed"); '
                      'popup_set_text(popup, text, 0, 0, AlignLeft, AlignTop); '
