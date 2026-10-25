@@ -57,6 +57,9 @@ JSON dávky (nejvýše čtyři položky), nesmí přepisovat celé zdrojové sou
 Známé české diakritické znaky v překladech displeje se deterministicky převedou
 na ASCII; poznámky k vydání zůstávají s diakritikou. Technické názvy a klíče
 souborových formátů se nepřekládají. Nejasná klasifikace blokuje vydání.
+Čisté formátovací řetězce, přímé logovací a serializační volání chrání také
+syntaktická kontrola nezávislá na modelu. U jednoznačného `snprintf` s lokálním
+bufferem omezuje délku jeho skutečná kapacita po odečtení ukončovací nuly.
 
 Hotové odpovědi se ukládají do `model-cache.json` podle přesného modelu,
 runtime, vstupu i schématu; překladová paměť v `memory.json` se zachovává.

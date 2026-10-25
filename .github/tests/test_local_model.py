@@ -161,4 +161,32 @@ class LocalModelTests(unittest.TestCase):
             push.assert_not_called()
 
 
+class SourceSyntaxSafetyTests(unittest.TestCase):
+    def facts(self, code, literal):
+        from localization import source_constraints, literals
+        item = next(x for x in literals(code) if x['literal'] == literal)
+        return source_constraints(code, item)
+
+    def test_neighboring_ui_does_not_turn_log_or_file_key_into_ui(self):
+        code = 'popup_set_text(p, "Visible"); FURI_LOG_E(TAG, "Write failed"); flipper_format_write_string_cstr(ff, "Protocol", name);'
+        self.assertIn('technical', self.facts(code, '"Write failed"'))
+        self.assertIn('technical', self.facts(code, '"Protocol"'))
+        self.assertNotIn('technical', self.facts(code, '"Visible"'))
+
+    def test_pure_format_is_technical_but_human_label_is_not(self):
+        self.assertIn('technical', self.facts('snprintf(b,n,"%s",s);', '"%s"'))
+        self.assertNotIn('technical', self.facts('snprintf(b,n,"Value: %lu",n);', '"Value: %lu"'))
+
+    def test_known_buffer_reserves_terminating_nul(self):
+        code = 'char text[24]; snprintf(text, sizeof(text), "%s", "Read failed");'
+        self.assertEqual(self.facts(code, '"Read failed"'), {'max_bytes': 23})
+
+    def test_uncertain_buffer_flow_does_not_invent_a_limit(self):
+        for code in ['char text[24]; snprintf(text, capacity, "%s", "Read failed");',
+                     'char text[24]; snprintf(text, sizeof(text), "%s/%s", "Read failed", other);',
+                     '/* char text[24]; */ snprintf(text, sizeof(text), "%s", "Read failed");',
+                     'char text[24]; { char text[8]; snprintf(text, sizeof(text), "%s", "Read failed"); }']:
+            self.assertNotIn('max_bytes', self.facts(code, '"Read failed"'))
+
+
 if __name__=='__main__':unittest.main()

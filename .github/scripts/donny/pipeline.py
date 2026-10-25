@@ -16,7 +16,7 @@ import urllib.request
 import zipfile
 
 from localization import (SOURCE_EXT, apply_memory, array_schema, bootstrap, digest,
-                          identity, literals, model_json, reverse_localized, validate, ModelDeferred)
+                          identity, literals, model_json, reverse_localized, validate, ModelDeferred, source_constraints)
 
 REPO = 'luciferbelzebob3-afk/DONNYBOYCZ'
 UPSTREAM = 'DarkFlippers/unleashed-firmware'
@@ -304,6 +304,7 @@ def analyze():
     memory = load(ROOT / 'memory.json', [])
     reviewed = load(ROOT / 'reviewed.json', {})
     items = []
+    source_bounds = {}
     paths = git('diff', '--name-only', '--diff-filter=ACMRT', p['previous_upstream_sha'], p['upstream_sha']).splitlines()
     for path in paths:
         if Path(path).suffix not in SOURCE_EXT or path.startswith(PROTECTED) or '/tests/' in path or '/unit_tests/' in path:
@@ -328,6 +329,11 @@ def analyze():
             # Include every new source literal; the classifier must account for every item.
             if record['id'] in reviewed:
                 record.update(reviewed[record['id']])
+            constraints = source_constraints(after, item)
+            if 'technical' in constraints:
+                record.update(kind='technical', limit=None, reason=constraints['technical'])
+            if 'max_bytes' in constraints:
+                source_bounds[record['id']] = constraints['max_bytes']
             items.append(record)
     unknown = [x for x in items if x['kind'] == 'unknown']
     save(OUT / 'unclassified.json', unknown)
@@ -348,6 +354,9 @@ def analyze():
         by_id = {x['id']: x for x in answer}
         for item in batch:
             item.update({k: v for k, v in by_id[item['id']].items() if k != 'id'})
+    for item in items:
+        if item['kind'] == 'ui' and isinstance(item.get('limit'), int) and item['id'] in source_bounds:
+            item['limit'] = min(item['limit'], source_bounds[item['id']])
     save(ROOT / 'analysis.json', dict(upstream_sha=p['upstream_sha'], source_sha=git('rev-parse', 'HEAD'), items=items))
     ambiguous = [x for x in items if x['kind'] == 'ambiguous' or (x['kind'] == 'ui' and not isinstance(x.get('limit'), int))]
     save(OUT / 'analysis.json', load(ROOT / 'analysis.json'))

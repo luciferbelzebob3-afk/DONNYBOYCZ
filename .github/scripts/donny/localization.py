@@ -38,6 +38,43 @@ def identity(path, item):
     return digest(path + '\0' + item['literal'] + '\0' + item['context'])
 
 
+def source_constraints(text, item):
+    """Conservative syntax facts; no inference can turn logs/serialized data into UI."""
+    body = ESCAPE.sub('', FORMAT.sub('', item['literal'][1:-1]))
+    if not re.search('[A-Za-z]', body):
+        return {'technical': 'Formatovaci retezec bez lidskeho textu'}
+    ts = tokens(text[:item['start']])
+    stack = []
+    for index, token in enumerate(ts):
+        value = token[0]
+        if value == '(':
+            previous = ts[index - 1][0] if index else ''
+            stack.append([previous if re.fullmatch(r'[A-Za-z_]\w*', previous) else None, 0, index])
+        elif value == ')' and stack:
+            stack.pop()
+        elif value == ',' and stack:
+            stack[-1][1] += 1
+    calls = [entry for entry in stack if entry[0]]
+    if not calls:
+        return {}
+    name, argument, opening = calls[-1]
+    if name.startswith('FURI_LOG_') or name.startswith(('flipper_format_write_', 'flipper_format_read_')):
+        return {'technical': 'Log nebo serializovana hodnota/klic: ' + name}
+    if name != 'snprintf' or argument != 3:
+        return {}
+    # Only the unambiguous snprintf(buffer, sizeof(buffer), "%s", literal)
+    # form supplies a numeric upper bound here. Other flows remain model/review work.
+    prefix = ' '.join(t[0] for t in ts[opening + 1:])
+    match = re.fullmatch(r'(\w+) , sizeof \( \1 \) , "%s" ,', prefix)
+    if not match:
+        return {}
+    declarations = re.findall(r'\bchar ' + re.escape(match[1]) + r' \[ (\d+) \]',
+                              ' '.join(t[0] for t in ts[:opening]))
+    if len(declarations) == 1 and int(declarations[0]) > 1:
+        return {'max_bytes': int(declarations[0]) - 1}
+    return {}
+
+
 def validate(source, target, limit=None):
     if not isinstance(target, str) or not re.fullmatch(r'"(?:\\.|[^"\\])*"', target):
         raise ValueError('Neplatny uplny literal')
