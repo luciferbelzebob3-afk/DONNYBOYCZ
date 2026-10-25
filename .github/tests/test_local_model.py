@@ -12,7 +12,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts/donny'))
 import local_inference as local
 import model_runtime as runtime
 import pipeline
-from localization import ModelDeferred
+from localization import ModelDeferred, array_schema, validate_json
 
 SCHEMA={'type':'object','properties':{'ok':{'type':'boolean'}},'required':['ok'],'additionalProperties':False}
 
@@ -68,6 +68,36 @@ class LocalModelTests(unittest.TestCase):
     def test_czech_accents_only_are_normalized(self):
         self.assertEqual(local.ascii_czech('"Ulož číslo: %lu\\n"'),'"Uloz cislo: %lu\\n"')
         self.assertEqual(local.ascii_czech('"✓"'),'"✓"')
+
+    def test_per_item_character_budgets_are_enforced(self):
+        schema=array_schema({'id':{'type':'string'},'translation':{'type':'string'}})
+        bound=local.bounded_schema([{'id':'a','source':'"Save"','limit':6},
+                                    {'id':'b','source':'"Value\\n"','limit':12}],schema)
+        validate_json({'items':[{'id':'a','translation':'"Ulozit"'},{'id':'b','translation':'"Hodnota\\n"'}]},bound)
+        with self.assertRaises(ValueError):
+            validate_json({'items':[{'id':'a','translation':'"Velmi dlouhy preklad"'},{'id':'b','translation':'"Hodnota\\n"'}]},bound)
+
+    def test_invalid_format_is_repaired_once_and_then_validated(self):
+        data=[{'id':'a','source':'"Value: %lu\\n"','limit':24}]
+        schema=array_schema({'id':{'type':'string'},'translation':{'type':'string'}})
+        opener=Mock()
+        opener.open.side_effect=[response({'items':[{'id':'a','translation':'"Hodnota: %u\\n"'}]}),
+                                 response({'items':[{'id':'a','translation':'"Hodnota: %lu\\n"'}]})]
+        with patch.object(local,'ensure_server',return_value=('http://127.0.0.1:8765/v1/chat/completions',self.config)),patch.object(local.urllib.request,'build_opener',return_value=opener):
+            answer=local.model_json('translate',data,schema)
+            self.assertEqual(answer['items'][0]['translation'],'"Hodnota: %lu\\n"')
+            self.assertEqual(opener.open.call_count,2)
+
+    def test_bad_repair_cannot_loop_or_allow_publication(self):
+        data=[{'id':'a','source':'"Value: %lu\\n"','limit':24}]
+        schema=array_schema({'id':{'type':'string'},'translation':{'type':'string'}})
+        opener=Mock()
+        opener.open.side_effect=[response({'items':[{'id':'a','translation':'"Hodnota: %u\\n"'}]}),
+                                 response({'items':[{'id':'a','translation':'"Hodnota: %u\\n"'}]})]
+        with patch.object(local,'ensure_server',return_value=('http://127.0.0.1:8765/v1/chat/completions',self.config)),patch.object(local.urllib.request,'build_opener',return_value=opener):
+            with self.assertRaises(RuntimeError):local.model_json('translate',data,schema)
+            self.assertEqual(opener.open.call_count,2)
+            self.assertFalse(self.cache.exists())
 
     def test_unavailable_runtime_defers_without_external_fallback(self):
         with patch.object(local,'ensure_server',side_effect=runtime.RuntimeUnavailable('download failed')),patch.object(local.urllib.request,'build_opener') as opener:

@@ -11,3 +11,10 @@ runs:
     - name: Nastavit pracovní složku modelu
       shell: bash
       run: echo "LOCAL_MODEL_ASSETS=$RUNNER_TEMP/donny-local-model" >> "$GITHUB_ENV"
+    - name: Obnovit ověřený CPU runtime
+      uses: actions/cache@v4
+      with:
+        path: |
+          ${{ runner.temp }}/donny-local-model/llama.cpp/build/bin
+          ${{ runner.temp }}/donny-local-model/runtime-commit.txt
+        key: donny-llama-cpu-ubuntu24-x64-v1-620d2225cc436ab0b001e3200e590e3b286ef9ab

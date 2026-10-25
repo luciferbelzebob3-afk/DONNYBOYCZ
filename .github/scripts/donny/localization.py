@@ -124,6 +124,15 @@ class ModelDeferred(RuntimeError):
 
 def validate_json(value, schema):
     """Validate the schema subset used by localization before accepting/cache reuse."""
+    if 'anyOf' in schema:
+        for branch in schema['anyOf']:
+            try:
+                validate_json(value, branch)
+                break
+            except ValueError:
+                continue
+        else:
+            raise ValueError('Odpoved neodpovida zadne povolene variante')
     kinds = schema.get('type', [])
     kinds = [kinds] if isinstance(kinds, str) else kinds
     checks = {'object': lambda: isinstance(value, dict), 'array': lambda: isinstance(value, list),
@@ -134,6 +143,8 @@ def validate_json(value, schema):
         raise ValueError('Nespravny typ strukturovane odpovedi')
     if 'enum' in schema and value not in schema['enum']:
         raise ValueError('Hodnota mimo povoleny vycet')
+    if isinstance(value, str) and not schema.get('minLength', 0) <= len(value) <= schema.get('maxLength', float('inf')):
+        raise ValueError('Nespravna delka retezce ve strukturovane odpovedi')
     if isinstance(value, dict):
         props = schema.get('properties', {})
         if not set(schema.get('required', [])).issubset(value):

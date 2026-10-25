@@ -41,8 +41,9 @@ GitHub token slouží nadále pouze k práci s repozitářem a vydáním.
 Model se stáhne až při prvním neznámém textu a zkontroluje se celý SHA-256.
 Soubory a licence modelu i přesný commit runtime jsou v `local-model.lock.json`.
 Váhy mají přibližně 2,5 GB a zůstávají ve složce runneru, nikoli v repozitáři,
-na počítači uživatele nebo v distribučním balíčku firmwaru. Cache obsahuje pouze
-váhy a využívá běžný bezplatný limit GitHub Actions; limit úložiště nezvyšujeme.
+na počítači uživatele nebo v distribučním balíčku firmwaru. Cache vah a připnutého CPU runtime využívá běžný bezplatný limit GitHub Actions;
+limit úložiště nezvyšujeme. Runtime se sestavuje bez optimalizace pro konkrétní
+procesor a jeho cache je omezená na standardní Ubuntu 24 x64.
 Inference přijímá požadavky pouze přes `127.0.0.1`. Není veřejně vystavená.
 Stažení vah a zdrojů runtime stále vyžaduje internet.
 
@@ -63,7 +64,10 @@ Pokud pozdější dávka selže, už ověřené odpovědi se uloží do integra�
 Dočasná nedostupnost runner-local modelu odloží kandidáta přes `deferred.json`;
 další plánovaný běh respektuje čas obnovení a nevytváří další verzi.
 Chybný SHA-256 modelu, neplatná/neúplná odpověď nebo porušené placeholdery
-nesmějí povolit publikaci nepřeloženého nebo neověřeného vydání.
+nesmějí povolit publikaci nepřeloženého nebo neověřeného vydání. Schéma výstupu
+váže délkový limit ke každému ID zvlášť. Nevalidní překlad dostane nejvýše jeden
+lokální opravný požadavek; text se nikdy násilně neořezává a všechny stejné
+kontroly se provedou i po opravě.
 
 Workflow `check-local-model.yml` skutečně spustí váhy na CPU a ověří krátké
 české překlady, formátovaný text a odlišení UI od logů a serializovaných klíčů.
