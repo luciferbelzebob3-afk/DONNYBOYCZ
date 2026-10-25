@@ -1,0 +1,46 @@
+name: DONNY BOY CZ – ověření modelu bez API
+on:
+  workflow_dispatch:
+  push:
+    branches: [dev]
+    paths:
+      - '.github/workflows/check-local-model.yml'
+      - '.github/actions/setup-local-model/**'
+      - '.github/scripts/donny/local_inference.py'
+      - '.github/scripts/donny/model_runtime.py'
+      - '.github/scripts/donny/check_local_model.py'
+      - '.github/tests/test_local_model.py'
+      - '.donny/local-model.lock.json'
+permissions:
+  contents: read
+concurrency:
+  group: donny-local-model-check
+  cancel-in-progress: false
+jobs:
+  verify:
+    name: Ověřit model na CPU serveru GitHubu
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Ověřit programové kontroly
+        run: python -m unittest discover -s .github/tests -p 'test_*.py' -v
+      - uses: ./.github/actions/setup-local-model
+      - name: Skutečný překlad a analýza bez externí inference
+        run: python .github/scripts/donny/check_local_model.py
+      - name: Uchovat výsledek a diagnostiku
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lokalni-model-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            /tmp/donny-local-model-report.json
+            ${{ runner.temp }}/donny-local-model/server.log
+            ${{ runner.temp }}/donny-local-model/runtime-build.log
+          if-no-files-found: ignore
+          retention-days: 7
