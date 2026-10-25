@@ -11,7 +11,7 @@ runs:
       uses: actions/cache@v4
       with:
         path: ${{ runner.temp }}/donny-local-model/models
-        key: donny-qwen3-4b-q4-v1-7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5
+        key: donny-qwen3-8b-q4-v1-d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785
     - name: Nastavit pracovní složku modelu
       shell: bash
       run: echo "LOCAL_MODEL_ASSETS=$RUNNER_TEMP/donny-local-model" >> "$GITHUB_ENV"

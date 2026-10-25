@@ -32,7 +32,7 @@ kandidát zůstane zachován pro novou integraci a ověření.
 
 ## Překlad přímo na serveru GitHubu
 
-Analýzu, překlad a české poznámky vytváří otevřený Qwen3-4B Q4_K_M přes
+Analýzu, překlad a české poznámky vytváří otevřený Qwen3-8B Q4_K_M přes
 `llama.cpp` spuštěný na CPU stejného GitHub Actions runneru. Není potřeba
 Codespace, vlastní zapnutý počítač, účet u AI poskytovatele ani AI API klíč.
 OpenAI a Gemini se z překladového řetězce nevolají; žádná placená záloha není.
@@ -40,7 +40,7 @@ GitHub token slouží nadále pouze k práci s repozitářem a vydáním.
 
 Model se stáhne až při prvním neznámém textu a zkontroluje se celý SHA-256.
 Soubory a licence modelu i přesný commit runtime jsou v `local-model.lock.json`.
-Váhy mají přibližně 2,5 GB a zůstávají ve složce runneru, nikoli v repozitáři,
+Váhy mají přibližně 5 GB a zůstávají ve složce runneru, nikoli v repozitáři,
 na počítači uživatele nebo v distribučním balíčku firmwaru. Cache vah a připnutého CPU runtime využívá běžný bezplatný limit GitHub Actions;
 limit úložiště nezvyšujeme. Runtime se sestavuje bez optimalizace pro konkrétní
 procesor a jeho cache je omezená na standardní Ubuntu 24 x64.
