@@ -21,6 +21,9 @@ from localization import (SOURCE_EXT, apply_memory, array_schema, bootstrap, dig
 REPO = 'luciferbelzebob3-afk/DONNYBOYCZ'
 UPSTREAM = 'DarkFlippers/unleashed-firmware'
 BRANCH = 'automation/stable-release'
+from model_runtime import lock_config
+
+MODEL_BATCH_SIZE = lock_config()['batch_size']
 ROOT = Path('.donny')
 OUT = Path(os.environ.get('DONNY_OUTPUT', '/tmp/donny-output'))
 OUT.mkdir(parents=True, exist_ok=True)
@@ -204,7 +207,7 @@ def prepare():
             git('checkout', '--detach', 'FETCH_HEAD')
             if deferred_text:
                 (ROOT / 'deferred.json').unlink()
-                commit('Obnovit odlozeny beh Gemini', ['.donny/deferred.json'])
+                commit('Obnovit odlozeny beh lokalniho modelu', ['.donny/deferred.json'])
                 push_candidate()
             output(changed=True, sha=git('rev-parse', 'HEAD'), version=pending['version'],
                    published=bool(release and not release['draft']))
@@ -328,8 +331,8 @@ def analyze():
             items.append(record)
     unknown = [x for x in items if x['kind'] == 'unknown']
     save(OUT / 'unclassified.json', unknown)
-    for offset in range(0, len(unknown), 30):
-        batch = unknown[offset:offset + 30]
+    for offset in range(0, len(unknown), MODEL_BATCH_SIZE):
+        batch = unknown[offset:offset + MODEL_BATCH_SIZE]
         answer = model_json(
             'Classify EACH C/C++/JS/Flipper manifest literal as ui, technical or ambiguous. '
             'UI includes indirect flows via snprintf, status variables, render helpers, arrays and app labels. '
@@ -350,8 +353,8 @@ def analyze():
     if ambiguous:
         raise RuntimeError(f'Je nutne posoudit {len(ambiguous)} nejasnych textu')
     paths = ['.donny/analysis.json']
-    if (ROOT / 'gemini-cache.json').exists():
-        paths.append('.donny/gemini-cache.json')
+    if (ROOT / 'model-cache.json').exists():
+        paths.append('.donny/model-cache.json')
     sha = commit('Analyzovat nove texty stabilniho vydani', paths)
     push_candidate()
     output(sha=sha)
@@ -380,8 +383,8 @@ def translate():
             translations[x['id']] = saved['translation']
         else:
             todo.append(x)
-    for offset in range(0, len(todo), 30):
-        batch = todo[offset:offset + 30]
+    for offset in range(0, len(todo), MODEL_BATCH_SIZE):
+        batch = todo[offset:offset + MODEL_BATCH_SIZE]
         result = model_json('Translate EACH approved UI literal into concise Czech WITHOUT diacritics. '
             'Return ONLY its exact id and complete quoted C literal. Preserve format parameters and ALL escape '
             'sequences in their original order. Respect limit bytes excluding NUL. Never change code.', batch,
@@ -585,8 +588,8 @@ def notes():
         changes = [x['change'] for x in changes]
     save(ROOT / 'release-changes-cs.json', changes)
     paths = ['.donny/release-changes-cs.json']
-    if (ROOT / 'gemini-cache.json').exists():
-        paths.append('.donny/gemini-cache.json')
+    if (ROOT / 'model-cache.json').exists():
+        paths.append('.donny/model-cache.json')
     sha = commit('Pripravit cesky prehled prevzatych zmen', paths)
     push_candidate()
     output(sha=sha)
@@ -597,13 +600,13 @@ def checkpoint_model(stage, deferred=None):
     if stage not in ('analyze', 'translate', 'notes') or not (ROOT / 'pending.json').exists():
         return
     paths = []
-    if (ROOT / 'gemini-cache.json').exists():
-        paths.append('.donny/gemini-cache.json')
+    if (ROOT / 'model-cache.json').exists():
+        paths.append('.donny/model-cache.json')
     if deferred:
         save(ROOT / 'deferred.json', dict(stage=stage, retry_at=deferred.retry_at))
         paths.append('.donny/deferred.json')
     if paths:
-        sha = commit('Ulozit hotove davky a odlozeni Gemini', paths)
+        sha = commit('Ulozit hotove davky a odlozeni lokalniho modelu', paths)
         push_candidate()
         output(sha=sha, deferred=bool(deferred))
 
@@ -622,4 +625,3 @@ if __name__ == '__main__':
         checkpoint_model(stage)
         print(f'::error::{exc}', file=sys.stderr)
         raise
-

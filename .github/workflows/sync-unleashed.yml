@@ -15,7 +15,9 @@ on:
       - '.github/workflows/build-release.yml'
       - '.github/scripts/donny/**'
       - '.github/tests/test_donny_pipeline.py'
-      - '.github/tests/test_gemini_client.py'
+      - '.github/tests/test_local_model.py'
+      - '.donny/local-model.lock.json'
+      - '.github/actions/setup-local-model/**'
       - '.donny/reviewed.json'
       - '.donny/upstream-notes-cs.json'
 
@@ -71,7 +73,6 @@ jobs:
     uses: ./.github/workflows/analyze-ui.yml
     with:
       source_sha: ${{ needs.prepare.outputs.sha }}
-    secrets: inherit
 
   translate:
     name: Překlad schválených textů
@@ -80,7 +81,6 @@ jobs:
     uses: ./.github/workflows/translate-ui.yml
     with:
       source_sha: ${{ needs.analyze.outputs.sha }}
-    secrets: inherit
 
   build:
     name: Sestavení přesného českého zdroje
@@ -160,4 +160,3 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python .github/scripts/donny/pipeline.py verify_web
-

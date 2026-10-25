@@ -12,7 +12,8 @@ permissions:
   contents: write
 jobs:
   analyze:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
     outputs:
       sha: ${{ steps.analyze.outputs.sha }}
     steps:
@@ -20,15 +21,13 @@ jobs:
         with:
           ref: ${{ inputs.source_sha }}
           fetch-depth: 0
+      - uses: ./.github/actions/setup-local-model
       - name: Nastavit autora
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
       - name: Klasifikovat každý nový literal
         id: analyze
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_TRANSLATION_MODEL: ${{ vars.GEMINI_TRANSLATION_MODEL || 'gemini-3.8-flash' }}
         run: python .github/scripts/donny/pipeline.py analyze
       - name: Uchovat analýzu i při chybě
         if: always()
@@ -37,4 +36,3 @@ jobs:
           name: analyza-textu-${{ github.run_id }}-${{ github.run_attempt }}
           path: /tmp/donny-output/
           if-no-files-found: ignore
-

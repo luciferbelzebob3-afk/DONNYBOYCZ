@@ -45,9 +45,12 @@ class LocalizationTests(unittest.TestCase):
         values=[x['literal'] for x in literals('/* "fake" */ char c=\'x\'; puts("real"); // "fake2"')]
         self.assertEqual(values,['"real"'])
 
-    def test_missing_key_is_failure(self):
-        with patch.dict(os.environ,{},clear=True):
-            with self.assertRaises(RuntimeError): model_json('classify',[],{})
+    def test_missing_runtime_defers_without_api_keys(self):
+        import local_inference
+        from model_runtime import RuntimeUnavailable
+        from localization import ModelDeferred
+        with patch.dict(os.environ,{},clear=True),patch.object(local_inference,'ensure_server',side_effect=RuntimeUnavailable('not ready')):
+            with self.assertRaises(ModelDeferred):model_json('classify',[],{})
 
     def test_no_candidates_succeeds_without_model(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -162,4 +165,3 @@ class LocalizationTests(unittest.TestCase):
             self.assertEqual(run_mock.call_count,1)
 
 if __name__=='__main__': unittest.main()
-

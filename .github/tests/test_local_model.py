@@ -4,12 +4,14 @@ import os
 from pathlib import Path
 import sys
 import tempfile
+import time
 import unittest
 from unittest.mock import Mock,patch
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts/donny'))
 import local_inference as local
 import model_runtime as runtime
+import pipeline
 from localization import ModelDeferred
 
 SCHEMA={'type':'object','properties':{'ok':{'type':'boolean'}},'required':['ok'],'additionalProperties':False}
@@ -85,5 +87,37 @@ class LocalModelTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError,'SHA-256'):runtime.download_model(bad,self.root)
         self.assertFalse((self.root/'models/bad.gguf').exists())
         self.assertFalse((self.root/'models/bad.download').exists())
+
+    def test_checkpoint_persists_completed_batches_and_retry_time(self):
+        root=self.root
+        (root/'pending.json').write_text('{}')
+        (root/'model-cache.json').write_text('{}')
+        deferred=ModelDeferred('quota',900)
+        with patch.object(pipeline,'ROOT',root),patch.object(pipeline,'commit',return_value='checkpoint') as commit,patch.object(pipeline,'push_candidate') as push,patch.object(pipeline,'output'):
+            pipeline.checkpoint_model('analyze',deferred)
+            self.assertEqual(json.loads((root/'deferred.json').read_text())['retry_at'],deferred.retry_at)
+            self.assertIn('.donny/model-cache.json',commit.call_args.args[1])
+            self.assertIn('.donny/deferred.json',commit.call_args.args[1])
+            push.assert_called_once()
+
+    def test_scheduled_run_waits_until_quota_resets(self):
+        pending=dict(version='1.0.3',upstream_sha='upstream',base_sha='base')
+        deferred=dict(stage='analyze',retry_at=int(time.time())+900)
+        def git(*args,**kwargs):
+            if args==('rev-parse','FETCH_HEAD^{commit}'):return 'upstream'
+            if args==('rev-parse','HEAD'):return 'base'
+            if args==('rev-parse','FETCH_HEAD'):return 'candidate'
+            return ''
+        def read(ref,path):
+            return json.dumps(pending) if path.endswith('pending.json') else json.dumps(deferred)
+        def api(path,*args,**kwargs):
+            if path.endswith('/releases/latest'):return dict(tag_name='unlshd-094',draft=False,prerelease=False)
+            if '/branches/' in path:return dict(commit=dict(sha='candidate'))
+            raise AssertionError(path)
+        with patch.object(pipeline,'ROOT',self.root),patch.object(pipeline,'git',side_effect=git),patch.object(pipeline,'api',side_effect=api),patch.object(pipeline,'find_release',return_value=None),patch.object(pipeline,'read',side_effect=read),patch.object(pipeline,'push_candidate') as push,patch.object(pipeline,'output') as out:
+            pipeline.prepare()
+            out.assert_called_once_with(changed=False,deferred=True,retry_at=deferred['retry_at'])
+            push.assert_not_called()
+
 
 if __name__=='__main__':unittest.main()

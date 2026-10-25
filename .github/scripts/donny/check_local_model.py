@@ -3,11 +3,14 @@
 import json
 import os
 from pathlib import Path
+import tempfile
 import time
+from unittest.mock import patch
 
 from local_inference import model_json
-from localization import array_schema, validate
+from localization import array_schema, validate, digest, identity, literals, tokens
 from model_runtime import lock_config
+import pipeline
 
 
 def main():
@@ -55,6 +58,49 @@ def main():
         expected = {'visible-menu': 'ui', 'internal-log': 'technical', 'file-key': 'technical', 'serialized-type': 'technical'}
         if len(classified) != len(expected) or kinds != expected:
             raise RuntimeError('Model nedokazal oddelit UI od logu a serializovanych hodnot.')
+        # Exercise the real guarded translation stage with real inference, but a
+        # disposable source fixture and disabled Git writes (job has read-only access).
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            source = root / 'scene.c'
+            before = ('void draw(void) { popup_set_text(popup, "Read failed", 0, 0, AlignLeft, AlignTop); '
+                      'dialog_set_text(dialog, "No installer code\\r\\n"); '
+                      'byte_input_set_header_text(input, "Enter IC in hex"); '
+                      'FURI_LOG_E(TAG, "Write failed"); '
+                      'flipper_format_write_string_cstr(ff, "Protocol", protocol_name); }\n')
+            source.write_text(before)
+            entries = []
+            for literal in literals(before)[:3]:
+                entries.append(dict(id=identity(str(source), literal), path=str(source),
+                                    source=literal['literal'], context=literal['context'],
+                                    file_hash=digest(before), kind='ui', limit=24))
+            (root / 'pending.json').write_text(json.dumps(dict(upstream_sha='test-upstream', reused=0)))
+            (root / 'analysis.json').write_text(json.dumps(dict(upstream_sha='test-upstream', items=entries)))
+            with patch.object(pipeline, 'ROOT', root), patch.object(pipeline, 'commit', return_value='fixture-only'), \
+                    patch.object(pipeline, 'push_candidate'), patch.object(pipeline, 'output'):
+                pipeline.translate()
+            after = source.read_text()
+            shape = lambda text: ['<TEXT>' if t[0].startswith('"') else t[0] for t in tokens(text)]
+            if shape(before) != shape(after):
+                raise RuntimeError('Aplikace prekladu zasahla technicky kod fixture.')
+            if '"Write failed"' not in after or '"Protocol"' not in after:
+                raise RuntimeError('Aplikace prekladu zasahla log nebo formatovy klic.')
+            translated = [x['literal'] for x in literals(after)[:3]]
+            for original, target in zip(entries, translated):
+                validate(original['source'], target, original['limit'])
+                if target == original['source']:
+                    raise RuntimeError('Model ponechal novy UI text v anglictine.')
+            if not ('cten' in translated[0].lower() and any(x in translated[0].lower() for x in ('selh', 'chyb', 'nepoda'))):
+                raise RuntimeError('Cesky vyznam chyboveho hlaseni neprosel kontrolou.')
+            if not ('kod' in translated[1].lower() and any(x in translated[1].lower() for x in ('chybi', 'zadny', 'neni', 'bez'))):
+                raise RuntimeError('Cesky vyznam chybejiciho instalacniho kodu neprosel kontrolou.')
+            if not ('IC' in translated[2] and any(x in translated[2].lower() for x in ('zadej', 'vloz', 'zadat'))):
+                raise RuntimeError('Cesky vyznam hlavicky hex vstupu neprosel kontrolou.')
+            translated_report = json.loads((root / 'translation-report.json').read_text())
+            if translated_report['translated'] != 3 or translated_report['errors']:
+                raise RuntimeError('Pipeline nevyhodnotila spravne pocet prekladu.')
+            report['pipeline_fixture'] = dict(translations=translated, technical_code_unchanged=True,
+                                               git_writes=False, report=translated_report)
         report['passed'] = True
         print('Skutecne CPU overeni uspelo: ceske texty, printf, escape sekvence a rozliseni UI/technickych retezcu.', flush=True)
     finally:

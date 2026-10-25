@@ -30,41 +30,47 @@ verzi. Po publikaci se opakuje pouze aktualizace webu, bez nového buildu.
 Pokud se během přípravy změnila větev dev, publikace se zastaví; existující
 kandidát zůstane zachován pro novou integraci a ověření.
 
-## Překlad a klíče
+## Překlad přímo na serveru GitHubu
 
-Již zkontrolované texty a překladová paměť nepotřebují model ani API klíč.
-Nové neznámé texty používají Gemini a secret `GEMINI_API_KEY`. Volitelná
-repository variable `GEMINI_TRANSLATION_MODEL` používá výchozí `gemini-3.8-flash`
-s dokumentovaným bezplatným tarifem. Starší `gemini-2.5-flash` a
-`gemini-2.5-flash-lite` zůstávají povolené pro existující Google projekty;
-Google je novým projektům omezuje. Automatický přechod mezi modely při kvótě neprobíhá.
-OpenAI ani jiná placená záloha se nevolá.
+Analýzu, překlad a české poznámky vytváří otevřený Qwen3-4B Q4_K_M přes
+`llama.cpp` spuštěný na CPU stejného GitHub Actions runneru. Není potřeba
+Codespace, vlastní zapnutý počítač, účet u AI poskytovatele ani AI API klíč.
+OpenAI a Gemini se z překladového řetězce nevolají; žádná placená záloha není.
+GitHub token slouží nadále pouze k práci s repozitářem a vydáním.
 
-Vytvoř klíč na https://aistudio.google.com/api-keys v projektu **bez zapnuté
-fakturace** a ulož ho v Settings → Secrets and variables → Actions jako
-`GEMINI_API_KEY`. Samotný kód nedokáže zjistit fakturační tarif Google projektu;
-klíč z placeného projektu by Google mohl účtovat. Automatizace fakturaci
-nezapíná, nepropojuje účet a při kvótě nepřechází na jiný model ani poskytovatele.
-Bezplatný tarif podléhá kvótám a podmínkám zpracování dat Googlu.
+Model se stáhne až při prvním neznámém textu a zkontroluje se celý SHA-256.
+Soubory a licence modelu i přesný commit runtime jsou v `local-model.lock.json`.
+Váhy mají přibližně 2,5 GB a zůstávají ve složce runneru, nikoli v repozitáři,
+na počítači uživatele nebo v distribučním balíčku firmwaru. Cache obsahuje pouze
+váhy a využívá běžný bezplatný limit GitHub Actions; limit úložiště nezvyšujeme.
+Inference přijímá požadavky pouze přes `127.0.0.1`. Není veřejně vystavená.
+Stažení vah a zdrojů runtime stále vyžaduje internet.
 
-Workflow `check-gemini-key.yml` ověří skutečným minimálním požadavkem stejného
-klienta strukturovaných odpovědí. Pokud klíč chybí, výslovně uvede, že živé
-ověření nebylo provedeno; není třeba posílat klíč do chatu.
+Používají se standardní linuxové runnery veřejného repozitáře, nikoli placené
+větší/GPU runnery. Provoz podléhá pravidlům, časovým a úložným limitům GitHubu.
+Změna repozitáře na soukromý by změnila podmínky bezplatného výpočetního času.
 
-Úspěšné dávky se ukládají do `gemini-cache.json` podle modelu, vstupu i schématu.
-Při HTTP 429 se kandidát zachová v integrační větvi spolu s `deferred.json`.
-Další plánované běhy respektují čas obnovení (obvykle 15 minut, denní kvóta
-24 hodin), potom pokračují bez nového čísla verze a bez opakování hotových dávek.
-Dočasné síťové chyby a HTTP 5xx mají omezené opakování, poté odklad.
-Neúplná, blokovaná nebo schématu neodpovídající odpověď nesmí povolit vydání.
-Bez klíče se běh s neznámými texty zastaví a uloží podklady k ručnímu posouzení.
-Nevydá potichu nepřeloženou aktualizaci. Nejasné texty také blokují vydání.
+Programové kontroly celých literálů, ASCII, printf parametrů, řídicích sekvencí,
+délek a otisků zdrojových souborů zůstávají zachované. Model vrací jen malé
+JSON dávky (nejvýše čtyři položky), nesmí přepisovat celé zdrojové soubory.
+Známé české diakritické znaky v překladech displeje se deterministicky převedou
+na ASCII; poznámky k vydání zůstávají s diakritikou. Technické názvy a klíče
+souborových formátů se nepřekládají. Nejasná klasifikace blokuje vydání.
 
-Model dostává pouze nové položky a kontext; nevrací celé upravené soubory.
-Před zápisem se kontrolují identita, otisk souboru, celé literály, escape sekvence,
-pořadí printf parametrů, ASCII a maximální délka. Funkční merge konflikty,
-přejmenování nebo odstranění lokálně upravených souborů vyžadují posouzení;
-neřeší se plošným upřednostněním jedné strany.
+Hotové odpovědi se ukládají do `model-cache.json` podle přesného modelu,
+runtime, vstupu i schématu; překladová paměť v `memory.json` se zachovává.
+Pokud pozdější dávka selže, už ověřené odpovědi se uloží do integrační větve.
+Dočasná nedostupnost runner-local modelu odloží kandidáta přes `deferred.json`;
+další plánovaný běh respektuje čas obnovení a nevytváří další verzi.
+Chybný SHA-256 modelu, neplatná/neúplná odpověď nebo porušené placeholdery
+nesmějí povolit publikaci nepřeloženého nebo neověřeného vydání.
+
+Workflow `check-local-model.yml` skutečně spustí váhy na CPU a ověří krátké
+české překlady, formátovaný text a odlišení UI od logů a serializovaných klíčů.
+Výsledek a čas běhu jsou uložené jako diagnostický artefakt. Tato kontrola
+není zárukou bezchybného překladu libovolného budoucího textu; nejasné nebo
+nevalidní výsledky vyžadují opravu před vydáním. První stažení a sestavení
+runtime může trvat několik minut; CPU je pomalejší než velké hostované modely.
 
 ## Distribuce a web
 
@@ -87,4 +93,3 @@ python -m unittest discover -s .github/tests -p 'test_*.py' -v
 Diagnostické artefakty patří vždy ke konkrétnímu ID a pokusu workflow. Síťové
 chyby se nezaměňují za stav „žádná aktualizace“. Koncept vydání lze doplnit,
 zveřejněné vydání zůstává při chybě webu dostupné.
-

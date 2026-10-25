@@ -12,7 +12,8 @@ permissions:
   contents: write
 jobs:
   translate:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
     outputs:
       sha: ${{ steps.notes.outputs.sha }}
     steps:
@@ -20,19 +21,13 @@ jobs:
         with:
           ref: ${{ inputs.source_sha }}
           fetch-depth: 0
+      - uses: ./.github/actions/setup-local-model
       - name: Nastavit autora
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
       - name: Přeložit a ověřit literály
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_TRANSLATION_MODEL: ${{ vars.GEMINI_TRANSLATION_MODEL || 'gemini-3.8-flash' }}
         run: python .github/scripts/donny/pipeline.py translate
       - name: Připravit české poznámky k vydání
         id: notes
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_TRANSLATION_MODEL: ${{ vars.GEMINI_TRANSLATION_MODEL || 'gemini-3.8-flash' }}
         run: python .github/scripts/donny/pipeline.py notes
-
