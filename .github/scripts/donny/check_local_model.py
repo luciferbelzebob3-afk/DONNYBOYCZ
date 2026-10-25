@@ -90,7 +90,7 @@ def main():
                 validate(original['source'], target, original['limit'])
                 if target == original['source']:
                     raise RuntimeError('Model ponechal novy UI text v anglictine.')
-            if not ('cten' in translated[0].lower() and any(x in translated[0].lower() for x in ('selh', 'chyb', 'nepoda'))):
+            if not ('cten' in translated[0].lower() and any(x in translated[0].lower() for x in ('selh', 'chyb', 'nepoda', 'nezdar', 'neuspes'))):
                 raise RuntimeError('Cesky vyznam chyboveho hlaseni neprosel kontrolou.')
             if not ('kod' in translated[1].lower() and any(x in translated[1].lower() for x in ('chybi', 'zadny', 'neni', 'bez'))):
                 raise RuntimeError('Cesky vyznam chybejiciho instalacniho kodu neprosel kontrolou.')

@@ -1,5 +1,9 @@
 name: Připravit lokální model na serveru GitHubu
 description: Model se stáhne a spustí až při prvním skutečném požadavku; žádné AI API klíče.
+outputs:
+  runtime-cache-hit:
+    description: Připravený runtime je již v cache.
+    value: ${{ steps.runtime.outputs.cache-hit }}
 runs:
   using: composite
   steps:
@@ -12,7 +16,8 @@ runs:
       shell: bash
       run: echo "LOCAL_MODEL_ASSETS=$RUNNER_TEMP/donny-local-model" >> "$GITHUB_ENV"
     - name: Obnovit ověřený CPU runtime
-      uses: actions/cache@v4
+      id: runtime
+      uses: actions/cache/restore@v4
       with:
         path: |
           ${{ runner.temp }}/donny-local-model/llama.cpp/build/bin

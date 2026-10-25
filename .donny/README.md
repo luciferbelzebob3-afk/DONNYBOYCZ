@@ -64,10 +64,13 @@ Pokud pozdější dávka selže, už ověřené odpovědi se uloží do integra�
 Dočasná nedostupnost runner-local modelu odloží kandidáta přes `deferred.json`;
 další plánovaný běh respektuje čas obnovení a nevytváří další verzi.
 Chybný SHA-256 modelu, neplatná/neúplná odpověď nebo porušené placeholdery
-nesmějí povolit publikaci nepřeloženého nebo neověřeného vydání. Schéma výstupu
-váže délkový limit ke každému ID zvlášť. Nevalidní překlad dostane nejvýše jeden
-lokální opravný požadavek; text se nikdy násilně neořezává a všechny stejné
-kontroly se provedou i po opravě.
+nesmějí povolit publikaci nepřeloženého nebo neověřeného vydání. Model upravuje jen slovní části. Program sám zachovává původní printf
+parametry, C escape sekvence, okolní mezery a interpunkci a přeložené části
+sestaví zpět do celého literálu. Rozpočet slovních částí odečítá pevné technické
+znaky z povolené délky. Nevalidní překlad dostane nejvýše jeden lokální opravný
+požadavek; text se nikdy násilně neořezává a všechny stejné kontroly se provedou
+i po opravě. Do cache se ukládá až ověřený celek; ID zdroje ani technické značky
+model měnit nemůže.
 
 Workflow `check-local-model.yml` skutečně spustí váhy na CPU a ověří krátké
 české překlady, formátovaný text a odlišení UI od logů a serializovaných klíčů.

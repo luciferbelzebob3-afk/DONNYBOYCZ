@@ -31,8 +31,31 @@ jobs:
       - name: Ověřit programové kontroly
         run: python -m unittest discover -s .github/tests -p 'test_*.py' -v
       - uses: ./.github/actions/setup-local-model
+        id: local-model
       - name: Skutečný překlad a analýza bez externí inference
         run: python .github/scripts/donny/check_local_model.py
+      - name: Zjistit připravenost runtime pro cache
+        if: always()
+        id: runtime-ready
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          root = Path(os.environ.get('LOCAL_MODEL_ASSETS', '/tmp/not-prepared'))
+          stamp = root / 'runtime-commit.txt'
+          lock = json.loads(Path('.donny/local-model.lock.json').read_text())
+          ready = (root / 'llama.cpp/build/bin/llama-server').is_file() and stamp.is_file() and stamp.read_text().strip() == lock['runtime_commit']
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as file:
+              file.write('ready=' + str(ready).lower() + '\n')
+          PY
+      - name: Uložit sestavený runtime i při chybě překladu
+        if: always() && steps.runtime-ready.outputs.ready == 'true' && steps.local-model.outputs.runtime-cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ${{ runner.temp }}/donny-local-model/llama.cpp/build/bin
+            ${{ runner.temp }}/donny-local-model/runtime-commit.txt
+          key: donny-llama-cpu-ubuntu24-x64-v1-620d2225cc436ab0b001e3200e590e3b286ef9ab
       - name: Uchovat výsledek a diagnostiku
         if: always()
         uses: actions/upload-artifact@v4

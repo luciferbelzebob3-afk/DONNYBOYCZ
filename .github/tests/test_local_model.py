@@ -69,6 +69,17 @@ class LocalModelTests(unittest.TestCase):
         self.assertEqual(local.ascii_czech('"Ulož číslo: %lu\\n"'),'"Uloz cislo: %lu\\n"')
         self.assertEqual(local.ascii_czech('"✓"'),'"✓"')
 
+    def test_program_preserves_format_and_controls_without_model_reproduction(self):
+        plan=local.literal_plan({'id':'a','source':'"File %s not found\\r\\n"','limit':32})
+        self.assertEqual(plan['fragments'],['File','not found'])
+        self.assertEqual(local.render_literal(plan,['Soubor','nenalezen']),'"Soubor %s nenalezen\\r\\n"')
+        with self.assertRaises(ValueError):local.render_literal(plan,['Soubor %u','nenalezen'])
+
+    def test_escaped_quotes_and_trailing_punctuation_stay_fixed(self):
+        plan=local.literal_plan({'id':'a','source':'"Message: \\\"Hello\\\"!"','limit':48})
+        self.assertEqual(plan['fragments'],['Message','Hello'])
+        self.assertEqual(local.render_literal(plan,['Zprava','Ahoj']),'"Zprava: \\\"Ahoj\\\"!"')
+
     def test_per_item_character_budgets_are_enforced(self):
         schema=array_schema({'id':{'type':'string'},'translation':{'type':'string'}})
         bound=local.bounded_schema([{'id':'a','source':'"Save"','limit':6},
@@ -81,8 +92,8 @@ class LocalModelTests(unittest.TestCase):
         data=[{'id':'a','source':'"Value: %lu\\n"','limit':24}]
         schema=array_schema({'id':{'type':'string'},'translation':{'type':'string'}})
         opener=Mock()
-        opener.open.side_effect=[response({'items':[{'id':'a','translation':'"Hodnota: %u\\n"'}]}),
-                                 response({'items':[{'id':'a','translation':'"Hodnota: %lu\\n"'}]})]
+        opener.open.side_effect=[response({'items':[{'id':'a','parts':['Hodnota %u']}]}),
+                                 response({'items':[{'id':'a','parts':['Hodnota']}]})]
         with patch.object(local,'ensure_server',return_value=('http://127.0.0.1:8765/v1/chat/completions',self.config)),patch.object(local.urllib.request,'build_opener',return_value=opener):
             answer=local.model_json('translate',data,schema)
             self.assertEqual(answer['items'][0]['translation'],'"Hodnota: %lu\\n"')
@@ -92,8 +103,8 @@ class LocalModelTests(unittest.TestCase):
         data=[{'id':'a','source':'"Value: %lu\\n"','limit':24}]
         schema=array_schema({'id':{'type':'string'},'translation':{'type':'string'}})
         opener=Mock()
-        opener.open.side_effect=[response({'items':[{'id':'a','translation':'"Hodnota: %u\\n"'}]}),
-                                 response({'items':[{'id':'a','translation':'"Hodnota: %u\\n"'}]})]
+        opener.open.side_effect=[response({'items':[{'id':'a','parts':['Hodnota %u']}]}),
+                                 response({'items':[{'id':'a','parts':['Hodnota %u']}]})]
         with patch.object(local,'ensure_server',return_value=('http://127.0.0.1:8765/v1/chat/completions',self.config)),patch.object(local.urllib.request,'build_opener',return_value=opener):
             with self.assertRaises(RuntimeError):local.model_json('translate',data,schema)
             self.assertEqual(opener.open.call_count,2)
