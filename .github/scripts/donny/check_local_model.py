@@ -117,6 +117,8 @@ def main():
             if '"Write failed"' not in after or '"Protocol"' not in after:
                 raise RuntimeError('Aplikace prekladu zasahla log nebo formatovy klic.')
             translated = [x['literal'] for x in literals(after)[:3]]
+            report['pipeline_fixture'] = dict(translations=translated, technical_code_unchanged=True,
+                                               git_writes=False)
             for original, target in zip(entries, translated):
                 validate(original['source'], target, original['limit'])
                 if target == original['source']:
