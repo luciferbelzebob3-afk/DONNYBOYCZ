@@ -70,7 +70,35 @@ jobs:
           GEMINI_TRANSLATION_MODEL: ${{ vars.GEMINI_TRANSLATION_MODEL || 'gemini-3.8-flash' }}
         run: |
           python - <<'PY'
-          import os, sys, tempfile
+          import os, sys, tempfile, io, json, urllib.request, urllib.error
+          original_urlopen = urllib.request.urlopen
+          def diagnostic_urlopen(request, *args, **kwargs):
+              kwargs['timeout'] = min(kwargs.get('timeout', 20), 20)
+              try:
+                  return original_urlopen(request, *args, **kwargs)
+              except urllib.error.HTTPError as error:
+                  raw = error.read()
+                  status = 'UNKNOWN'
+                  cause = 'Přesná příčina není v rozpoznaném formátu.'
+                  try:
+                      detail = json.loads(raw).get('error', {})
+                      candidate = detail.get('status')
+                      if candidate in ('UNAVAILABLE','RESOURCE_EXHAUSTED','INVALID_ARGUMENT','PERMISSION_DENIED','NOT_FOUND','INTERNAL','UNAUTHENTICATED'):
+                          status = candidate
+                      message = str(detail.get('message','')).lower()
+                      if any(word in message for word in ('overloaded','high demand','capacity','busy')):
+                          cause = 'Google hlásí přetížení nebo nedostatek kapacity modelu.'
+                      elif any(word in message for word in ('quota','rate limit','billing','credit')):
+                          cause = 'Google hlásí kvótu, rychlostní limit nebo omezení fakturace.'
+                      elif 'not supported' in message or 'not found' in message:
+                          cause = 'Google hlásí nepodporovaný nebo nenalezený model či požadavek.'
+                      elif 'temporarily unavailable' in message or 'try again later' in message:
+                          cause = 'Google hlásí dočasnou nedostupnost služby.'
+                  except (ValueError, AttributeError):
+                      pass
+                  print('Diagnostika Gemini: HTTP ' + str(error.code) + '; stav ' + status + '; ' + cause, flush=True)
+                  raise urllib.error.HTTPError(error.url, error.code, 'Gemini API request failed', error.headers, io.BytesIO(raw)) from None
+          urllib.request.urlopen = diagnostic_urlopen
           sys.path.insert(0, '.github/scripts/donny')
           from localization import model_json, ModelDeferred
           schema = {'type':'object','properties':{'ok':{'type':'boolean'}},'required':['ok'],'additionalProperties':False}
