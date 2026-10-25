@@ -34,8 +34,10 @@ kandidát zůstane zachován pro novou integraci a ověření.
 
 Již zkontrolované texty a překladová paměť nepotřebují model ani API klíč.
 Nové neznámé texty používají Gemini a secret `GEMINI_API_KEY`. Volitelná
-repository variable `GEMINI_TRANSLATION_MODEL` dovoluje `gemini-2.5-flash`
-(výchozí) nebo `gemini-2.5-flash-lite`, oba s dokumentovaným bezplatným tarifem.
+repository variable `GEMINI_TRANSLATION_MODEL` používá výchozí `gemini-3.8-flash`
+s dokumentovaným bezplatným tarifem. Starší `gemini-2.5-flash` a
+`gemini-2.5-flash-lite` zůstávají povolené pro existující Google projekty;
+Google je novým projektům omezuje. Automatický přechod mezi modely při kvótě neprobíhá.
 OpenAI ani jiná placená záloha se nevolá.
 
 Vytvoř klíč na https://aistudio.google.com/api-keys v projektu **bez zapnuté

@@ -46,7 +46,7 @@ jobs:
         if: steps.key.outputs.available == 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_TRANSLATION_MODEL: ${{ vars.GEMINI_TRANSLATION_MODEL || 'gemini-2.5-flash' }}
+          GEMINI_TRANSLATION_MODEL: ${{ vars.GEMINI_TRANSLATION_MODEL || 'gemini-3.8-flash' }}
         run: |
           python - <<'PY'
           import os, sys, tempfile

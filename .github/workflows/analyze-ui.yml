@@ -28,7 +28,7 @@ jobs:
         id: analyze
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_TRANSLATION_MODEL: ${{ vars.GEMINI_TRANSLATION_MODEL || 'gemini-2.5-flash' }}
+          GEMINI_TRANSLATION_MODEL: ${{ vars.GEMINI_TRANSLATION_MODEL || 'gemini-3.8-flash' }}
         run: python .github/scripts/donny/pipeline.py analyze
       - name: Uchovat analýzu i při chybě
         if: always()

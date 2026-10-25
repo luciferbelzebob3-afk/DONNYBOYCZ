@@ -42,6 +42,15 @@ class GeminiTests(unittest.TestCase):
             self.assertEqual(urlopen.call_count,1)
         self.assertNotIn('fake-secret',self.cache.read_text())
 
+    def test_default_model_supports_new_google_projects(self):
+        with patch.dict(os.environ, {}, clear=True):
+            os.environ.update(GEMINI_API_KEY='fake-secret', GEMINI_CACHE_PATH=str(self.cache))
+            with patch.object(loc.urllib.request,'urlopen',return_value=response()) as urlopen:
+                self.assertEqual(loc.model_json('check',[],SCHEMA),{'ok':True})
+                req=urlopen.call_args.args[0]
+                self.assertIn('/models/gemini-3.8-flash:generateContent',req.full_url)
+                self.assertNotIn('thinkingConfig',json.loads(req.data)['generationConfig'])
+
     def test_openai_key_is_never_used_as_fallback(self):
         with patch.dict(os.environ,{'GEMINI_API_KEY':'','OPENAI_API_KEY':'paid-key'}),patch.object(loc.urllib.request,'urlopen') as urlopen:
             with self.assertRaisesRegex(RuntimeError,'GEMINI_API_KEY'):loc.model_json('check',[],SCHEMA)
