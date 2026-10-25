@@ -171,7 +171,12 @@ def translate_literals(instruction, data, schema):
             except (ValueError, TypeError, KeyError):
                 return False
         answer = model_json(
-            'Translate EACH fragments list to short natural Czech UI words WITHOUT diacritics. '
+            'You are a professional English-to-Czech firmware translator. '
+            'Translate EACH fragments list to concise, grammatically correct native Czech UI text. '
+            'Write normal Czech WITH diacritics; the program removes accents afterward. '
+            'Prefer conventional UI wording. Examples: "Access denied" -> "Přístup odepřen"; '
+            '"Connection lost" -> "Spojení přerušeno"; "Missing password" -> "Chybí heslo"; '
+            '"Enter PIN" -> "Zadejte PIN". An error message must remain an error, never become an instruction. '
             'Return the same number of parts in the same order and exact ids. '
             'The TOTAL characters across all parts of one item must fit total_character_budget. '
             'Return plain human text, NOT quoted C literals. Do NOT add printf placeholders, percent signs, '

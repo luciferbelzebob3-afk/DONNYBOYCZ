@@ -16,7 +16,7 @@ import pipeline
 
 def main():
     started = time.monotonic()
-    report = {'model': lock_config(), 'passed': False, 'translations': [], 'classification': []}
+    report = {'model': lock_config(), 'passed': False, 'translations': [], 'classification': [], 'quality_errors': []}
     output = Path(os.environ.get('LOCAL_MODEL_REPORT', '/tmp/donny-local-model-report.json'))
     try:
         samples = [
@@ -94,11 +94,11 @@ def main():
                 if target == original['source']:
                     raise RuntimeError('Model ponechal novy UI text v anglictine.')
             if not (any(x in translated[0].lower() for x in ('cten', 'prec')) and any(x in translated[0].lower() for x in ('selh', 'chyb', 'nepoda', 'nezdar', 'neuspes', 'neslo'))):
-                raise RuntimeError('Cesky vyznam chyboveho hlaseni neprosel kontrolou.')
+                report['quality_errors'].append('Cesky vyznam chyboveho hlaseni neprosel kontrolou.')
             if not ('kod' in translated[1].lower() and any(x in translated[1].lower() for x in ('chybi', 'zadny', 'neni', 'bez'))):
-                raise RuntimeError('Cesky vyznam chybejiciho instalacniho kodu neprosel kontrolou.')
+                report['quality_errors'].append('Cesky vyznam chybejiciho instalacniho kodu neprosel kontrolou.')
             if not ('IC' in translated[2] and any(x in translated[2].lower() for x in ('zadej', 'vloz', 'zadat'))):
-                raise RuntimeError('Cesky vyznam hlavicky hex vstupu neprosel kontrolou.')
+                report['quality_errors'].append('Cesky vyznam hlavicky hex vstupu neprosel kontrolou.')
             translated_report = json.loads((root / 'translation-report.json').read_text())
             if translated_report['translated'] != 3 or translated_report['errors']:
                 raise RuntimeError('Pipeline nevyhodnotila spravne pocet prekladu.')
@@ -140,6 +140,8 @@ def main():
                 raise RuntimeError('Analyzator smi pouze cist zdroj.')
             report['analyzer_fixture'] = dict(ui_count=1, technical_count=len(analyzed) - 1,
                                              limit=visible[0]['limit'], source_unchanged=True, git_writes=False)
+        if report['quality_errors']:
+            raise RuntimeError('; '.join(report['quality_errors']))
         report['passed'] = True
         print('Skutecne CPU overeni uspelo: ceske texty, printf, escape sekvence a rozliseni UI/technickych retezcu.', flush=True)
     finally:
