@@ -58,37 +58,6 @@ def main():
         expected = {'visible-menu': 'ui', 'internal-log': 'technical', 'file-key': 'technical', 'serialized-type': 'technical'}
         if len(classified) != len(expected) or kinds != expected:
             raise RuntimeError('Model nedokazal oddelit UI od logu a serializovanych hodnot.')
-        # Exercise the actual analyzer contract too, including a proven buffer limit.
-        with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)
-            source = root / 'analysis_scene.c'
-            after = ('void draw(void) { char text[24]; '
-                     'snprintf(text, sizeof(text), "%s", "Read failed"); '
-                     'popup_set_text(popup, text, 0, 0, AlignLeft, AlignTop); '
-                     'FURI_LOG_E(TAG, "Write failed"); '
-                     'flipper_format_write_string_cstr(ff, "Protocol", protocol_name); }\n')
-            source.write_text(after)
-            (root / 'pending.json').write_text(json.dumps(dict(previous_upstream_sha='old-fixture',
-                                                              upstream_sha='new-fixture')))
-            def read_fixture(ref, path):
-                return after if ref == 'new-fixture' else ''
-            def git_fixture(*args, **kwargs):
-                return str(source) if args[0] == 'diff' else 'fixture-source'
-            with patch.object(pipeline, 'ROOT', root), patch.object(pipeline, 'read', side_effect=read_fixture), \
-                    patch.object(pipeline, 'git', side_effect=git_fixture), \
-                    patch.object(pipeline, 'commit', return_value='analysis-fixture-only'), \
-                    patch.object(pipeline, 'push_candidate'), patch.object(pipeline, 'output'):
-                pipeline.analyze()
-            analyzed = json.loads((root / 'analysis.json').read_text())['items']
-            visible = [item for item in analyzed if item['kind'] == 'ui']
-            if len(visible) != 1 or visible[0]['source'] != '"Read failed"' or not 0 < visible[0]['limit'] <= 23:
-                raise RuntimeError('Analyzator neoveril UI text s prokazatelnym limitem bufferu.')
-            if any(item['kind'] != 'technical' for item in analyzed if item['source'] != '"Read failed"'):
-                raise RuntimeError('Analyzator zamenuje technicky format/log/souborovy klic za UI.')
-            if source.read_text() != after:
-                raise RuntimeError('Analyzator smi pouze cist zdroj.')
-            report['analyzer_fixture'] = dict(ui_count=1, technical_count=len(analyzed) - 1,
-                                             limit=visible[0]['limit'], source_unchanged=True, git_writes=False)
         # Exercise the real guarded translation stage with real inference, but a
         # disposable source fixture and disabled Git writes (job has read-only access).
         with tempfile.TemporaryDirectory() as folder:
@@ -134,6 +103,42 @@ def main():
                 raise RuntimeError('Pipeline nevyhodnotila spravne pocet prekladu.')
             report['pipeline_fixture'] = dict(translations=translated, technical_code_unchanged=True,
                                                git_writes=False, report=translated_report)
+        # Exercise the actual analyzer contract too, including a proven buffer limit.
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            source = root / 'analysis_scene.c'
+            after = ('void draw(void) { char text[24]; '
+                     'snprintf(text, sizeof(text), "%s", "Read failed"); '
+                     'popup_set_text(popup, text, 0, 0, AlignLeft, AlignTop); '
+                     'FURI_LOG_E(TAG, "Write failed"); '
+                     'flipper_format_write_string_cstr(ff, "Protocol", protocol_name); }\n')
+            source.write_text(after)
+            (root / 'pending.json').write_text(json.dumps(dict(previous_upstream_sha='old-fixture',
+                                                              upstream_sha='new-fixture')))
+            def read_fixture(ref, path):
+                return after if ref == 'new-fixture' else ''
+            def git_fixture(*args, **kwargs):
+                return str(source) if args[0] == 'diff' else 'fixture-source'
+            with patch.object(pipeline, 'ROOT', root), patch.object(pipeline, 'read', side_effect=read_fixture), \
+                    patch.object(pipeline, 'git', side_effect=git_fixture), \
+                    patch.object(pipeline, 'commit', return_value='analysis-fixture-only'), \
+                    patch.object(pipeline, 'push_candidate'), patch.object(pipeline, 'output'):
+                try:
+                    pipeline.analyze()
+                finally:
+                    analysis_file = root / 'analysis.json'
+                    if analysis_file.exists():
+                        report['analyzer_output'] = json.loads(analysis_file.read_text())['items']
+            analyzed = json.loads((root / 'analysis.json').read_text())['items']
+            visible = [item for item in analyzed if item['kind'] == 'ui']
+            if len(visible) != 1 or visible[0]['source'] != '"Read failed"' or not 0 < visible[0]['limit'] <= 23:
+                raise RuntimeError('Analyzator neoveril UI text s prokazatelnym limitem bufferu.')
+            if any(item['kind'] != 'technical' for item in analyzed if item['source'] != '"Read failed"'):
+                raise RuntimeError('Analyzator zamenuje technicky format/log/souborovy klic za UI.')
+            if source.read_text() != after:
+                raise RuntimeError('Analyzator smi pouze cist zdroj.')
+            report['analyzer_fixture'] = dict(ui_count=1, technical_count=len(analyzed) - 1,
+                                             limit=visible[0]['limit'], source_unchanged=True, git_writes=False)
         report['passed'] = True
         print('Skutecne CPU overeni uspelo: ceske texty, printf, escape sekvence a rozliseni UI/technickych retezcu.', flush=True)
     finally:
