@@ -16,10 +16,10 @@ DEBUG = 1
 
 # Suffix to add to files when building distribution
 # If OS environment has DIST_SUFFIX set, it will be used instead
-DIST_SUFFIX = "1.0.0"
+DIST_SUFFIX = "1.0.3"
 
 # Version string embedded in the updater package
-UPDATE_VERSION_STRING = "1.0.0"
+UPDATE_VERSION_STRING = "1.0.3"
 
 # Coprocessor firmware
 COPRO_OB_DATA = "scripts/ob.data"

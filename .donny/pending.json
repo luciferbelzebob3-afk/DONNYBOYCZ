@@ -1,6 +1,6 @@
 {
-  "version": "1.0.2",
-  "base_sha": "f87e24de94c63e294ddc850650959e9edb804de6",
+  "version": "1.0.3",
+  "base_sha": "f77fa39dd26666a9b29a1da55a4e15834fcac894",
   "upstream_sha": "2f62b3ab5d767c41e09ab17c6b5fbd175c8c4c85",
   "previous_upstream_sha": "adcdc81b50cbc0e4927c08fc15a4fe9f444d1688",
   "upstream_tag": "unlshd-094",
@@ -141,5 +141,8 @@
     "Merge branch 'dev' into release",
     "Merge branch 'dev' into release",
     "Merge branch 'dev' into release"
-  ]
+  ],
+  "theme": "DARK SIGNAL",
+  "theme_commit": "f77fa39dd26666a9b29a1da55a4e15834fcac894",
+  "previous_version": "1.0.2"
 }

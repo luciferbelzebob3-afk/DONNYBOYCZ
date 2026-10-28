@@ -1,0 +1,136 @@
+name: DONNY BOY CZ – vydat vlastní motiv
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [dev]
+    paths: ['.donny/theme-release.json']
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: donny-boy-release
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-22.04
+    outputs:
+      version: ${{ steps.check.outputs.version }}
+      published: ${{ steps.check.outputs.published }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - name: Ověřit publikační logiku na Linuxu
+        run: python -m unittest discover -s .github/tests -p 'test_*.py' -v
+      - name: Ověřit nové číslo a neměnný zdroj
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json, os, re, subprocess, urllib.request, urllib.error
+          cfg=json.load(open('.donny/theme-release.json'))
+          pending=json.load(open('.donny/pending.json'))
+          v=cfg['version']
+          assert re.fullmatch(r'\d+\.\d+\.\d+',v)
+          assert pending['version']==v and pending['theme']=='DARK SIGNAL'
+          assert cfg['previous_version']=='.'.join(map(str,(*map(int,v.split('.')[:2]),int(v.split('.')[2])-1)))
+          assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==os.environ['GITHUB_SHA']
+          root='https://api.github.com/repos/'+os.environ['GITHUB_REPOSITORY']
+          def api(path):
+              req=urllib.request.Request(root+path,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})
+              try:
+                  with urllib.request.urlopen(req,timeout=30) as r:return json.load(r)
+              except urllib.error.HTTPError as e:
+                  if e.code==404:return None
+                  raise
+          release=api('/releases/tags/v'+v)
+          tag=api('/git/ref/tags/v'+v)
+          published=bool(release and not release['draft'])
+          if tag:assert tag['object']['sha']==os.environ['GITHUB_SHA'],'Existujici tag ukazuje na jiny zdroj'
+          if release:assert release['target_commitish']==os.environ['GITHUB_SHA'],'Existujici vydani ma jiny zdroj'
+          if not published:
+              latest=api('/releases/latest')
+              assert latest and latest['tag_name']=='v'+cfg['previous_version'],'Cislo vydani uz neni aktualni'
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:
+              f.write('version='+v+'\npublished='+str(published).lower()+'\n')
+          PY
+
+  build:
+    needs: prepare
+    if: needs.prepare.outputs.published != 'true'
+    uses: ./.github/workflows/build-release.yml
+    with:
+      source_sha: ${{ github.sha }}
+      version: ${{ needs.prepare.outputs.version }}
+
+  publish:
+    needs: [prepare, build]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build.outputs.artifact_name }}
+          path: release-assets
+      - name: Ověřit přenesené balíčky
+        env:
+          EXPECTED_VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          (cd release-assets && sha256sum --check SHA256SUMS.txt)
+          python - <<'PY'
+          import json,os
+          m=json.load(open('release-assets/sestaveni.json'))
+          assert m['source_sha']==os.environ['GITHUB_SHA']
+          assert m['version']==os.environ['EXPECTED_VERSION']
+          assert m['upstream']['theme']=='DARK SIGNAL'
+          PY
+      - name: Publikovat vydání s motivem DARK SIGNAL
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          python .github/scripts/donny/pipeline.py publish
+          gh release edit "v$VERSION" --repo "$GITHUB_REPOSITORY" --title "DONNY BOY CZ $VERSION – DARK SIGNAL"
+
+  website:
+    needs: [prepare, publish]
+    if: >-
+      always() && needs.prepare.result == 'success' &&
+      (needs.publish.result == 'success' || needs.prepare.outputs.published == 'true')
+    runs-on: ubuntu-22.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - name: Nastavit autora aktualizace webu
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - name: Aktualizovat README, web a metadata vydání
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python .github/scripts/donny/pipeline.py web
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - name: Nasadit projektový web
+        id: deploy
+        uses: actions/deploy-pages@v4
+      - name: Ověřit živý web a skutečné soubory ke stažení
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python .github/scripts/donny/pipeline.py verify_web

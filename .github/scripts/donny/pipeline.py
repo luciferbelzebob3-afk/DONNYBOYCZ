@@ -461,6 +461,9 @@ def package():
             if archive.testzip():
                 raise RuntimeError('Poskozeny SDK archiv')
         shutil.copy2(sdk, assets / sdk.name)
+    if p.get('theme') == 'DARK SIGNAL':
+        shutil.copy2('site/assets/dark-signal-preview.png', assets / 'DARK-SIGNAL-nahled.png')
+        shutil.copy2('documentation/DarkSignal.md', assets / 'DARK-SIGNAL-instalace.md')
     save(assets / 'sestaveni.json', dict(version=v, source_sha=source, upstream=p,
         translation=load(ROOT / 'translation-report.json'), run_id=os.environ.get('GITHUB_RUN_ID')))
     shutil.make_archive(str(assets / f'DONNY-BOY-{v}-firmware-package'), 'zip', dist)
@@ -533,6 +536,9 @@ def web():
                     release_url=release['html_url'], published_at=release['published_at'],
                     assets=[dict(name=a['name'], url=a['browser_download_url'], size=a['size']) for a in release['assets']],
                     physical_test=False)
+    if p.get('theme'):
+        metadata['theme'] = p['theme']
+        metadata['theme_in_firmware'] = True
     save('site/release.json', metadata)
     # Explicit template slots keep historical release references intact.
     for template, destination in [('README.md.in', 'README.md'), ('index.html.in', 'site/index.html')]:

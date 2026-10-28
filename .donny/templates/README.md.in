@@ -1,7 +1,7 @@
 <div align="center">
 
 # ☠ DONNY BOY {{VERSION}}
-### ČESKÝ FIRMWARE · FLIPPER ZERO
+### DARK SIGNAL · ČESKÝ FIRMWARE · FLIPPER ZERO
 
 Základ aktuálního vydání: **{{UPSTREAM_TAG}}**. [Strojově čitelná metadata](site/release.json).
 
@@ -48,6 +48,21 @@ Projekt je určen lidem, kteří si chtějí své zařízení lépe přizpůsobi
 
 **DONNY BOY {{VERSION}} je aktualizované sestavení projektu.** Kompilace a distribuční soubory byly ověřeny. Fyzický test aktuální verze zatím neproběhl; dřívější test bez pozorovaných chyb se týkal verze 1.0.1. Historická vydání zůstávají dostupná v seznamu vydání.
 
+## Výchozí motiv DARK SIGNAL
+
+**Od verze 1.0.3 má DONNY BOY motiv DARK SIGNAL přímo v instalačním firmwaru.**
+Po aktualizaci se zobrazí nové vodorovné menu, vlastní ikony, pixelová postava
+u terminálu, zámek s DB a hodinami i tmavé nabídky nastavení. Není potřeba
+ručně kopírovat motiv na SD kartu. Původní české texty a bezpečnostní funkce zůstávají zachované.
+
+![DARK SIGNAL — nativní náhled plochy, menu a zámku](site/assets/dark-signal-preview.png)
+
+Náhled pochází z nativního rastru a rendereru, není fotografií fyzického zařízení.
+[Instalace, nastavení a návrat ke starší verzi](documentation/DarkSignal.md).
+
+Pro běžnou instalaci stáhni **[flipper-z-f7-update-{{VERSION}}.tgz](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v{{VERSION}}/flipper-z-f7-update-{{VERSION}}.tgz)**
+přes stránku vydání a použij qFlipper. Před aktualizací zálohuj i nastavení plochy.
+
 ## Hlavní cíle
 
 - **Čeština na prvním místě** — postupně překládat uživatelské texty a hlášky do češtiny.
@@ -68,7 +83,7 @@ V části **Soubory ke stažení** vyber soubor firmwaru nebo balíček sestaven
 
 ## Aktualizace DONNY BOY {{VERSION}}
 
-- Nové vydání projektu DONNY BOY pro Flipper Zero.
+- Výchozí motiv **DARK SIGNAL**: nové menu, ikony, animovaná plocha, zámek a tmavé nastavení.
 - **Ověření:** kompilace a distribuční soubory byly ověřeny automaticky. Nová verze zatím nebyla fyzicky otestována. Fyzický test bez pozorovaných chyb se týkal starší verze 1.0.1.
 - Test na jednom zařízení nenahrazuje ověření všech funkcí, příslušenství a konfigurací.
 - **[Otevřít vydání {{VERSION}}]({{RELEASE_URL}})**
@@ -202,7 +217,7 @@ Tento fork je nezávislý komunitní projekt. Ochranné známky a názvy přísl
 
 <div align="center">
 
-**DONNY BOY 1.0.0 — český směr pro Flipper Zero.**
+**DONNY BOY {{VERSION}} — DARK SIGNAL pro Flipper Zero.**
 
 `ZŮSTAŇ ZVĚDAVÝ · TESTUJ ODPOVĚDNĚ · PODPORUJ OTEVŘENÝ KÓD`
 

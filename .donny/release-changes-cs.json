@@ -1,7 +1,9 @@
 [
-  "Převzaté změny od společného základu: podpora protokolu Texkom v NFC, včetně čtení, emulace a generování dat.",
-  "Úpravy protokolu FeliCa, práce s NFC a souvisejících testů.",
-  "Rozšíření Nice O-Code o externí rádiový modul, rozlišení zachycených rámců a přípravu nového ovladače.",
-  "Úpravy zadávání instalačního kódu v Sub-GHz a zpracování podporovaných protokolů.",
-  "Aktualizace rozhraní API a submodulu SubGHz Remote."
+  "Výchozí motiv DARK SIGNAL je zabudovaný přímo do firmwaru; nevyžaduje ruční instalaci asset packu.",
+  "Nové vodorovné hlavní menu s velkou ikonou, bočními náhledy a vlastními symboly aplikací.",
+  "Vestavěná pixelová animace postavy DONNY BOY u terminálu a jemné bliknutí antény.",
+  "Zamykací obrazovka s monogramem DB, skutečnými hodinami a původním mechanismem odemčení/PIN.",
+  "Tmavé nabídky nastavení a dialogy, přehledný stavový řádek a jednorázové nastavení nového vzhledu.",
+  "Zachované české texty, uživatelské zkratky a chování automatického zámku; základ zůstává Unleashed unlshd-094.",
+  "Před návratem na firmware se starší verzí nastavení plochy obnovte její zálohu; podrobnosti jsou v dokumentaci DARK SIGNAL."
 ]
