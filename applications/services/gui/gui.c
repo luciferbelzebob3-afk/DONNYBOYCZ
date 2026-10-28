@@ -1,4 +1,5 @@
 #include "gui_i.h"
+#include "modules/dark_signal.h"
 #include <assets_icons.h>
 
 #define TAG "GuiSrv"
@@ -80,18 +81,15 @@ static void gui_redraw_status_bar(Gui* gui, bool need_attention) {
     canvas_frame_set(
         gui->canvas, GUI_STATUS_BAR_X, GUI_STATUS_BAR_Y, GUI_DISPLAY_WIDTH, GUI_STATUS_BAR_HEIGHT);
 
-    /* for support black theme - paint white area and
-     * draw icon with transparent white color
-     */
     canvas_set_color(gui->canvas, ColorWhite);
-    canvas_draw_box(gui->canvas, 1, 1, 9, 7);
-    canvas_draw_box(gui->canvas, 7, 3, 58, 6);
-    canvas_draw_box(gui->canvas, 61, 1, 32, 7);
-    canvas_draw_box(gui->canvas, 89, 3, 38, 6);
+    canvas_draw_box(gui->canvas, 0, 0, GUI_DISPLAY_WIDTH, GUI_STATUS_BAR_HEIGHT);
     canvas_set_color(gui->canvas, ColorBlack);
-    canvas_set_bitmap_mode(gui->canvas, 1);
-    canvas_draw_icon(gui->canvas, 0, 0, &I_Background_128x11);
-    canvas_set_bitmap_mode(gui->canvas, 0);
+    canvas_draw_line(
+        gui->canvas,
+        1,
+        GUI_STATUS_BAR_HEIGHT - 1,
+        GUI_DISPLAY_WIDTH - 2,
+        GUI_STATUS_BAR_HEIGHT - 1);
 
     // Right side
     uint8_t x = GUI_DISPLAY_WIDTH - 1;
@@ -122,31 +120,6 @@ static void gui_redraw_status_bar(Gui* gui, bool need_attention) {
         }
         ViewPortArray_next(it);
     }
-    // Draw frame around icons on the right
-    if(right_used) {
-        canvas_frame_set(
-            gui->canvas,
-            GUI_DISPLAY_WIDTH - 3 - right_used,
-            GUI_STATUS_BAR_Y,
-            right_used + 3,
-            GUI_STATUS_BAR_HEIGHT);
-        canvas_set_color(gui->canvas, ColorBlack);
-        canvas_draw_rframe(
-            gui->canvas, 0, 0, canvas_width(gui->canvas), canvas_height(gui->canvas), 1);
-        canvas_draw_line(
-            gui->canvas,
-            canvas_width(gui->canvas) - 2,
-            1,
-            canvas_width(gui->canvas) - 2,
-            canvas_height(gui->canvas) - 2);
-        canvas_draw_line(
-            gui->canvas,
-            1,
-            canvas_height(gui->canvas) - 2,
-            canvas_width(gui->canvas) - 2,
-            canvas_height(gui->canvas) - 2);
-    }
-
     // Left side
     x = 2;
     ViewPortArray_it(it, gui->layers[GuiLayerStatusBarLeft]);
@@ -197,24 +170,9 @@ static void gui_redraw_status_bar(Gui* gui, bool need_attention) {
         left_used += (width + 2);
         x += (width + 2);
     }
-    // Draw frame around icons on the left
-    if(left_used) {
-        canvas_frame_set(gui->canvas, 0, 0, left_used + 3, GUI_STATUS_BAR_HEIGHT);
-        canvas_draw_rframe(
-            gui->canvas, 0, 0, canvas_width(gui->canvas), canvas_height(gui->canvas), 1);
-        canvas_draw_line(
-            gui->canvas,
-            canvas_width(gui->canvas) - 2,
-            1,
-            canvas_width(gui->canvas) - 2,
-            canvas_height(gui->canvas) - 2);
-        canvas_draw_line(
-            gui->canvas,
-            1,
-            canvas_height(gui->canvas) - 2,
-            canvas_width(gui->canvas) - 2,
-            canvas_height(gui->canvas) - 2);
-    }
+
+    canvas_frame_set(gui->canvas, 0, 0, GUI_DISPLAY_WIDTH, GUI_STATUS_BAR_HEIGHT);
+    dark_signal_invert(gui->canvas);
 }
 
 static bool gui_redraw_window(Gui* gui) {

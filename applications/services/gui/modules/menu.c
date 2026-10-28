@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "dark_signal.h"
 
 #include <gui/elements.h>
 #include <assets_icons.h>
@@ -40,15 +41,7 @@ static void menu_draw_callback(Canvas* canvas, void* _model) {
     } else if(model->style) {
         model->style->draw(canvas, model);
     } else {
-        for(size_t i = 0; i < 3; i++) {
-            const MenuItem* item =
-                &model->items[(model->position + model->count + i - 1) % model->count];
-            canvas_set_font(canvas, i == 1 ? FontPrimary : FontSecondary);
-            canvas_draw_icon_animation(canvas, 4, 3 + 22 * i, item->icon);
-            canvas_draw_str(canvas, 22, 14 + 22 * i, item->label);
-        }
-        elements_frame(canvas, 0, 21, 128 - 5, 21);
-        elements_scrollbar(canvas, model->position, model->count);
+        dark_signal_menu_draw(canvas, model);
     }
 }
 
@@ -80,16 +73,10 @@ static bool menu_process_move(Menu* menu, InputKey key) {
                     dropped = requested >= count;
                     menu_set_position(model, requested);
                 }
-            } else if(key == InputKeyUp || key == InputKeyDown) {
+            } else {
                 consumed = true;
                 if(model->position < model->count) {
-                    size_t position = model->position;
-                    if(key == InputKeyUp) {
-                        position = position ? position - 1 : model->count - 1;
-                    } else {
-                        position = (position + 1) % model->count;
-                    }
-                    menu_set_position(model, position);
+                    menu_set_position(model, dark_signal_menu_navigate(model, key));
                 }
             }
         },
@@ -139,15 +126,7 @@ static bool menu_input_callback(InputEvent* event, void* context) {
 
 static void menu_scroll_timer_callback(void* context) {
     Menu* menu = context;
-    with_view_model(
-        menu->view,
-        MenuModel * model,
-        {
-            if(model->style) {
-                model->scroll_counter++;
-            }
-        },
-        model->style != NULL);
+    with_view_model(menu->view, MenuModel * model, { model->scroll_counter++; }, true);
 }
 
 static void menu_enter(void* context) {

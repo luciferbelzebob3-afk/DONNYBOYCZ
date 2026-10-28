@@ -14,7 +14,7 @@
 
 #define TAG "AnimationManager"
 
-#define HARDCODED_ANIMATION_NAME   "L1_Tv_128x47"
+#define HARDCODED_ANIMATION_NAME   "DB_DarkSignal_128x51"
 #define NO_SD_ANIMATION_NAME       "L1_NoSd_128x49"
 #define BAD_BATTERY_ANIMATION_NAME "L1_BadBattery_128x47"
 
@@ -395,6 +395,11 @@ static StorageAnimation*
     if(animation_manager->dummy_mode) {
         return animation_storage_find_animation(HARDCODED_ANIMATION_NAME);
     }
+    /* Internal art keeps the installed theme available without SD resources.
+     * Blocking alerts and level-up handling still run before idle selection. */
+    StorageAnimation* themed = animation_storage_find_animation(HARDCODED_ANIMATION_NAME);
+    if(themed) return themed;
+
     StorageAnimationList_t animation_list;
     StorageAnimationList_init(animation_list);
     animation_storage_fill_animation_list(&animation_list);

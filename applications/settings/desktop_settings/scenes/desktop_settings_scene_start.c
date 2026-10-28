@@ -217,7 +217,7 @@ void desktop_settings_scene_start_on_enter(void* context) {
         }
     }
     variable_item_set_current_value_index(item, value_index);
-    const char* menu_style_text = "Vychozi";
+    const char* menu_style_text = "DARK SIGNAL";
     if(value_index) {
         menu_style_text = furi_string_get_cstr(app->menu_styles[value_index - 1].name);
     } else if(app->settings.menu_style[0]) {
@@ -231,11 +231,16 @@ void desktop_settings_scene_start_on_enter(void* context) {
 
     variable_item_list_add(variable_item_list, "Vesely rezim", 1, NULL, NULL);
 
-    variable_item_list_add(variable_item_list, "Oblibena aplikace - kratky stisk vlevo", 1, NULL, NULL);
-    variable_item_list_add(variable_item_list, "Oblibena aplikace - dlouhy stisk vlevo", 1, NULL, NULL);
-    variable_item_list_add(variable_item_list, "Oblibena aplikace - kratky stisk vpravo", 1, NULL, NULL);
-    variable_item_list_add(variable_item_list, "Oblibena aplikace - dlouhy stisk vpravo", 1, NULL, NULL);
-    variable_item_list_add(variable_item_list, "Oblibena aplikace - dlouhy stisk OK", 1, NULL, NULL);
+    variable_item_list_add(
+        variable_item_list, "Oblibena aplikace - kratky stisk vlevo", 1, NULL, NULL);
+    variable_item_list_add(
+        variable_item_list, "Oblibena aplikace - dlouhy stisk vlevo", 1, NULL, NULL);
+    variable_item_list_add(
+        variable_item_list, "Oblibena aplikace - kratky stisk vpravo", 1, NULL, NULL);
+    variable_item_list_add(
+        variable_item_list, "Oblibena aplikace - dlouhy stisk vpravo", 1, NULL, NULL);
+    variable_item_list_add(
+        variable_item_list, "Oblibena aplikace - dlouhy stisk OK", 1, NULL, NULL);
 
     variable_item_list_add(variable_item_list, "Dummy rezim - vlevo", 1, NULL, NULL);
     variable_item_list_add(variable_item_list, "Dummy rezim - dlouhy stisk vlevo", 1, NULL, NULL);

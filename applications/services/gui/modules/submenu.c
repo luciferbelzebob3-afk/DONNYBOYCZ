@@ -1,4 +1,5 @@
 #include "submenu.h"
+#include "dark_signal.h"
 
 #include <assets_icons.h>
 #include <gui/elements.h>
@@ -95,6 +96,7 @@ static void submenu_view_draw_callback(Canvas* canvas, void* _model) {
     if(!furi_string_empty(model->header)) {
         canvas_set_font(canvas, FontPrimary);
         canvas_draw_str(canvas, 4, 11, furi_string_get_cstr(model->header));
+        canvas_draw_line(canvas, 2, 14, canvas_width(canvas) - 3, 14);
     }
 
     canvas_set_font(canvas, FontSecondary);
@@ -130,12 +132,20 @@ static void submenu_view_draw_callback(Canvas* canvas, void* _model) {
                     &I_Lock_7x8);
             }
 
+            const char* row_label = furi_string_get_cstr(SubmenuItemArray_cref(it)->label);
+            dark_signal_settings_icon(
+                canvas, 3, y_offset + item_position * item_height + 3, row_label);
+            if(!is_locked) {
+                const int32_t cy = y_offset + item_position * item_height + 8;
+                canvas_draw_line(canvas, item_width - 8, cy - 2, item_width - 6, cy);
+                canvas_draw_line(canvas, item_width - 6, cy, item_width - 8, cy + 2);
+            }
             FuriString* disp_str = furi_string_alloc_set(SubmenuItemArray_cref(it)->label);
-            elements_string_fit_width(canvas, disp_str, item_width - (is_locked ? 21 : 11));
+            elements_string_fit_width(canvas, disp_str, item_width - 31);
 
             canvas_draw_str(
                 canvas,
-                6,
+                17,
                 y_offset + (item_position * item_height) + item_height - 4,
                 furi_string_get_cstr(disp_str));
 
@@ -171,6 +181,7 @@ static void submenu_view_draw_callback(Canvas* canvas, void* _model) {
             furi_string_get_cstr(
                 SubmenuItemArray_get(model->items, model->position)->locked_message));
     }
+    dark_signal_invert(canvas);
 }
 
 static bool submenu_view_input_callback(InputEvent* event, void* context) {

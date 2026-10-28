@@ -1,3 +1,4 @@
+#include "dark_signal.h"
 #include "dialog_ex.h"
 #include <gui/elements.h>
 #include <furi.h>
@@ -79,6 +80,7 @@ static void dialog_ex_view_draw_callback(Canvas* canvas, void* _model) {
     if(furi_string_size(model->right_text)) {
         elements_button_right(canvas, furi_string_get_cstr(model->right_text));
     }
+    dark_signal_invert(canvas);
 }
 
 static bool dialog_ex_view_input_callback(InputEvent* event, void* context) {

@@ -112,6 +112,7 @@ static void loader_menu_build_menu(LoaderMenu* loader_menu) {
 }
 
 static void loader_menu_build_submenu(Submenu* submenu, LoaderMenu* loader_menu) {
+    submenu_set_header(submenu, "NASTAVENI");
     for(size_t i = 0; i < FLIPPER_EXTSETTINGS_APPS_COUNT; i++) {
         submenu_add_item_ex(
             submenu,

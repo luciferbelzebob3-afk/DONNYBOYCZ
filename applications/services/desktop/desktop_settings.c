@@ -8,7 +8,8 @@
 
 #define DESKTOP_SETTINGS_VER_14 (14)
 #define DESKTOP_SETTINGS_VER_17 (17)
-#define DESKTOP_SETTINGS_VER    (18)
+#define DESKTOP_SETTINGS_VER_18 (18)
+#define DESKTOP_SETTINGS_VER    (19)
 
 #define DESKTOP_SETTINGS_PATH  INT_PATH(DESKTOP_SETTINGS_FILE_NAME)
 #define DESKTOP_SETTINGS_MAGIC (0x17)
@@ -44,6 +45,7 @@ void desktop_settings_load(DesktopSettings* settings) {
     furi_assert(settings);
 
     bool success = false;
+    bool migrated = false;
 
     do {
         uint8_t version;
@@ -57,7 +59,20 @@ void desktop_settings_load(DesktopSettings* settings) {
                 DESKTOP_SETTINGS_MAGIC,
                 DESKTOP_SETTINGS_VER);
 
+        } else if(version == DESKTOP_SETTINGS_VER_18) {
+            migrated = true;
+            success = saved_struct_load(
+                DESKTOP_SETTINGS_PATH,
+                settings,
+                sizeof(DesktopSettings),
+                DESKTOP_SETTINGS_MAGIC,
+                DESKTOP_SETTINGS_VER_18);
+            if(success) {
+                memset(settings->menu_style, 0, sizeof(settings->menu_style));
+                settings->displayBatteryPercentage = DISPLAY_BATTERY_PERCENT;
+            }
         } else if(version == DESKTOP_SETTINGS_VER_17) {
+            migrated = true;
             success = saved_struct_load(
                 DESKTOP_SETTINGS_PATH,
                 settings,
@@ -70,6 +85,7 @@ void desktop_settings_load(DesktopSettings* settings) {
             }
 
         } else if(version == DESKTOP_SETTINGS_VER_14) {
+            migrated = true;
             DesktopSettingsV14* settings_v14 = malloc(sizeof(DesktopSettingsV14));
 
             success = saved_struct_load(
@@ -102,9 +118,12 @@ void desktop_settings_load(DesktopSettings* settings) {
     if(!success) {
         FURI_LOG_W(TAG, "Failed to load file, using defaults");
         memset(settings, 0, sizeof(DesktopSettings));
+        settings->displayBatteryPercentage = DISPLAY_BATTERY_PERCENT;
         desktop_settings_save(settings);
     } else {
         desktop_settings_terminate_strings(settings);
+        /* Migrate once; later user-selected styles must survive reloads. */
+        if(migrated) desktop_settings_save(settings);
     }
 }
 

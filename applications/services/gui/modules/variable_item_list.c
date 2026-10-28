@@ -1,3 +1,4 @@
+#include "dark_signal.h"
 #include "variable_item_list.h"
 #include <gui/elements.h>
 #include <gui/canvas.h>
@@ -144,6 +145,7 @@ static void variable_item_list_draw_callback(Canvas* canvas, void* _model) {
             furi_string_get_cstr(
                 VariableItemArray_get(model->items, model->position)->locked_message));
     }
+    dark_signal_invert(canvas);
 }
 
 void variable_item_list_set_selected_item(VariableItemList* variable_item_list, uint8_t index) {

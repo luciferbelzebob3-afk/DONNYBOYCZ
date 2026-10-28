@@ -5,6 +5,8 @@
 #include <gui/view.h>
 
 #include <assets_icons.h>
+#include <furi_hal.h>
+#include <gui/modules/dark_signal.h>
 
 #include "../desktop_i.h"
 #include "desktop_view_locked.h"
@@ -61,15 +63,6 @@ static void locked_view_timer_callback(void* context) {
     locked_view->callback(DesktopLockedEventUpdate, locked_view->context);
 }
 
-static void desktop_view_locked_doors_draw(Canvas* canvas, DesktopViewLockedModel* model) {
-    int32_t offset = model->door_offset;
-    int32_t door_left_x = DOOR_L_FINAL_POS + offset;
-    int32_t door_right_x = DOOR_R_FINAL_POS - offset;
-    size_t height = icon_get_height(&I_DoorLeft_70x55);
-    canvas_draw_icon(canvas, door_left_x, canvas_height(canvas) - height, &I_DoorLeft_70x55);
-    canvas_draw_icon(canvas, door_right_x, canvas_height(canvas) - height, &I_DoorRight_70x55);
-}
-
 static bool desktop_view_locked_doors_move(DesktopViewLockedModel* model) {
     bool stop = false;
     if(model->door_offset < DOOR_OFFSET_END) {
@@ -113,27 +106,24 @@ void desktop_view_locked_update(DesktopViewLocked* locked_view) {
 }
 
 static void desktop_view_locked_draw(Canvas* canvas, void* model) {
-    DesktopViewLockedModel* m = model;
-    DesktopViewLockedState view_state = m->view_state;
-    canvas_set_color(canvas, ColorBlack);
-
-    if(view_state == DesktopViewLockedStateDoorsClosing) {
-        desktop_view_locked_doors_draw(canvas, m);
-        canvas_set_font(canvas, FontPrimary);
-        elements_multiline_text_framed(canvas, 42, 30 + STATUS_BAR_Y_SHIFT, "Uzamceno");
-    } else if(view_state == DesktopViewLockedStateLockedHintShown) {
-        canvas_set_font(canvas, FontSecondary);
-        elements_bold_rounded_frame(canvas, 14, 2 + STATUS_BAR_Y_SHIFT, 99, 48);
-        elements_multiline_text(canvas, 65, 20 + STATUS_BAR_Y_SHIFT, "Pro odemceni\nstiskni:");
-        canvas_draw_icon(canvas, 65, 36 + STATUS_BAR_Y_SHIFT, &I_Pin_back_arrow_10x8);
-        canvas_draw_icon(canvas, 80, 36 + STATUS_BAR_Y_SHIFT, &I_Pin_back_arrow_10x8);
-        canvas_draw_icon(canvas, 95, 36 + STATUS_BAR_Y_SHIFT, &I_Pin_back_arrow_10x8);
-        canvas_draw_icon(canvas, 16, 7 + STATUS_BAR_Y_SHIFT, &I_WarningDolphin_45x42);
-        canvas_draw_dot(canvas, 17, 61);
-    } else if(view_state == DesktopViewLockedStateUnlockedHintShown) {
+    const DesktopViewLockedModel* m = model;
+    if(m->view_state == DesktopViewLockedStateUnlocked) return;
+    if(m->view_state == DesktopViewLockedStateUnlockedHintShown) {
         canvas_set_font(canvas, FontPrimary);
         elements_multiline_text_framed(canvas, 42, 30 + STATUS_BAR_Y_SHIFT, "Odemceno");
+        return;
     }
+
+    DateTime now;
+    furi_hal_rtc_get_datetime(&now);
+    char clock[6];
+    snprintf(
+        clock, sizeof(clock), "%02u:%02u", (unsigned)(now.hour % 24), (unsigned)(now.minute % 60));
+    dark_signal_lock_draw(
+        canvas,
+        clock,
+        m->pin_locked,
+        m->view_state == DesktopViewLockedStateDoorsClosing ? m->door_offset : 0);
 }
 
 View* desktop_view_locked_get_view(DesktopViewLocked* locked_view) {
