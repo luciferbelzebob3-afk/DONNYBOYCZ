@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#070b09">
-<meta name="description" content="DONNY BOY je komunitní firmware pro Flipper Zero se zaměřením na české uživatelské rozhraní bez diakritiky. Prohlédni si zdrojový kód, stav překladu a vydání 1.0.2.">
+<meta name="description" content="DONNY BOY je komunitní firmware pro Flipper Zero se zaměřením na české uživatelské rozhraní bez diakritiky. Prohlédni si zdrojový kód, stav překladu a vydání 1.0.3.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="keywords" content="Flipper Zero česky, český firmware Flipper Zero, DONNY BOY, český komunitní firmware, Unleashed Firmware">
 <link rel="canonical" href="https://luciferbelzebob3-afk.github.io/DONNYBOYCZ/">
@@ -12,12 +12,12 @@
 <meta property="og:locale" content="cs_CZ">
 <meta property="og:site_name" content="DONNY BOY">
 <meta property="og:title" content="DONNY BOY — český firmware pro Flipper Zero">
-<meta property="og:description" content="Komunitní firmware pro Flipper Zero se zaměřením na české uživatelské rozhraní bez diakritiky. Zdrojový kód, stav projektu a vydání 1.0.2.">
+<meta property="og:description" content="Komunitní firmware pro Flipper Zero se zaměřením na české uživatelské rozhraní bez diakritiky. Výchozí motiv DARK SIGNAL, české rozhraní a vydání 1.0.3.">
 <meta property="og:url" content="https://luciferbelzebob3-afk.github.io/DONNYBOYCZ/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DONNY BOY — český firmware pro Flipper Zero">
 <meta name="twitter:description" content="Komunitní firmware pro Flipper Zero se zaměřením na české uživatelské rozhraní bez diakritiky.">
-<title>DONNY BOY — český firmware pro Flipper Zero</title>
+<title>DONNY BOY 1.0.3 — DARK SIGNAL pro Flipper Zero</title>
 <style>
 :root{color-scheme:dark;--bg:#070b09;--panel:#0d1510;--line:#203b29;--green:#39ff78;--muted:#9bb3a1;--white:#edf8ef;--amber:#ffd166;--page-width:1120px}
 *{box-sizing:border-box}
@@ -67,27 +67,29 @@ footer div+div{margin-top:8px}
 <div class="wrap">
 <nav class="top"><div><strong>DONNY BOY</strong> // VÝVOJ FIRMWARU</div><div>[ SYSTÉM: KOMUNITNÍ SESTAVENÍ ] [ ZAŘÍZENÍ: FLIPPER ZERO ]</div></nav>
 <header>
-<div class="tag">ČESKÝ KOMUNITNÍ FIRMWARE · VERZE 1.0.2</div>
+<div class="tag">ČESKÝ KOMUNITNÍ FIRMWARE · VERZE 1.0.3</div>
 <h1>DONNY <span>BOY</span></h1>
-<p class="lead">Vlastní sestavení firmwaru pro Flipper Zero. Cíl: srozumitelnější české prostředí, otevřený vývoj a sestavení, jehož stav lze ověřit.</p>
+<p class="lead">Vlastní sestavení firmwaru pro Flipper Zero. DARK SIGNAL: vlastní menu, pixelová plocha a tmavé rozhraní přímo ve firmwaru. České prostředí a otevřený vývoj.</p>
 <div class="actions">
-<a class="btn primary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.2">⬇ STÁHNOUT FIRMWARE</a>
+<a class="btn primary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.3">⬇ STÁHNOUT FIRMWARE</a>
 <a class="btn secondary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ">ZOBRAZIT ZDROJOVÝ KÓD</a>
 </div>
-<div class="status"><b>[ STAV VYDÁNÍ ]</b> DONNY BOY 1.0.2 · vydání je dostupné · kompilace a balíčky ověřeny · fyzický test této verze zatím neproběhl.</div>
+<div class="status"><b>[ STAV VYDÁNÍ ]</b> DONNY BOY 1.0.3 · vydání je dostupné · kompilace a balíčky ověřeny · fyzický test této verze zatím neproběhl.</div>
 </header>
 <main>
+<section class="section" id="dark-signal"><h2>DARK SIGNAL je přímo ve firmwaru</h2><p>Od verze 1.0.3 používá DONNY BOY výchozí motiv DARK SIGNAL: vodorovné menu s velkou ikonou, vlastní symboly aplikací, postavu u terminálu, zámek s DB a hodinami i tmavé nastavení. Motiv je součástí instalace; nemusíš ho ručně kopírovat na SD kartu.</p><figure style="margin:24px 0"><img src="assets/dark-signal-preview.png" width="1120" height="710" alt="Nativní pixelový náhled motivu DARK SIGNAL: plocha s postavou, menu NFC, zámek DB a menu Sub-GHz" style="display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:8px" loading="lazy"><figcaption class="small">Náhled z nativních pixelů a kódu vykreslování; nejde o fotografii fyzického Flipperu. Displej zařízení je monochromatický.</figcaption></figure><p><a class="btn primary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3/flipper-z-f7-update-1.0.3.tgz">⬇ INSTALAČNÍ BALÍČEK 1.0.3 (.TGZ)</a></p><p class="small"><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/blob/dev/documentation/DarkSignal.md">Podrobnosti instalace a návratu ke starší verzi</a>. Před aktualizací zálohuj data i nastavení plochy. Fyzický test tohoto vydání zatím neproběhl.</p></section>
+
 <div class="grid">
-<article class="card"><div class="num">01 // STAŽENÍ</div><h2>Stažení firmwaru</h2><p>Vydání obsahuje soubory firmwaru a balíčky sestavení. Před instalací ověř, že vybíráš správný soubor pro své zařízení. Soubory aktuální verze prošly automatickou kontrolou. Fyzický test starší verze 1.0.1 proběhl bez pozorovaných chyb.</p><p style="margin-top:16px"><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.2">Otevřít dostupná vydání →</a></p></article>
+<article class="card"><div class="num">01 // STAŽENÍ</div><h2>Stažení firmwaru</h2><p>Vydání obsahuje soubory firmwaru a balíčky sestavení. Před instalací ověř, že vybíráš správný soubor pro své zařízení. Soubory aktuální verze prošly automatickou kontrolou. Fyzický test starší verze 1.0.1 proběhl bez pozorovaných chyb.</p><p style="margin-top:16px"><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.3">Otevřít dostupná vydání →</a></p></article>
 <article class="card"><div class="num">02 // PŘEKLAD</div><h2>Čeština bez diakritiky</h2><p>Překlad uživatelského rozhraní je průběžná práce. Cílem jsou české texty na displeji bez háčků a čárek; zatím nelze tvrdit, že je přeložen úplně každý řetězec.</p><p style="margin-top:16px"><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ">Prohlédnout vývoj →</a></p></article>
 <article class="card"><div class="num">03 // OTEVŘENÝ KÓD</div><h2>Otevřený vývoj projektu</h2><p>Prohlédni si změny, zkontroluj stav buildů nebo nahlas chybu. Projekt navazuje na otevřený Unleashed Firmware.</p><p style="margin-top:16px"><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues">Chyby a návrhy →</a></p></article>
 </div>
-<section class="section"><h2>Aktualizace DONNY BOY 1.0.2</h2><p>Aktualizace komunitního firmwaru pro Flipper Zero. Sestavení verze 1.0.2 bylo úspěšné a vydání je dostupné ke stažení. <strong>Nová verze zatím nebyla fyzicky otestována.</strong> Fyzický test bez pozorovaných chyb se týkal verze 1.0.1. Základ aktuálního vydání: unlshd-094.</p><p><a class="btn primary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.2">⬇ STÁHNOUT DONNY BOY 1.0.2</a></p><p class="small">Předchozí vydání 1.0.0 zůstává dostupné v seznamu <a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases">všech vydání</a>.</p></section>
-<section class="section"><h2>Rychlá instalace</h2><ol><li>Nejdřív zazálohuj důležitá data a vlastní soubory v zařízení.</li><li>Otevři <a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.2">vydání DONNY BOY 1.0.2</a> a vyber soubor určený pro Flipper Zero.</li><li>Řiď se oficiálním postupem aktualizace a pokyny projektu. Nezaměňuj DFU, update balíček a SDK.</li><li>Po aktualizaci ověř start zařízení a základní funkce.</li></ol><p class="small">Pokud si nejsi jistý, který soubor zvolit, nepokračuj naslepo — nejprve si ověř typ souboru a způsob instalace.</p></section>
+<section class="section"><h2>Aktualizace DONNY BOY 1.0.3</h2><p>Nové vydání s výchozím motivem DARK SIGNAL. Sestavení verze 1.0.3 bylo úspěšné a vydání je dostupné ke stažení. <strong>Nová verze zatím nebyla fyzicky otestována.</strong> Fyzický test bez pozorovaných chyb se týkal verze 1.0.1. Základ aktuálního vydání: unlshd-094.</p><p><a class="btn primary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.3">⬇ STÁHNOUT DONNY BOY 1.0.3</a></p><p class="small">Předchozí vydání 1.0.0 zůstává dostupné v seznamu <a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases">všech vydání</a>.</p></section>
+<section class="section"><h2>Rychlá instalace</h2><ol><li>Nejdřív zazálohuj důležitá data a vlastní soubory v zařízení.</li><li>Otevři <a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.3">vydání DONNY BOY 1.0.3</a> a vyber soubor určený pro Flipper Zero.</li><li>Řiď se oficiálním postupem aktualizace a pokyny projektu. Nezaměňuj DFU, update balíček a SDK.</li><li>Po aktualizaci ověř start zařízení a základní funkce.</li></ol><p class="small">Pokud si nejsi jistý, který soubor zvolit, nepokračuj naslepo — nejprve si ověř typ souboru a způsob instalace.</p></section>
 <section class="section"><h2>Bezpečnost a odpovědné použití</h2><div class="warning">DONNY BOY není oficiální firmware Flipper Devices. Používej zařízení a jeho funkce pouze na vlastních systémech nebo s výslovným oprávněním a v souladu s platnými zákony.</div><p>Firmware je komunitní projekt poskytovaný bez záruky. Fyzický test starší verze 1.0.1 proběhl bez pozorovaných chyb. Aktuální verze má ověřené sestavení a distribuční soubory; fyzický test této verze zatím neproběhl.</p></section>
 <section class="section"><h2>Projektové odkazy</h2><div class="links"><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ">Repozitář</a><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/actions">Sestavení a kontroly</a><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues">Nahlásit problém</a><a href="https://github.com/DarkFlippers/unleashed-firmware">Základní projekt: Unleashed Firmware</a><a href="https://docs.flipper.net/">Dokumentace Flipper Zero</a></div></section>
 </main>
-<footer><div>VERZE 1.0.2 · <a href="release.json">Metadata vydání</a></div><div>DONNY BOY // komunitní projekt · otevřený vývoj</div><div>Flipper Zero je ochranná známka příslušného vlastníka. Tento projekt není s výrobcem oficiálně spojen.</div></footer>
+<footer><div>VERZE 1.0.3 · <a href="release.json">Metadata vydání</a></div><div>DONNY BOY // komunitní projekt · otevřený vývoj</div><div>Flipper Zero je ochranná známka příslušného vlastníka. Tento projekt není s výrobcem oficiálně spojen.</div></footer>
 </div>
 </body>
 </html>
