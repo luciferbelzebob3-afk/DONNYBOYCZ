@@ -1,59 +1,69 @@
 {
-  "version": "1.0.3",
-  "source_sha": "022d58e5a56737bc0791568c029b261e8d2cd2e8",
+  "version": "1.0.3a",
+  "source_sha": "d3e860a23efed9c41713879e604f053f8c022e7b",
   "upstream_tag": "unlshd-094",
-  "release_url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.3",
-  "published_at": "2026-10-28T16:01:34Z",
+  "release_url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.3a",
+  "published_at": "2026-11-02T19:06:26Z",
   "assets": [
     {
+      "name": "ANIMACE-instalace.md",
+      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3a/ANIMACE-instalace.md",
+      "size": 3765
+    },
+    {
+      "name": "animace-overeni.json",
+      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3a/animace-overeni.json",
+      "size": 1074
+    },
+    {
       "name": "DARK-SIGNAL-instalace.md",
-      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3/DARK-SIGNAL-instalace.md",
+      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3a/DARK-SIGNAL-instalace.md",
       "size": 4679
     },
     {
       "name": "DARK-SIGNAL-nahled.png",
-      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3/DARK-SIGNAL-nahled.png",
+      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3a/DARK-SIGNAL-nahled.png",
       "size": 25401
     },
     {
-      "name": "DONNY-BOY-1.0.3-firmware-package.zip",
-      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3/DONNY-BOY-1.0.3-firmware-package.zip",
-      "size": 33590053
+      "name": "DONNY-BOY-1.0.3a-firmware-package.zip",
+      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3a/DONNY-BOY-1.0.3a-firmware-package.zip",
+      "size": 33829913
     },
     {
-      "name": "flipper-z-f7-full-1.0.3.dfu",
-      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3/flipper-z-f7-full-1.0.3.dfu",
-      "size": 879061
+      "name": "flipper-z-f7-full-1.0.3a.dfu",
+      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3a/flipper-z-f7-full-1.0.3a.dfu",
+      "size": 879189
     },
     {
-      "name": "flipper-z-f7-full-1.0.3.json",
-      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3/flipper-z-f7-full-1.0.3.json",
-      "size": 170
+      "name": "flipper-z-f7-full-1.0.3a.json",
+      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3a/flipper-z-f7-full-1.0.3a.json",
+      "size": 172
     },
     {
-      "name": "flipper-z-f7-sdk-1.0.3.zip",
-      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3/flipper-z-f7-sdk-1.0.3.zip",
-      "size": 21561195
+      "name": "flipper-z-f7-sdk-1.0.3a.zip",
+      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3a/flipper-z-f7-sdk-1.0.3a.zip",
+      "size": 21641182
     },
     {
-      "name": "flipper-z-f7-update-1.0.3.tgz",
-      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3/flipper-z-f7-update-1.0.3.tgz",
-      "size": 2809164
+      "name": "flipper-z-f7-update-1.0.3a.tgz",
+      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3a/flipper-z-f7-update-1.0.3a.tgz",
+      "size": 2888538
     },
     {
-      "name": "flipper-z-f7-updater-1.0.3.dfu",
-      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3/flipper-z-f7-updater-1.0.3.dfu",
-      "size": 119670
+      "name": "flipper-z-f7-updater-1.0.3a.dfu",
+      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3a/flipper-z-f7-updater-1.0.3a.dfu",
+      "size": 119674
     },
     {
       "name": "sestaveni.json",
-      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3/sestaveni.json",
-      "size": 6374
+      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3a/sestaveni.json",
+      "size": 853
     },
     {
       "name": "SHA256SUMS.txt",
-      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3/SHA256SUMS.txt",
-      "size": 839
+      "url": "https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.3a/SHA256SUMS.txt",
+      "size": 1019
     }
   ],
   "physical_test": false,
