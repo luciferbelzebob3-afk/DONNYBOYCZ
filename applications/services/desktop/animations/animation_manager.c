@@ -390,16 +390,15 @@ static bool animation_manager_is_valid_idle_animation(
     return result;
 }
 
+static bool animation_manager_is_donny_animation(const StorageAnimationManifestInfo* info) {
+    return !strncmp(info->name, "DB_DS_", 6) || !strncmp(info->name, "DB_Kluk_", 8);
+}
+
 static StorageAnimation*
     animation_manager_select_idle_animation(AnimationManager* animation_manager) {
     if(animation_manager->dummy_mode) {
         return animation_storage_find_animation(HARDCODED_ANIMATION_NAME);
     }
-    /* Internal art keeps the installed theme available without SD resources.
-     * Blocking alerts and level-up handling still run before idle selection. */
-    StorageAnimation* themed = animation_storage_find_animation(HARDCODED_ANIMATION_NAME);
-    if(themed) return themed;
-
     StorageAnimationList_t animation_list;
     StorageAnimationList_init(animation_list);
     animation_storage_fill_animation_list(&animation_list);
@@ -409,12 +408,28 @@ static StorageAnimation*
     furi_record_close(RECORD_DOLPHIN);
     uint32_t whole_weight = 0;
 
+    /* Prefer the installed DONNY BOY collection; preserve the original selection
+     * and built-in fallback when no eligible collection is present on the SD. */
+    bool has_donny_animation = false;
+    for
+        M_EACH(item, animation_list, StorageAnimationList_t) {
+            const StorageAnimationManifestInfo* info = animation_storage_get_meta(*item);
+            if(animation_manager_is_donny_animation(info) &&
+               animation_manager_is_valid_idle_animation(info, &stats) && info->weight) {
+                has_donny_animation = true;
+                break;
+            }
+        }
+
     StorageAnimationList_it_t it;
     for(StorageAnimationList_it(it, animation_list); !StorageAnimationList_end_p(it);) {
         StorageAnimation* storage_animation = *StorageAnimationList_ref(it);
         const StorageAnimationManifestInfo* manifest_info =
             animation_storage_get_meta(storage_animation);
         bool valid = animation_manager_is_valid_idle_animation(manifest_info, &stats);
+        if(has_donny_animation && !animation_manager_is_donny_animation(manifest_info)) {
+            valid = false;
+        }
 
         if(valid) {
             whole_weight += manifest_info->weight;

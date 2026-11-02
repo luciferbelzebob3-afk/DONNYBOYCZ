@@ -37,9 +37,12 @@ jobs:
           cfg=json.load(open('.donny/theme-release.json'))
           pending=json.load(open('.donny/pending.json'))
           v=cfg['version']
-          assert re.fullmatch(r'\d+\.\d+\.\d+',v)
+          match=re.fullmatch(r'(\d+)\.(\d+)\.(\d+)(a)?',v)
+          assert match
+          major,minor,patch=map(int,match.groups()[:3])
           assert pending['version']==v and pending['theme']=='DARK SIGNAL'
-          assert cfg['previous_version']=='.'.join(map(str,(*map(int,v.split('.')[:2]),int(v.split('.')[2])-1)))
+          expected_previous=f'{major}.{minor}.{patch if match.group(4) else patch-1}'
+          assert cfg['previous_version']==expected_previous
           assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==os.environ['GITHUB_SHA']
           root='https://api.github.com/repos/'+os.environ['GITHUB_REPOSITORY']
           def api(path):
@@ -99,7 +102,7 @@ jobs:
           VERSION: ${{ needs.prepare.outputs.version }}
         run: |
           python .github/scripts/donny/pipeline.py publish
-          gh release edit "v$VERSION" --repo "$GITHUB_REPOSITORY" --title "DONNY BOY CZ $VERSION – DARK SIGNAL"
+          gh release edit "v$VERSION" --repo "$GITHUB_REPOSITORY" --title "DONNY BOY CZ $VERSION – DARK SIGNAL a animace"
 
   website:
     needs: [prepare, publish]

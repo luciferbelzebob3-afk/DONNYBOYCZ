@@ -245,3 +245,59 @@ Max butthurt: 13
 Min level: 1
 Max level: 3
 Weight: 4
+
+Name: DB_DS_Kapuce_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 3
+Weight: 5
+
+Name: DB_DS_Vysilac_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 3
+Weight: 5
+
+Name: DB_DS_Radar_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 3
+Weight: 5
+
+Name: DB_DS_Logo_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 3
+Weight: 5
+
+Name: DB_Kluk_Dech_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 3
+Weight: 5
+
+Name: DB_Kluk_Matrix_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 3
+Weight: 5
+
+Name: DB_Kluk_Stin_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 3
+Weight: 5
+
+Name: DB_Kluk_3D_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 3
+Weight: 5

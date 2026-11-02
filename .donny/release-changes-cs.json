@@ -1,9 +1,9 @@
 [
-  "Výchozí motiv DARK SIGNAL je zabudovaný přímo do firmwaru; nevyžaduje ruční instalaci asset packu.",
-  "Nové vodorovné hlavní menu s velkou ikonou, bočními náhledy a vlastními symboly aplikací.",
-  "Vestavěná pixelová animace postavy DONNY BOY u terminálu a jemné bliknutí antény.",
-  "Zamykací obrazovka s monogramem DB, skutečnými hodinami a původním mechanismem odemčení/PIN.",
-  "Tmavé nabídky nastavení a dialogy, přehledný stavový řádek a jednorázové nastavení nového vzhledu.",
-  "Zachované české texty, uživatelské zkratky a chování automatického zámku; základ zůstává Unleashed unlshd-094.",
-  "Před návratem na firmware se starší verzí nastavení plochy obnovte její zálohu; podrobnosti jsou v dokumentaci DARK SIGNAL."
+  "Osm nových animací plochy: Kapuce, Noční vysílač, Radar, DONNY BOY, Dech a pohled, Matrix, Kluk ve stínu a Prostorová kapuce s 3D efektem.",
+  "Verze 1.0.3a: písmeno a označuje vydání s animacemi.",
+  "Nové animace se střídají náhodně, jedna běží 12 sekund; instalační balíček obsahuje všechny potřebné SD prostředky.",
+  "Opraven výběr plochy, který dříve trvale vracel pouze původní vestavěnou animaci. Ta zůstává zálohou bez SD nebo při chybě načtení.",
+  "Finální animace Matrix nahrazuje dřívější nasazování kapuce; chůze ani nasazování nejsou součástí vydání.",
+  "Zachovaný základ Unleashed unlshd-094. Novější stabilní vydání při kontrole 2. 11. 2026 nebylo dostupné; nové vývojové commity nebyly převzaty.",
+  "Žádné nové texty rozhraní k překladu; dosavadní česká lokalizace i motiv DARK SIGNAL zůstávají zachované."
 ]

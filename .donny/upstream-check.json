@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-11-02",
+  "channel": "stable",
+  "latest_tag": "unlshd-094",
+  "latest_sha": "2f62b3ab5d767c41e09ab17c6b5fbd175c8c4c85",
+  "previous_sha": "2f62b3ab5d767c41e09ab17c6b5fbd175c8c4c85",
+  "stable_update": false,
+  "development_head": "6aa1e55dc0677536a41c8114dea60d702c77433c",
+  "development_imported": false,
+  "reason": "Stabilni kanal; nove vyvojove commity nejsou nove stabilni vydani.",
+  "new_ui_strings": 0
+}

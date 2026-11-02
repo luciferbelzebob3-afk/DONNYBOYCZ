@@ -37,7 +37,7 @@ jobs:
           python - <<'PY'
           import json,os,re,subprocess
           p=json.load(open('.donny/pending.json'))
-          assert re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+',os.environ['VERSION'])
+          assert re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+(?:a)?',os.environ['VERSION'])
           assert p['version']==os.environ['VERSION']
           assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==os.environ['EXPECTED_SHA']
           assert not subprocess.check_output(['git','status','--porcelain'],text=True).strip()
@@ -50,6 +50,10 @@ jobs:
           DIST_SUFFIX: ${{ inputs.version }}
           WORKFLOW_BRANCH_OR_TAG: v${{ inputs.version }}
         run: ./fbt COMPACT=1 DEBUG=0 "DIST_SUFFIX=$VERSION" "UPDATE_VERSION_STRING=$VERSION" updater_package
+      - name: Připravit kontrolu animačních prostředků
+        run: python -m pip install Pillow heatshrink2
+      - name: Ověřit všech osm animací v instalačním balíčku
+        run: python .github/scripts/donny/verify_animations.py
       - name: Ověřit povinné výstupy, metadata a archivy
         run: python .github/scripts/donny/pipeline.py package
       - uses: actions/upload-artifact@v4
