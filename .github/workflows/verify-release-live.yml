@@ -1,0 +1,30 @@
+name: DONNY BOY CZ – obnova ověření vydání
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [dev]
+    paths: ['.github/workflows/verify-release-live.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: donny-boy-release
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Nastavit autora evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - name: Ověřit již nasazený web a vydané soubory
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python .github/scripts/donny/pipeline.py verify_web
