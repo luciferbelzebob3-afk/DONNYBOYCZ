@@ -564,17 +564,51 @@ MU_TEST(infrared_test_audio_database) {
 }
 
 MU_TEST(infrared_test_projector_database) {
-    infrared_brute_force_set_db_filename(test->brutedb, EXT_PATH("infrared/assets/projector.ir"));
+    infrared_brute_force_set_db_filename(test->brutedb, EXT_PATH("infrared/assets/projectors.ir"));
     uint32_t i = 0;
     infrared_brute_force_add_record(test->brutedb, i++, "Power");
     infrared_brute_force_add_record(test->brutedb, i++, "Mute");
     infrared_brute_force_add_record(test->brutedb, i++, "Vol_up");
     infrared_brute_force_add_record(test->brutedb, i++, "Vol_dn");
+    infrared_brute_force_add_record(test->brutedb, i++, "Play");
+    infrared_brute_force_add_record(test->brutedb, i++, "Pause");
 
     mu_assert(
         infrared_brute_force_calculate_messages(test->brutedb) == InfraredErrorCodeNone,
         "universal projector database is invalid");
 
+    infrared_brute_force_reset(test->brutedb);
+}
+
+MU_TEST(infrared_test_fans_database) {
+    infrared_brute_force_set_db_filename(test->brutedb, EXT_PATH("infrared/assets/fans.ir"));
+    uint32_t i = 0;
+    infrared_brute_force_add_record(test->brutedb, i++, "Power");
+    infrared_brute_force_add_record(test->brutedb, i++, "Mode");
+    infrared_brute_force_add_record(test->brutedb, i++, "Speed_up");
+    infrared_brute_force_add_record(test->brutedb, i++, "Speed_dn");
+    infrared_brute_force_add_record(test->brutedb, i++, "Rotate");
+    infrared_brute_force_add_record(test->brutedb, i++, "Timer");
+    mu_assert(
+        infrared_brute_force_calculate_messages(test->brutedb) == InfraredErrorCodeNone,
+        "universal fans database is invalid");
+    infrared_brute_force_reset(test->brutedb);
+}
+
+MU_TEST(infrared_test_leds_database) {
+    infrared_brute_force_set_db_filename(test->brutedb, EXT_PATH("infrared/assets/leds.ir"));
+    uint32_t i = 0;
+    infrared_brute_force_add_record(test->brutedb, i++, "Power_on");
+    infrared_brute_force_add_record(test->brutedb, i++, "Power_off");
+    infrared_brute_force_add_record(test->brutedb, i++, "Brightness_up");
+    infrared_brute_force_add_record(test->brutedb, i++, "Brightness_dn");
+    infrared_brute_force_add_record(test->brutedb, i++, "Red");
+    infrared_brute_force_add_record(test->brutedb, i++, "Green");
+    infrared_brute_force_add_record(test->brutedb, i++, "Blue");
+    infrared_brute_force_add_record(test->brutedb, i++, "White");
+    mu_assert(
+        infrared_brute_force_calculate_messages(test->brutedb) == InfraredErrorCodeNone,
+        "universal leds database is invalid");
     infrared_brute_force_reset(test->brutedb);
 }
 
@@ -618,6 +652,8 @@ MU_TEST_SUITE(infrared_test) {
     MU_RUN_TEST(infrared_test_ac_database);
     MU_RUN_TEST(infrared_test_audio_database);
     MU_RUN_TEST(infrared_test_projector_database);
+    MU_RUN_TEST(infrared_test_fans_database);
+    MU_RUN_TEST(infrared_test_leds_database);
     MU_RUN_TEST(infrared_test_tv_database);
 }
 

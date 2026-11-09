@@ -23,7 +23,7 @@ void infrared_scene_universal_projector_on_enter(void* context) {
         infrared_scene_universal_common_item_callback,
         context);
     button_panel_add_icon(button_panel, 4, 46, &I_power_text_24x5);
-    infrared_brute_force_add_record(brute_force, i++, "Napajeni");
+    infrared_brute_force_add_record(brute_force, i++, "Power");
     button_panel_add_item(
         button_panel,
         i,
@@ -36,7 +36,7 @@ void infrared_scene_universal_projector_on_enter(void* context) {
         infrared_scene_universal_common_item_callback,
         context);
     button_panel_add_icon(button_panel, 39, 46, &I_mute_text_19x5);
-    infrared_brute_force_add_record(brute_force, i++, "Ztlumit");
+    infrared_brute_force_add_record(brute_force, i++, "Mute");
     button_panel_add_item(
         button_panel,
         i,
@@ -48,7 +48,7 @@ void infrared_scene_universal_projector_on_enter(void* context) {
         &I_volup_hover_24x21,
         infrared_scene_universal_common_item_callback,
         context);
-    infrared_brute_force_add_record(brute_force, i++, "Hlasitost nahoru");
+    infrared_brute_force_add_record(brute_force, i++, "Vol_up");
 
     button_panel_add_item(
         button_panel,
@@ -61,7 +61,7 @@ void infrared_scene_universal_projector_on_enter(void* context) {
         &I_voldown_hover_24x21,
         infrared_scene_universal_common_item_callback,
         context);
-    infrared_brute_force_add_record(brute_force, i++, "Hlasitost dolu");
+    infrared_brute_force_add_record(brute_force, i++, "Vol_dn");
     button_panel_add_item(
         button_panel,
         i,
@@ -73,7 +73,7 @@ void infrared_scene_universal_projector_on_enter(void* context) {
         &I_play_hover_19x20,
         infrared_scene_universal_common_item_callback,
         context);
-    infrared_brute_force_add_record(brute_force, i++, "Prehrat");
+    infrared_brute_force_add_record(brute_force, i++, "Play");
     button_panel_add_icon(button_panel, 6, 80, &I_play_text_19x5);
     button_panel_add_item(
         button_panel,
@@ -86,7 +86,7 @@ void infrared_scene_universal_projector_on_enter(void* context) {
         &I_pause_hover_19x20,
         infrared_scene_universal_common_item_callback,
         context);
-    infrared_brute_force_add_record(brute_force, i++, "Pauza");
+    infrared_brute_force_add_record(brute_force, i++, "Pause");
     button_panel_add_icon(button_panel, 4, 109, &I_pause_text_23x5);
 
     button_panel_add_label(button_panel, 10, 11, FontPrimary, "Projektor");

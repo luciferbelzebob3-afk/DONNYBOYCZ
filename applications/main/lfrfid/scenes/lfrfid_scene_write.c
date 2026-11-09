@@ -44,7 +44,7 @@ static void lfrfid_scene_write_set_status(LfRfid* app, const char* target) {
     } else if(target) {
         snprintf(app->text_store, LFRFID_TEXT_STORE_SIZE, "[%s]\n(%s)", proto, target);
     } else {
-        snprintf(app->text_store, LFRFID_TEXT_STORE_SIZE, "[%s]\nUnsaved Tag", proto);
+        snprintf(app->text_store, LFRFID_TEXT_STORE_SIZE, "[%s]\nNeulozeny tag", proto);
     }
     popup_set_text(app->popup, app->text_store, 94, 29, AlignCenter, AlignTop);
 }

@@ -284,7 +284,7 @@ static bool clipper_parse(const NfcDevice* device, FuriString* parsed_data) {
             furi_string_cat_timestamp(
                 parsed_data, "Datum: ", "\nCas: ", info.last_updated_tm_1900);
         else
-            furi_string_cat_str(parsed_data, "Never");
+            furi_string_cat_str(parsed_data, "Nikdy");
         furi_string_cat_printf(
             parsed_data,
             "\nTerminal: 0x%04x\n"

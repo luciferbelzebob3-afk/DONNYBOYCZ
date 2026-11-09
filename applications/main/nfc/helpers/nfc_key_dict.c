@@ -18,28 +18,28 @@ _Static_assert(
 static const NfcKeyDict nfc_key_dicts[NfcKeyDictTypeNum] = {
     [NfcKeyDictTypeMfClassic] =
         {
-            .title = "MIFARE Classic Keys",
+            .title = "Klice MIFARE Classic",
             .system_path = NFC_APP_MF_CLASSIC_DICT_SYSTEM_PATH,
             .user_path = NFC_APP_MF_CLASSIC_DICT_USER_PATH,
             .key_size = sizeof(MfClassicKey),
         },
     [NfcKeyDictTypeMfPlus] =
         {
-            .title = "MIFARE Plus Keys",
+            .title = "Klice MIFARE Plus",
             .system_path = NFC_APP_MF_PLUS_DICT_SYSTEM_PATH,
             .user_path = NFC_APP_MF_PLUS_DICT_USER_PATH,
             .key_size = sizeof(MfPlusKey),
         },
     [NfcKeyDictTypeMfUltralightC] =
         {
-            .title = "MIFARE Ultralight C Keys",
+            .title = "Klice MIFARE UL C",
             .system_path = NFC_APP_MF_ULTRALIGHT_C_DICT_SYSTEM_PATH,
             .user_path = NFC_APP_MF_ULTRALIGHT_C_DICT_USER_PATH,
             .key_size = sizeof(MfUltralightC3DesAuthKey),
         },
     [NfcKeyDictTypeMfUltralightAes] =
         {
-            .title = "MIFARE UL AES Keys",
+            .title = "Klice MIFARE UL AES",
             .system_path = NFC_APP_MF_ULTRALIGHT_AES_DICT_SYSTEM_PATH,
             .user_path = NFC_APP_MF_ULTRALIGHT_AES_DICT_USER_PATH,
             .key_size = sizeof(MfUltralightAesKey),

@@ -185,7 +185,7 @@ static bool opal_parse(const NfcDevice* device, FuriString* parsed_data) {
 
         locale_format_date(timestamp_str, &timestamp, locale_get_date_format(), "-");
         furi_string_cat(parsed_data, timestamp_str);
-        furi_string_cat(parsed_data, " at ");
+        furi_string_cat(parsed_data, " v ");
 
         locale_format_time(timestamp_str, &timestamp, locale_get_time_format(), false);
         furi_string_cat(parsed_data, timestamp_str);
@@ -194,16 +194,16 @@ static bool opal_parse(const NfcDevice* device, FuriString* parsed_data) {
 
         furi_string_cat_printf(
             parsed_data,
-            "\nWeekly journeys: %hhu, Txn #%hu\n",
+            "\nJizdy v tydnu: %hhu, transakce #%hu\n",
             opal_file->weekly_journeys,
             opal_file->txn_number);
 
         if(opal_file->auto_topup) {
-            furi_string_cat_str(parsed_data, "Auto-topup enabled\n");
+            furi_string_cat_str(parsed_data, "Automaticke dobijeni zapnuto\n");
         }
 
         if(opal_file->blocked) {
-            furi_string_cat_str(parsed_data, "Card blocked\n");
+            furi_string_cat_str(parsed_data, "Karta blokovana\n");
         }
 
         parsed = true;

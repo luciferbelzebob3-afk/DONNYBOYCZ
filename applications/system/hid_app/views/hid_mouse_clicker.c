@@ -99,7 +99,7 @@ static void hid_mouse_clicker_draw_callback(Canvas* canvas, void* context) {
     // Clicks/s
     char label[20];
     if(model->rate) {
-        snprintf(label, sizeof(label), "%d clicks/s", model->rate);
+        snprintf(label, sizeof(label), "%d kliku/s", model->rate);
     } else {
         snprintf(label, sizeof(label), "max. kliku/s");
     }

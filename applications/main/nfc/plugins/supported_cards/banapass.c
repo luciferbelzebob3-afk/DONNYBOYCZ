@@ -207,7 +207,7 @@ static bool banapass_parse(const NfcDevice* device, FuriString* parsed_data) {
                 bool value_found = mf_classic_block_to_value(
                     &data->block[2], &value, &addr); // block 2 is value block
                 if(value_found) {
-                    furi_string_cat_printf(parsed_data, "\nValue: %08lX", value);
+                    furi_string_cat_printf(parsed_data, "\nHodnota: %08lX", value);
                 } else {
                     furi_string_cat_str(parsed_data, "\nMozny klon:\nNeplatny blok hodnoty.");
                 }
@@ -254,7 +254,7 @@ static bool banapass_parse(const NfcDevice* device, FuriString* parsed_data) {
         for(int i = 0; i < 6; i++) {
             furi_string_cat_printf(parsed_data, "%c", magic_bytes[i]);
         }
-        furi_string_cat_str(parsed_data, "\nChecksum:\n");
+        furi_string_cat_str(parsed_data, "\nKontrolni soucet:\n");
         for(int i = 0; i < 8; i++) {
             furi_string_cat_printf(parsed_data, "%02X ", check_sum[i]);
         }

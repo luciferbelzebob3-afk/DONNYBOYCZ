@@ -221,7 +221,7 @@ static void
         return;
     } else {
         if(ticket_number == 0) {
-            furi_string_cat_printf(parsed_data, "\e#SevPPK Transport Card\n");
+            furi_string_cat_printf(parsed_data, "\e#SevPPK doprava\n");
             switch(ticket->first_ticket_marker) {
             case 0x02:
                 furi_string_cat_printf(parsed_data, "Typ:> neomezene 5 dni");

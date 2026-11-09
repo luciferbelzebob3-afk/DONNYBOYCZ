@@ -144,7 +144,7 @@ static bool zolotaya_korona_parse(const NfcDevice* device, FuriString* parsed_da
 
         furi_string_cat_printf(
             parsed_data,
-            "\e#Zolotaya korona\nCard number: %u%015llu\nRegion: %u\nBalance: %lu.%02u RUR\nPrev. balance: %lu.%02u RUR",
+            "\e#Zolotaya korona\nCislo karty: %u%015llu\nRegion: %u\nZustatek: %lu.%02u RUR\nPredchozi zustatek: %lu.%02u RUR",
             card_number_prefix,
             card_number_postfix,
             region_number,
@@ -155,7 +155,7 @@ static bool zolotaya_korona_parse(const NfcDevice* device, FuriString* parsed_da
 
         furi_string_cat_printf(
             parsed_data,
-            "\nLast refill amount: %lu.%02u RUR\nRefill counter: %u\nLast refill: %s at %s\nRefill machine id: %u",
+            "\nPosledni dobiti: %lu.%02u RUR\nPocet dobiti: %u\nDobito: %s v %s\nID dobijeciho stroje: %u",
             last_refill_amount_rub,
             last_refill_amount_kop,
             refill_counter,
@@ -165,7 +165,7 @@ static bool zolotaya_korona_parse(const NfcDevice* device, FuriString* parsed_da
 
         furi_string_cat_printf(
             parsed_data,
-            "\nLast trip: %s at %s\nTrack number: %u\nValidator: %c%06lu",
+            "\nPosledni jizda: %s v %s\nCislo trasy: %u\nValidator: %c%06lu",
             furi_string_get_cstr(last_trip_date_str),
             furi_string_get_cstr(last_trip_time_str),
             track_number,
@@ -175,7 +175,7 @@ static bool zolotaya_korona_parse(const NfcDevice* device, FuriString* parsed_da
         if(furi_hal_rtc_is_flag_set(FuriHalRtcFlagDebug)) {
             furi_string_cat_printf(
                 parsed_data,
-                "\nStatus: %u\nSequence num: %u\nDiscount code: %u",
+                "\nStav: %u\nCislo sekvence: %u\nKod slevy: %u",
                 status,
                 sequence_number,
                 discount_code);

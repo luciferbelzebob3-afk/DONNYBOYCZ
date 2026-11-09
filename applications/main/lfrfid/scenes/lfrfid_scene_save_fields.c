@@ -1,4 +1,15 @@
 #include "../lfrfid_i.h"
+#include <string.h>
+
+static const char* lfrfid_scene_save_fields_label(const char* name) {
+    if(strcmp(name, "Facility Code") == 0) return "Kod objektu";
+    if(strcmp(name, "Card Number") == 0) return "Cislo karty";
+    if(strcmp(name, "Version") == 0) return "Verze";
+    if(strcmp(name, "Region Code") == 0) return "Kod regionu";
+    if(strcmp(name, "Issue Level") == 0) return "Uroven vydani";
+    if(strcmp(name, "Credential") == 0) return "Identifikator";
+    return name;
+}
 
 static void lfrfid_scene_save_fields_number_callback(void* context, int32_t number) {
     LfRfid* app = context;
@@ -16,7 +27,7 @@ static void lfrfid_scene_save_fields_show_field(LfRfid* app) {
     const int32_t min = field.min;
     const int32_t max = MIN(field.max, (uint64_t)INT32_MAX);
 
-    lfrfid_text_store_set(app, "%s (%ld-%ld)", field.name, min, max);
+    lfrfid_text_store_set(app, "%s (%ld-%ld)", lfrfid_scene_save_fields_label(field.name), min, max);
     number_input_set_header_text(app->number_input, app->text_store);
     number_input_set_result_callback(
         app->number_input,

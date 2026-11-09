@@ -220,7 +220,7 @@ void subghz_scene_radio_settings_on_enter(void* context) {
 
         item = variable_item_list_add(
             variable_item_list,
-            "Debug pin",
+            "Pin ladeni",
             DEBUG_P_COUNT,
             subghz_scene_receiver_config_set_debug_pin,
             subghz);

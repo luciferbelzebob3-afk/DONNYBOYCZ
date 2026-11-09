@@ -212,7 +212,7 @@ static bool troika_parse(const NfcDevice* device, FuriString* parsed_data) {
             mosgortrans_parse_transport_block(&data->block[28], ground_result);
         bool is_tat_data_present = mosgortrans_parse_transport_block(&data->block[16], tat_result);
 
-        furi_string_cat_printf(parsed_data, "\e#Troyka card\n");
+        furi_string_cat_printf(parsed_data, "\e#Karta Troyka\n");
         if(is_metro_data_present && !furi_string_empty(metro_result)) {
             render_section_header(parsed_data, "Metro", 22, 21);
             furi_string_cat_printf(parsed_data, "%s\n", furi_string_get_cstr(metro_result));

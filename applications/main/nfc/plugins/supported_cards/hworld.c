@@ -208,13 +208,13 @@ bool hworld_parse(const NfcDevice* device, FuriString* parsed_data) {
         uint8_t expire_hour = data->block[ACCESS_INFO_BLOCK].data[10];
         uint8_t expire_minute = data->block[ACCESS_INFO_BLOCK].data[11];
 
-        furi_string_cat_printf(parsed_data, "\e#H World Card\n");
+        furi_string_cat_printf(parsed_data, "\e#Karta H World\n");
         furi_string_cat_printf(
-            parsed_data, "%s\n", is_hworld_vip ? "VIP card" : "Standard room key");
-        furi_string_cat_printf(parsed_data, "Room Num: %u%02u\n", room_floor, room_num);
+            parsed_data, "%s\n", is_hworld_vip ? "VIP karta" : "Standardni klic pokoje");
+        furi_string_cat_printf(parsed_data, "Cislo pokoje: %u%02u\n", room_floor, room_num);
         furi_string_cat_printf(
             parsed_data,
-            "Check-in Date: \n%04u-%02d-%02d\n%02d:%02d:00\n",
+            "Datum prijezdu: \n%04u-%02d-%02d\n%02d:%02d:00\n",
             check_in_year,
             check_in_month,
             check_in_day,
@@ -222,7 +222,7 @@ bool hworld_parse(const NfcDevice* device, FuriString* parsed_data) {
             check_in_minute);
         furi_string_cat_printf(
             parsed_data,
-            "Expiration Date: \n%04u-%02d-%02d\n%02d:%02d:00",
+            "Platnost do: \n%04u-%02d-%02d\n%02d:%02d:00",
             expire_year,
             expire_month,
             expire_day,

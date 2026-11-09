@@ -23,7 +23,7 @@ void infrared_scene_universal_fan_on_enter(void* context) {
         &I_power_hover_19x20,
         infrared_scene_universal_common_item_callback,
         context);
-    infrared_brute_force_add_record(brute_force, i++, "Napajeni");
+    infrared_brute_force_add_record(brute_force, i++, "Power");
     button_panel_add_icon(button_panel, 4, 46, &I_power_text_24x5);
 
     button_panel_add_item(
@@ -37,7 +37,7 @@ void infrared_scene_universal_fan_on_enter(void* context) {
         &I_mode_hover_19x20,
         infrared_scene_universal_common_item_callback,
         context);
-    infrared_brute_force_add_record(brute_force, i++, "Rezim");
+    infrared_brute_force_add_record(brute_force, i++, "Mode");
     button_panel_add_icon(button_panel, 39, 46, &I_mode_text_20x5);
 
     button_panel_add_item(
@@ -51,7 +51,7 @@ void infrared_scene_universal_fan_on_enter(void* context) {
         &I_volup_hover_24x21,
         infrared_scene_universal_common_item_callback,
         context);
-    infrared_brute_force_add_record(brute_force, i++, "Zvysit rychlost");
+    infrared_brute_force_add_record(brute_force, i++, "Speed_up");
     button_panel_add_item(
         button_panel,
         i,
@@ -63,7 +63,7 @@ void infrared_scene_universal_fan_on_enter(void* context) {
         &I_voldown_hover_24x21,
         infrared_scene_universal_common_item_callback,
         context);
-    infrared_brute_force_add_record(brute_force, i++, "Snizit rychlost");
+    infrared_brute_force_add_record(brute_force, i++, "Speed_dn");
     button_panel_add_item(
         button_panel,
         i,
@@ -75,7 +75,7 @@ void infrared_scene_universal_fan_on_enter(void* context) {
         &I_rotate_hover_19x20,
         infrared_scene_universal_common_item_callback,
         context);
-    infrared_brute_force_add_record(brute_force, i++, "Otaceni");
+    infrared_brute_force_add_record(brute_force, i++, "Rotate");
     button_panel_add_icon(button_panel, 4, 80, &I_rotate_text_24x5);
 
     button_panel_add_item(
@@ -89,7 +89,7 @@ void infrared_scene_universal_fan_on_enter(void* context) {
         &I_timer_hover_19x20,
         infrared_scene_universal_common_item_callback,
         context);
-    infrared_brute_force_add_record(brute_force, i++, "Casovac");
+    infrared_brute_force_add_record(brute_force, i++, "Timer");
     button_panel_add_icon(button_panel, 4, 109, &I_timer_text_23x5);
 
     button_panel_add_label(button_panel, 5, 11, FontPrimary, "Ovladac vetraku");

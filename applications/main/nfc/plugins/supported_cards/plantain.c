@@ -466,10 +466,10 @@ static inline void extract_ppk_data(
 }
 // Function to format and print plantain purse data
 static void printf_plantain_data(FuriString* parsed_data, PlantainData* purse) {
-    furi_string_printf(parsed_data, "\e#Plantain Card");
+    furi_string_printf(parsed_data, "\e#Karta Plantain");
     furi_string_cat_printf(
         parsed_data,
-        "\nNumber: %s\nBalance: %ld RUB\nMetro Trips: %d\nGround Trips: %d\nLast Trip: %02d.%02d.%04d %02d:%02d",
+        "\nCislo: %s\nZustatek: %ld RUB\nJizdy metrem: %d\nPozemni jizdy: %d\nPosledni jizda: %02d.%02d.%04d %02d:%02d",
         furi_string_get_cstr(purse->card_number_str),
         purse->balance,
         purse->trips_metro,
@@ -501,7 +501,7 @@ static void printf_plantain_data(FuriString* parsed_data, PlantainData* purse) {
 // Function to format and print PPK ticket data
 static void printf_ppk_data(FuriString* parsed_data, PPKData* ticket, bool ticket_number) {
     if(ticket_number == 0) {
-        furi_string_cat_printf(parsed_data, "\n\n\e#PPK Ticket:\n");
+        furi_string_cat_printf(parsed_data, "\n\n\e#Listek PPK:\n");
         switch(ticket->first_ticket_marker) {
         case 0x33:
             furi_string_cat_printf(parsed_data, "Typ:> 1 jizda");
@@ -513,7 +513,7 @@ static void printf_ppk_data(FuriString* parsed_data, PPKData* ticket, bool ticke
             furi_string_cat_printf(parsed_data, "Typ:> 2 jizdy (pa-po)");
             break;
         case 0x36:
-            furi_string_cat_printf(parsed_data, "Type:> 2 rides (Sat.-Mon.");
+            furi_string_cat_printf(parsed_data, "Typ:> 2 jizdy (so-po)");
             break;
         default:
             furi_string_cat_printf(

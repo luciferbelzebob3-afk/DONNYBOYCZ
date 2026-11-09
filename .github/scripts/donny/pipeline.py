@@ -464,10 +464,13 @@ def package():
     if p.get('theme') == 'DARK SIGNAL':
         shutil.copy2('site/assets/dark-signal-preview.png', assets / 'DARK-SIGNAL-nahled.png')
         shutil.copy2('documentation/DarkSignal.md', assets / 'DARK-SIGNAL-instalace.md')
-    if p.get('animation_count') == 8:
+    if p.get('animation_count') in (8, 12):
         shutil.copy2('documentation/DonnyAnimations.md', assets / 'ANIMACE-instalace.md')
         if not (assets / 'animace-overeni.json').is_file():
-            raise RuntimeError('Chybi overeni osmi animaci v instalacnim balicku')
+            raise RuntimeError('Chybi overeni animaci v instalacnim balicku')
+        animation_report = load(assets / 'animace-overeni.json')
+        if len(animation_report.get('animations', [])) != p['animation_count']:
+            raise RuntimeError('Pocet overenych animaci neodpovida metadatum vydani')
     save(assets / 'sestaveni.json', dict(version=v, source_sha=source, upstream=p,
         translation=load(ROOT / 'translation-report.json'), run_id=os.environ.get('GITHUB_RUN_ID')))
     shutil.make_archive(str(assets / f'DONNY-BOY-{v}-firmware-package'), 'zip', dist)

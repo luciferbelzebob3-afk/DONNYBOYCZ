@@ -391,7 +391,8 @@ static bool animation_manager_is_valid_idle_animation(
 }
 
 static bool animation_manager_is_donny_animation(const StorageAnimationManifestInfo* info) {
-    return !strncmp(info->name, "DB_DS_", 6) || !strncmp(info->name, "DB_Kluk_", 8);
+    return !strncmp(info->name, "DB_DS_", 6) || !strncmp(info->name, "DB_Kluk_", 8) ||
+           !strncmp(info->name, "DB_Auto_", 8);
 }
 
 static StorageAnimation*

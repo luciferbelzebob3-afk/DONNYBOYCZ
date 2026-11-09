@@ -474,7 +474,7 @@ bool subghz_read_raw_input(InputEvent* event, void* context) {
                         model->rssi_history_end = false;
                         model->ind_write = 0;
                         model->not_showing_samples = true;
-                        furi_string_set(model->sample_write, "0 spl.");
+                        furi_string_set(model->sample_write, "0 vz.");
                         furi_string_reset(model->file_name);
                         instance->callback(SubGhzCustomEventViewReadRAWErase, instance->context);
                     }
@@ -537,7 +537,7 @@ void subghz_read_raw_set_status(
                 model->ind_write = 0;
                 model->not_showing_samples = true;
                 furi_string_reset(model->file_name);
-                furi_string_set(model->sample_write, "0 spl.");
+                furi_string_set(model->sample_write, "0 vz.");
                 model->raw_threshold_rssi = raw_threshold_rssi;
             },
             true);

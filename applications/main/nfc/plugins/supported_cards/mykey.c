@@ -80,20 +80,20 @@ static bool mykey_parse(const NfcDevice* device, FuriString* parsed_data) {
     furi_string_cat(parsed_data, "\e#MyKey\n");
 
     if(data->blocks[6] == 0) { // Tag is actually a MyKey but it has been bricked by a reader
-        furi_string_cat(parsed_data, "\e#Bricked!\nBlock 6 is 0!");
+        furi_string_cat(parsed_data, "\e#Tag nefunkcni!\nBlok 6 je 0!");
         return true;
     }
 
     bool is_blank = mykey_is_blank(data);
-    furi_string_cat_printf(parsed_data, "Serial#: %08lX\n", (uint32_t)__bswap32(data->blocks[7]));
+    furi_string_cat_printf(parsed_data, "Seriove cislo: %08lX\n", (uint32_t)__bswap32(data->blocks[7]));
     furi_string_cat_printf(
-        parsed_data, "Prod. date: %02X/%02X/%04X\n", mfg_day, mfg_month, mfg_year);
+        parsed_data, "Datum vyroby: %02X/%02X/%04X\n", mfg_day, mfg_month, mfg_year);
     furi_string_cat_printf(parsed_data, "Prazdna: %s\n", is_blank ? "ano" : "ne");
-    furi_string_cat_printf(parsed_data, "LockID: %s", mykey_has_lockid(data) ? "maybe" : "no");
+    furi_string_cat_printf(parsed_data, "LockID: %s", mykey_has_lockid(data) ? "mozna" : "ne");
 
     if(!is_blank) {
         furi_string_cat_printf(
-            parsed_data, "\nOp. count: %zu\n", (size_t)__bswap32(data->blocks[0x12] & 0xFFFFFF00));
+            parsed_data, "\nPocet operaci: %zu\n", (size_t)__bswap32(data->blocks[0x12] & 0xFFFFFF00));
 
         uint32_t block3C = data->blocks[0x3C];
         if(block3C == 0xFFFFFFFF) {

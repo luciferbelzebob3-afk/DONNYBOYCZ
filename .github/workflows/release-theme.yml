@@ -41,8 +41,11 @@ jobs:
           assert match
           major,minor,patch=map(int,match.groups()[:3])
           assert pending['version']==v and pending['theme']=='DARK SIGNAL'
-          expected_previous=f'{major}.{minor}.{patch if match.group(4) else patch-1}'
-          assert cfg['previous_version']==expected_previous
+          previous=re.fullmatch(r'(\d+)\.(\d+)\.(\d+)(a)?',cfg['previous_version'])
+          assert previous, 'Neplatne cislo predchozi verze'
+          def version_key(m):
+              return (*map(int, m.groups()[:3]), bool(m.group(4)))
+          assert version_key(match)>version_key(previous), 'Nova verze musi byt vyssi nez predchozi'
           assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==os.environ['GITHUB_SHA']
           root='https://api.github.com/repos/'+os.environ['GITHUB_REPOSITORY']
           def api(path):

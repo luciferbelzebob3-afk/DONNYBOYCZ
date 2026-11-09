@@ -301,3 +301,30 @@ Max butthurt: 14
 Min level: 1
 Max level: 3
 Weight: 5
+Name: DB_Auto_Noc_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 3
+Weight: 5
+
+Name: DB_Auto_Garaz_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 3
+Weight: 5
+
+Name: DB_Auto_Budiky_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 3
+Weight: 5
+
+Name: DB_Auto_Jizda_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 3
+Weight: 5

@@ -256,7 +256,7 @@ static bool social_moscow_parse(const NfcDevice* device, FuriString* parsed_data
         // the number is fixed-width 6+2+10+1 digits, so keep the leading zeros
         furi_string_cat_printf(
             parsed_data,
-            "\e#Social \ecard\nNumber: %06lx %02x %010llx %x\n",
+            "\e#Social \ecard\nCislo: %06lx %02x %010llx %x\n",
             card_code,
             card_region,
             card_number,
@@ -272,7 +272,7 @@ static bool social_moscow_parse(const NfcDevice* device, FuriString* parsed_data
         }
         furi_string_cat_printf(
             parsed_data,
-            "Valid for: %02x/%02x %02x%02x\n",
+            "Platnost: %02x/%02x %02x%02x\n",
             month,
             year,
             data->block[60].data[13],

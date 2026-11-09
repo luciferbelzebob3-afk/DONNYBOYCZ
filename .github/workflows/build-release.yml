@@ -52,7 +52,7 @@ jobs:
         run: ./fbt COMPACT=1 DEBUG=0 "DIST_SUFFIX=$VERSION" "UPDATE_VERSION_STRING=$VERSION" updater_package
       - name: Připravit kontrolu animačních prostředků
         run: python -m pip install Pillow heatshrink2
-      - name: Ověřit všech osm animací v instalačním balíčku
+      - name: Ověřit všech dvanáct animací v instalačním balíčku
         run: python .github/scripts/donny/verify_animations.py
       - name: Ověřit povinné výstupy, metadata a archivy
         run: python .github/scripts/donny/pipeline.py package

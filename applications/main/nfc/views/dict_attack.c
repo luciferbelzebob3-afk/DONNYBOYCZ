@@ -84,7 +84,7 @@ static void dict_attack_draw_mf_classic(Canvas* canvas, DictAttackViewModel* m) 
         snprintf(
             draw_str,
             sizeof(draw_str),
-            "Reuse key check for sector: %d",
+            "Overeni klice: sektor %d",
             m->key_attack_current_sector);
     } else {
         snprintf(draw_str, sizeof(draw_str), "Odemykam sektor: %d", m->current_sector);

@@ -1,4 +1,4 @@
-"""Verify the eight original animations inside the actual firmware update archive."""
+"""Verify the twelve original animations inside the actual firmware update archive."""
 from pathlib import Path
 import hashlib
 import io
@@ -18,6 +18,10 @@ ANIMATIONS = {
     'DB_Kluk_Matrix_128x64': (40, 10),
     'DB_Kluk_Stin_128x64': (40, 10),
     'DB_Kluk_3D_128x64': (40, 10),
+    'DB_Auto_Noc_128x64': (8, 6),
+    'DB_Auto_Garaz_128x64': (8, 6),
+    'DB_Auto_Budiky_128x64': (8, 6),
+    'DB_Auto_Jizda_128x64': (8, 6),
 }
 
 

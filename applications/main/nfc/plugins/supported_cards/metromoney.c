@@ -176,7 +176,7 @@ static bool metromoney_parse(const NfcDevice* device, FuriString* parsed_data) {
 
         furi_string_printf(
             parsed_data,
-            "\e#Metromoney\nCard number: %lu\nBalance: %lu.%02u GEL",
+            "\e#Metromoney\nCislo karty: %lu\nZustatek: %lu.%02u GEL",
             card_number,
             balance_lari,
             balance_tetri);

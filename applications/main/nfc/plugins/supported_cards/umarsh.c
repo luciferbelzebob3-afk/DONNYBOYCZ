@@ -107,7 +107,7 @@ static bool umarsh_parse(const NfcDevice* device, FuriString* parsed_data) {
 
         furi_string_cat_printf(
             parsed_data,
-            "\e#Umarsh\nCard number: %lu\nRegion: %02u\nTerminal number: %lu\nRefill counter: %u\nBalance: %u.%02u RUR",
+            "\e#Umarsh\nCislo karty: %lu\nRegion: %02u\nCislo terminalu: %lu\nPocet dobiti: %u\nZustatek: %u.%02u RUR",
             card_number,
             region_number,
             terminal_number,
@@ -117,13 +117,13 @@ static bool umarsh_parse(const NfcDevice* device, FuriString* parsed_data) {
 
         if(is_expiry_datetime_valid)
             furi_string_cat_printf(
-                parsed_data, "\nExpires: %s", furi_string_get_cstr(expiry_datetime_str));
+                parsed_data, "\nVyprsi: %s", furi_string_get_cstr(expiry_datetime_str));
         if(is_valid_to_datetime_valid)
             furi_string_cat_printf(
-                parsed_data, "\nValid to: %s", furi_string_get_cstr(valid_to_datetime_str));
+                parsed_data, "\nPlatnost do: %s", furi_string_get_cstr(valid_to_datetime_str));
         if(is_last_refill_datetime_valid)
             furi_string_cat_printf(
-                parsed_data, "\nLast refill: %s", furi_string_get_cstr(last_refill_datetime_str));
+                parsed_data, "\nPosledni dobiti: %s", furi_string_get_cstr(last_refill_datetime_str));
 
         furi_string_free(expiry_datetime_str);
         furi_string_free(valid_to_datetime_str);

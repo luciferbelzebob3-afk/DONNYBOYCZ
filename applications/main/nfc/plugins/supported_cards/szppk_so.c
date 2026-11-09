@@ -223,7 +223,7 @@ static void printf_accompany_card(TicketData* ticket, FuriString* parsed_data) {
     } else {
         furi_string_cat_printf(
             parsed_data,
-            "\e#SZPPK Accompany Card\nValid on: %02d-%02d-%04d\nStation: > %s\n",
+            "\e#SZPPK doprovod\nPlatnost: %02d-%02d-%04d\nStanice: > %s\n",
             ticket->valid_from.day,
             ticket->valid_from.month,
             ticket->valid_from.year,
@@ -275,7 +275,7 @@ static void
         return;
     } else {
         if(ticket_number == 0) {
-            furi_string_cat_printf(parsed_data, "\e#SZPPK Transport Card\n");
+            furi_string_cat_printf(parsed_data, "\e#SZPPK doprava\n");
             switch(ticket->first_ticket_marker) {
             case 0x02:
                 furi_string_cat_printf(parsed_data, "Typ:> neomezene 5 dni");

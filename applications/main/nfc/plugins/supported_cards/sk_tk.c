@@ -244,10 +244,10 @@ static void
                 break;
             default:
                 furi_string_cat_printf(
-                    parsed_data, "Type: Unknown, 0x%02X\n", ticket->first_ticket_marker);
+                    parsed_data, "Typ: neznamy, 0x%02X\n", ticket->first_ticket_marker);
             }
         } else {
-            furi_string_cat_printf(parsed_data, "\e#Second Ticket:\n");
+            furi_string_cat_printf(parsed_data, "\e#Druhy listek:\n");
             switch(ticket->second_ticket_marker) {
             case 0x02:
                 furi_string_cat_printf(parsed_data, "Typ:> neomezene 5 dni");

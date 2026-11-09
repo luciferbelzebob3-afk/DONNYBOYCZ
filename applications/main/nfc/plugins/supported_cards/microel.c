@@ -201,14 +201,14 @@ static bool microel_parse(const NfcDevice* device, FuriString* parsed_data) {
         const uint8_t* temp_ptr = data->block[4].data;
         uint16_t balance = (temp_ptr[6] << 8) | (temp_ptr[5]);
         uint16_t previous_balance = (data->block[5].data[6] << 8) | (data->block[5].data[5]);
-        furi_string_cat_printf(parsed_data, "\e#Microel Card\n");
+        furi_string_cat_printf(parsed_data, "\e#Karta Microel\n");
         furi_string_cat_printf(parsed_data, "UID:");
         for(size_t i = 0; i < UID_LENGTH; i++) {
             furi_string_cat_printf(parsed_data, " %02X", uid[i]);
         }
         if(mf_classic_parser_block_has_data(data, 4)) {
             furi_string_cat_printf(
-                parsed_data, "\nCurrent Credit: %d.%02d E \n", balance / 100, balance % 100);
+                parsed_data, "\nAktualni kredit: %d.%02d E \n", balance / 100, balance % 100);
         } else {
             FURI_LOG_D(TAG, "Block 4 holds no data");
             furi_string_cat(parsed_data, "\nAktualni kredit: neznamy\n");
@@ -216,7 +216,7 @@ static bool microel_parse(const NfcDevice* device, FuriString* parsed_data) {
         if(mf_classic_parser_block_has_data(data, 5)) {
             furi_string_cat_printf(
                 parsed_data,
-                "Previous Credit: %d.%02d E \n",
+                "Predchozi kredit: %d.%02d E \n",
                 previous_balance / 100,
                 previous_balance % 100);
         } else {

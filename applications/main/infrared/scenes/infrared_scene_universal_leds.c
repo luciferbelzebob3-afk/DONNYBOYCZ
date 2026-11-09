@@ -26,7 +26,7 @@ void infrared_scene_universal_leds_on_enter(void* context) {
         infrared_scene_universal_common_item_callback,
         context);
     button_panel_add_icon(button_panel, 15, 34, &I_on_text_9x5);
-    infrared_brute_force_add_record(brute_force, i++, "Zapnout");
+    infrared_brute_force_add_record(brute_force, i++, "Power_on");
 
     button_panel_add_item(
         button_panel,
@@ -40,7 +40,7 @@ void infrared_scene_universal_leds_on_enter(void* context) {
         infrared_scene_universal_common_item_callback,
         context);
     button_panel_add_icon(button_panel, 38, 34, &I_off_text_12x5);
-    infrared_brute_force_add_record(brute_force, i++, "Vypnout");
+    infrared_brute_force_add_record(brute_force, i++, "Power_off");
 
     button_panel_add_item(
         button_panel,
@@ -53,7 +53,7 @@ void infrared_scene_universal_leds_on_enter(void* context) {
         &I_plus_hover_19x20,
         infrared_scene_universal_common_item_callback,
         context);
-    infrared_brute_force_add_record(brute_force, i++, "Zvysit jas");
+    infrared_brute_force_add_record(brute_force, i++, "Brightness_up");
 
     button_panel_add_item(
         button_panel,
@@ -67,7 +67,7 @@ void infrared_scene_universal_leds_on_enter(void* context) {
         infrared_scene_universal_common_item_callback,
         context);
     button_panel_add_icon(button_panel, 12, 64, &I_brightness_text_40x5);
-    infrared_brute_force_add_record(brute_force, i++, "Snizit jas");
+    infrared_brute_force_add_record(brute_force, i++, "Brightness_dn");
 
     button_panel_add_item(
         button_panel,
@@ -80,7 +80,7 @@ void infrared_scene_universal_leds_on_enter(void* context) {
         &I_red_hover_19x20,
         infrared_scene_universal_common_item_callback,
         context);
-    infrared_brute_force_add_record(brute_force, i++, "Cervena");
+    infrared_brute_force_add_record(brute_force, i++, "Red");
     button_panel_add_item(
         button_panel,
         i,
@@ -92,7 +92,7 @@ void infrared_scene_universal_leds_on_enter(void* context) {
         &I_green_hover_19x20,
         infrared_scene_universal_common_item_callback,
         context);
-    infrared_brute_force_add_record(brute_force, i++, "Zelena");
+    infrared_brute_force_add_record(brute_force, i++, "Green");
     button_panel_add_item(
         button_panel,
         i,
@@ -104,7 +104,7 @@ void infrared_scene_universal_leds_on_enter(void* context) {
         &I_blue_hover_19x20,
         infrared_scene_universal_common_item_callback,
         context);
-    infrared_brute_force_add_record(brute_force, i++, "Modra");
+    infrared_brute_force_add_record(brute_force, i++, "Blue");
     button_panel_add_item(
         button_panel,
         i,
@@ -117,7 +117,7 @@ void infrared_scene_universal_leds_on_enter(void* context) {
         infrared_scene_universal_common_item_callback,
         context);
     button_panel_add_icon(button_panel, 19, 121, &I_color_text_24x5);
-    infrared_brute_force_add_record(brute_force, i++, "Bila");
+    infrared_brute_force_add_record(brute_force, i++, "White");
 
     button_panel_add_label(button_panel, 20, 9, FontPrimary, "LED svetla");
 

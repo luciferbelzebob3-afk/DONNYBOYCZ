@@ -60,11 +60,11 @@ static bool trt_parse(const NfcDevice* device, FuriString* parsed_data) {
 
         // Format string for rendering
         furi_string_cat_printf(parsed_data, "\e#TRT Tianjin Metro\n");
-        furi_string_cat_printf(parsed_data, "Single-Use Ticket\n");
-        furi_string_cat_printf(parsed_data, "Balance: %u.%02u RMB\n", balance_yuan, balance_cent);
+        furi_string_cat_printf(parsed_data, "Jednorazovy listek\n");
+        furi_string_cat_printf(parsed_data, "Zustatek: %u.%02u RMB\n", balance_yuan, balance_cent);
         furi_string_cat_printf(
             parsed_data,
-            "Sale Date: \n%04u-%02d-%02d %02d:%02d",
+            "Datum prodeje: \n%04u-%02d-%02d %02d:%02d",
             sale_year,
             sale_month,
             sale_day,

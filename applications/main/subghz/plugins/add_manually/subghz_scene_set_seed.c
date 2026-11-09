@@ -146,7 +146,7 @@ bool subghz_scene_set_seed_on_event(void* context, SceneManagerEvent event) {
 
             if(!generated_protocol) {
                 furi_string_set(
-                    subghz->error_str, "Function requires\nan SD card with\nfresh databases.");
+                    subghz->error_str, "Funkce vyzaduje\nSD kartu s novymi\ndatabazemi.");
                 scene_manager_next_scene(subghz->scene_manager, SubGhzSceneShowError);
             } else {
                 subghz_file_name_clear(subghz);

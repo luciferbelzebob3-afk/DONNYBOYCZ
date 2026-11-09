@@ -367,11 +367,11 @@ bool saflok_parse(const NfcDevice* device, FuriString* parsed_data) {
 
         // Determine if all weekdays are restricted
         if(restricted_weekday == 0b01111100) {
-            furi_string_printf(restricted_weekday_string, "weekdays");
+            furi_string_printf(restricted_weekday_string, "pracovni dny");
         }
         // If there are specific restricted days
         else if(restricted_weekday == 0b00000011) {
-            furi_string_printf(restricted_weekday_string, "weekends");
+            furi_string_printf(restricted_weekday_string, "vikendy");
         }
         // If no weekdays are restricted
         else if(restricted_weekday == 0) {

@@ -31,7 +31,7 @@ void subghz_scene_set_key_on_enter(void* context) {
 
     // Setup view
     ByteInput* byte_input = subghz->byte_input;
-    byte_input_set_header_text(byte_input, "Zadejte KEY v hexu");
+    byte_input_set_header_text(byte_input, "Zadejte klic HEX");
     byte_input_set_result_callback(
         byte_input, subghz_scene_set_key_byte_input_callback, NULL, subghz, byte_ptr, byte_count);
     view_dispatcher_switch_to_view(subghz->view_dispatcher, SubGhzViewIdByteInput);
@@ -71,7 +71,7 @@ bool subghz_scene_set_key_on_event(void* context, SceneManagerEvent event) {
 
             if(!generated_protocol) {
                 furi_string_set(
-                    subghz->error_str, "Function requires\nan SD card with\nfresh databases.");
+                    subghz->error_str, "Funkce vyzaduje\nSD kartu s novymi\ndatabazemi.");
                 scene_manager_next_scene(subghz->scene_manager, SubGhzSceneShowError);
             } else {
                 subghz_file_name_clear(subghz);

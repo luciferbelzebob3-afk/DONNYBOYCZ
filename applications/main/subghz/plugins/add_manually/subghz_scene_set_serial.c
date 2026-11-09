@@ -93,7 +93,7 @@ void subghz_scene_set_serial_on_enter(void* context) {
 
     // Setup view
     ByteInput* byte_input = subghz->byte_input;
-    byte_input_set_header_text(byte_input, "Zadejte SERIAL v hexu");
+    byte_input_set_header_text(byte_input, "Ser. cislo v HEX");
     byte_input_set_result_callback(
         byte_input,
         subghz_scene_set_serial_byte_input_callback,

@@ -14,7 +14,7 @@ void findmy_scene_config_packet_on_enter(void* context) {
     FindMy* app = context;
     ByteInput* byte_input = app->byte_input;
 
-    byte_input_set_header_text(byte_input, "Zadej Bluetooth payload:");
+    byte_input_set_header_text(byte_input, "Zadej Bluetooth data:");
 
     memcpy(app->packet_buf, app->state.data, findmy_state_data_size(app->state.tag_type));
 
