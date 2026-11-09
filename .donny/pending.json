@@ -3,12 +3,12 @@
   "upstream_tag": "unlshd-094",
   "upstream_release_id": 413171182,
   "upstream_url": "https://github.com/DarkFlippers/unleashed-firmware/releases/tag/unlshd-094",
-  "version": "1.0.3a",
-  "base_sha": "c4e851466a578a5653289c9ed07152cd6d2b09bf",
+  "version": "1.0.4",
+  "base_sha": "7baa8d24189368c66049284458fd99bd42cb9789",
   "previous_upstream_sha": "2f62b3ab5d767c41e09ab17c6b5fbd175c8c4c85",
   "reused": 0,
   "upstream_changes": [],
   "theme": "DARK SIGNAL",
-  "previous_version": "1.0.3",
-  "animation_count": 8
+  "previous_version": "1.0.3a",
+  "animation_count": 12
 }

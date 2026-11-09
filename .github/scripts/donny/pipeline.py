@@ -494,7 +494,7 @@ def publish():
     report = load(ROOT / 'translation-report.json')
     notes = (f'# DONNY BOY CZ {v}\n\n'
         f'Základ: [{p["upstream_tag"]}]({p["upstream_url"]}).\n\n'
-        f'Zdroj sestavení: `{source}`. Nové texty: {report["new"]}; '
+        f'Zdroj sestavení: `{source}`. Nové texty upstreamu: {report["new"]}; '
         f'znovu použité překlady: {report["reused"]}; nevyřešené: 0.\n\n'
         '## Převzaté změny\n\n' + '\n'.join('- ' + x for x in load(ROOT / 'release-changes-cs.json', [])) + '\n\n'
         '## Instalace a ověření\n\n'
