@@ -1,9 +1,7 @@
 [
-  "Osm nových animací plochy: Kapuce, Noční vysílač, Radar, DONNY BOY, Dech a pohled, Matrix, Kluk ve stínu a Prostorová kapuce s 3D efektem.",
-  "Verze 1.0.3a: písmeno a označuje vydání s animacemi.",
-  "Nové animace se střídají náhodně, jedna běží 12 sekund; instalační balíček obsahuje všechny potřebné SD prostředky.",
-  "Opraven výběr plochy, který dříve trvale vracel pouze původní vestavěnou animaci. Ta zůstává zálohou bez SD nebo při chybě načtení.",
-  "Finální animace Matrix nahrazuje dřívější nasazování kapuce; chůze ani nasazování nejsou součástí vydání.",
-  "Zachovaný základ Unleashed unlshd-094. Novější stabilní vydání při kontrole 2. 11. 2026 nebylo dostupné; nové vývojové commity nebyly převzaty.",
-  "Žádné nové texty rozhraní k překladu; dosavadní česká lokalizace i motiv DARK SIGNAL zůstávají zachované."
+  "Čtyři nové automobilové animace: Noční jízda, Garáž, Budíky a Jízda. Na ploše je celkem dvanáct scén a 320 snímků; aktualizační balíček obsahuje potřebné prostředky pro SD kartu.",
+  "Opraven výběr plochy tak, aby se nové automobilové scény vybíraly spolu s dřívějšími animacemi DONNY BOY.",
+  "Opraveno párování příkazů univerzálních IR ovladačů klimatizace, audia, ventilátorů, LED a projektorů s databází. Signály a databázové klíče nebyly přepsány.",
+  "Doplněny české texty v aplikacích NFC, RFID, Sub-GHz, IR, nastavení a dalších vybraných obrazovkách. České uživatelské rozhraní se dále průběžně překládá.",
+  "Základem zůstává stabilní Unleashed unlshd-094; při kontrole nebylo dostupné novější stabilní vydání."
 ]
