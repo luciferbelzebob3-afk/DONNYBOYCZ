@@ -1,0 +1,208 @@
+{
+  "f7f83c4f440ddc6ba92c330478a48068d1c24f7ba524c4b0d72538ca05933dc2": {
+    "items": [
+      {
+        "id": "29a9a982f1199e7b03c3861ebb0ab71ca31d7b7adc4984a0dd685c8c65dca225",
+        "kind": "technical",
+        "limit": null,
+        "reason": "The string \"FAAC_SLH\" is a protocol identifier or a constant used in the code, not a UI element."
+      },
+      {
+        "id": "2ccfe3fcfb9a6fcc9e5ae6c98c0ca9ecc9e8748f664d83e8d32a938bf1d175c9",
+        "kind": "technical",
+        "limit": null,
+        "reason": "The string \"Genius\" is a manufacturer identifier used in the code, not a UI element."
+      },
+      {
+        "id": "820a1f6b8abf7b91e47ba236d7b906a53fdc8a09b499446f4fab3635091fa7e0",
+        "kind": "technical",
+        "limit": null,
+        "reason": "The string \"Comunello\" is a manufacturer identifier used in the code, not a UI element."
+      },
+      {
+        "id": "ee91f7b6ef9ace547452767ccb620522879b5b81ceefd4dc59441a9edce120c2",
+        "kind": "technical",
+        "limit": null,
+        "reason": "The string \"Beninca\" is a manufacturer identifier used in the code, not a UI element."
+      }
+    ]
+  },
+  "bc28d494fd8b3e9801303f1316171ec7322dac22dce91066ff0202f7766d988f": {
+    "items": [
+      {
+        "id": "c16651fdd9444ddf691217b6697b034235601de84a2a9c59d38829a4818f40db",
+        "kind": "ambiguous",
+        "limit": null,
+        "reason": "The string \"Beninca\" is used as a manufacturer name in the code, which is a direct display element. However, the context does not clearly indicate if it's part of a UI flow or technical data."
+      },
+      {
+        "id": "b9a5e07bc3bd034fb578e081e50e1b0e8c396ecd2224392ee2f34e7f8fe9c840",
+        "kind": "ambiguous",
+        "limit": null,
+        "reason": "The string \"FM476\" is used as a model name in the code, which is a direct display element. However, the context does not clearly indicate if it's part of a UI flow or technical data."
+      },
+      {
+        "id": "143f4ca46697151027569256c58ce104df2024986c3127eaa41e8bfb0110732a",
+        "kind": "ambiguous",
+        "limit": null,
+        "reason": "The string \"Sommer\" is used as a manufacturer name in the code, which is a direct display element. However, the context does not clearly indicate if it's part of a UI flow or technical data."
+      },
+      {
+        "id": "3029961826906ba9cfca4a106e8874a809ff6cc863d13550326a509bdd079441",
+        "kind": "ambiguous",
+        "limit": null,
+        "reason": "The string \"Sommer\" is used as a manufacturer name in the code, which is a direct display element. However, the context does not clearly indicate if it's part of a UI flow or technical data."
+      }
+    ]
+  },
+  "1e02ffb42f958aab1247639ab1dd5248f1af31e464efd2d0d6403ed6e126f0a4": {
+    "items": [
+      {
+        "id": "de8c2788be7709e45151baf5cbeb78e77b9505993e52a223b93b08f4d53178e8",
+        "kind": "ambiguous",
+        "limit": null,
+        "reason": "The string \"Erreka\" is used as a manufacturer name in the code, which is a UI element."
+      },
+      {
+        "id": "ec77a5daa157c76a7a41d846f4679a7377ca08ab099fce03ba541eb00f83a749",
+        "kind": "ambiguous",
+        "limit": null,
+        "reason": "The string \"DoorHan\" is used as a manufacturer name in the code, which is a UI element."
+      },
+      {
+        "id": "55f3b6b9e3ac0819e09202a7cd2af0ffde186845a4d15acab1137fe683969b49",
+        "kind": "ambiguous",
+        "limit": null,
+        "reason": "The string \"FM12K\" is used as a module type in the code, which is a UI element."
+      },
+      {
+        "id": "50a440e2d9704b28c73757019af3ad1a8b20fbe101971326b3c23d7c31fece7d",
+        "kind": "ambiguous",
+        "limit": null,
+        "reason": "The string \"AM650\" is used as a module type in the code, which is a UI element."
+      }
+    ]
+  },
+  "5ee1edc53a461529ba463746564e32cd9453ca8857b801e50d743091c3e3a1e8": {
+    "items": [
+      {
+        "id": "21a83d21c18198fa54c91de19e0dbf218768d09a42e3bb871fe2a0d0e556df42",
+        "kind": "ui",
+        "limit": 6,
+        "reason": "The string \"AM650\" is used as a module identifier in the context of device configuration, which is part of the UI for selecting or displaying device types."
+      },
+      {
+        "id": "c1551e9611925833ea183f661367f39480902dab3e669417531dc2543ed4015e",
+        "kind": "ui",
+        "limit": 6,
+        "reason": "The string \"AM650\" is used as a module identifier in the context of device configuration, which is part of the UI for selecting or displaying device types."
+      },
+      {
+        "id": "9abcad1b8329fdb7c84db2db274c0e86d8bcb5371bc38fc20d1d798e2fa04d6e",
+        "kind": "ui",
+        "limit": 6,
+        "reason": "The string \"AM650\" is used as a module identifier in the context of device configuration, which is part of the UI for selecting or displaying device types."
+      },
+      {
+        "id": "7d72b524d006472db4c4e72b8700156c50cc92c74ddea3a6ae08bf0a7c867e5c",
+        "kind": "ui",
+        "limit": 6,
+        "reason": "The string \"AM650\" is used as a module identifier in the context of device configuration, which is part of the UI for selecting or displaying device types."
+      }
+    ]
+  },
+  "62baa6c60b680e3a6601d82ab71821ccc84279865e922ecf255ba53f895c8408": {
+    "items": [
+      {
+        "id": "70c4366f71b28ae8ddd9cb1d1a8f67bb767ab9f1bff6afab6acfd73cf3b4baf6",
+        "kind": "ui",
+        "limit": 6,
+        "reason": "The string \"AM650\" is used as a model identifier in the UI context, likely displayed to the user."
+      },
+      {
+        "id": "b8539eec32457ac78d5ae728e80d8850c5d8d90302c994799b21aa55439660ba",
+        "kind": "ui",
+        "limit": 13,
+        "reason": "The string \"FAAC_RC,XT\" is used as a manufacturer identifier in the UI context, likely displayed to the user."
+      },
+      {
+        "id": "c89003cb1d4acd8c9b4e1cca5cb08caa204ea4291997fcc3770ac7ea7f2bcdc1",
+        "kind": "ui",
+        "limit": 6,
+        "reason": "The string \"AM650\" is used as a model identifier in the UI context, likely displayed to the user."
+      },
+      {
+        "id": "a19e965440dbd5f44d0207b4a20dd357b866cf0716594ad66564777a63892947",
+        "kind": "ui",
+        "limit": 6,
+        "reason": "The string \"AM650\" is used as a model identifier in the UI context, likely displayed to the user."
+      }
+    ]
+  },
+  "0158a74444a7f6fa95588ce302f1b8d9f4bf193729d579e1159c2ab21ad1e065": {
+    "items": [
+      {
+        "id": "75649b5e9a9eef208b091e12d64b646df649e54118e196705775fd93c369442d",
+        "kind": "ui",
+        "limit": 6,
+        "reason": "The string \"AM650\" is used as a model identifier in the UI context, likely displayed to the user."
+      },
+      {
+        "id": "538cbd10c709502413633885e899230c31de9c7a5d4183ac823da0ba9bcb9802",
+        "kind": "ui",
+        "limit": 6,
+        "reason": "The string \"AM650\" is used as a model identifier in the UI context, likely displayed to the user."
+      },
+      {
+        "id": "e605495fc2acef8bc8d5d2b03a62be99faea30e51b36d7a94dad00520d3e52b0",
+        "kind": "ui",
+        "limit": 6,
+        "reason": "The string \"AM650\" is used as a model identifier in the UI context, likely displayed to the user."
+      },
+      {
+        "id": "efdaa9a03438d5734792c7d923ffbb6bc62a4cda2bce04c98b408c1b7f9814e1",
+        "kind": "ui",
+        "limit": 6,
+        "reason": "The string \"AM650\" is used as a model identifier in the UI context, likely displayed to the user."
+      }
+    ]
+  },
+  "7df4a8e67c91a77738ace5a0400e19f6cc9510734c7fca0bd217e810f413e232": {
+    "items": [
+      {
+        "id": "352b2eafacab6f482e209058e4625f15e25503ecb8e449c557498d81bdd503e3",
+        "kind": "ui",
+        "limit": 6,
+        "reason": "The string \"AM650\" is used as a modulation type in the UI context, likely displayed to the user."
+      },
+      {
+        "id": "56a2f314751b853bc9499ae383b5d6591377bc5d1f6977b457a91a47c5bb325e",
+        "kind": "ui",
+        "limit": 6,
+        "reason": "The string \"AM650\" is used as a modulation type in the UI context, likely displayed to the user."
+      },
+      {
+        "id": "afb4eef09e8ea466579ed4defcb14bca8489297289d3c64b5955df9cf1c69d7a",
+        "kind": "ui",
+        "limit": 6,
+        "reason": "The string \"AM650\" is used as a modulation type in the UI context, likely displayed to the user."
+      },
+      {
+        "id": "e1669f96ca09a1a5f643b9a2390baf77acd7db3356885c9c268c62d53105afd3",
+        "kind": "ui",
+        "limit": 6,
+        "reason": "The string \"AM650\" is used as a modulation type in the UI context, likely displayed to the user."
+      }
+    ]
+  },
+  "120bae09d3bdef154683da0fc00c6f36129a36c9716b23b4f40449e06e743766": {
+    "items": [
+      {
+        "id": "63251dee7f62116a1059991f94bdf827e2d4302748842d320e8def85bed6d962",
+        "kind": "technical",
+        "limit": null,
+        "reason": "The string \"AM650\" is used as a module identifier in the code, which is a technical detail related to the protocol configuration."
+      }
+    ]
+  }
+}
