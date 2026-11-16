@@ -548,9 +548,8 @@ int32_t desktop_srv(void* p) {
         furi_record_close(RECORD_CLI_VCP);
     }
 
-    if(storage_file_exists(desktop->storage, SLIDESHOW_FS_PATH)) {
-        scene_manager_next_scene(desktop->scene_manager, DesktopSceneSlideshow);
-    }
+    // Installed slides take precedence; otherwise show the short DONNY BOY boot logo.
+    scene_manager_next_scene(desktop->scene_manager, DesktopSceneSlideshow);
 
     if(!furi_hal_version_do_i_belong_here()) {
         scene_manager_next_scene(desktop->scene_manager, DesktopSceneHwMismatch);

@@ -30,7 +30,7 @@ static void lfrfid_debug_view_tune_draw_callback(Canvas* canvas, void* _model) {
             canvas_current_font_height(canvas) + 1);
         canvas_set_color(canvas, ColorWhite);
     }
-    canvas_draw_str_aligned(canvas, 128 - 2, 2, AlignRight, AlignTop, "Fine");
+    canvas_draw_str_aligned(canvas, 128 - 2, 2, AlignRight, AlignTop, "Jemne");
     canvas_set_color(canvas, ColorBlack);
 
     char buffer[TEMP_STR_LEN + 1];

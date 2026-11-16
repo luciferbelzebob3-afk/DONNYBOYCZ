@@ -763,7 +763,7 @@ static void mf_ultralight_scene_aes_dict_attack_warn_on_enter(NfcApp* nfc) {
         dialog_ex, mf_ultralight_scene_aes_dict_attack_warn_dialog_callback);
 
     dialog_ex_set_header(dialog_ex, "Rizikova akce!", 64, 4, AlignCenter, AlignTop);
-    dialog_ex_set_text(dialog_ex, "Wrong keys can\nblock this card", 4, 18, AlignLeft, AlignTop);
+    dialog_ex_set_text(dialog_ex, "Chybne klice mohou\nzablokovat kartu", 4, 18, AlignLeft, AlignTop);
     dialog_ex_set_icon(dialog_ex, 83, 22, &I_WarningDolphinFlip_45x42);
     dialog_ex_set_left_button_text(dialog_ex, "Zrusit");
     dialog_ex_set_right_button_text(dialog_ex, "Pokracovat");

@@ -19,7 +19,7 @@ static void example_number_input_scene_update_view(void* context) {
 
     dialog_ex_set_left_button_text(dialog_ex, "Min");
     dialog_ex_set_right_button_text(dialog_ex, "Max");
-    dialog_ex_set_center_button_text(dialog_ex, "Change");
+    dialog_ex_set_center_button_text(dialog_ex, "Zmenit");
 
     dialog_ex_set_result_callback(dialog_ex, example_number_input_scene_confirm_dialog_callback);
     dialog_ex_set_context(dialog_ex, app);

@@ -152,7 +152,7 @@ static const struct {
         .stage = UpdateTaskStageRadioBusy,
         .percent_min = 31,
         .percent_max = 100,
-        .descr = "Prepnuti C2 Stach selhalo",
+        .descr = "Prepnuti C2 selhalo",
     },
     {
         .stage = UpdateTaskStageOBValidation,

@@ -63,3 +63,7 @@
 #include "nord_ice.h"
 #include "allstar_firefly.h"
 #include "telcoma_edge.h"
+#include "freezer.h"
+#include "faac_tm.h"
+#include "proteco.h"
+#include "belkorn.h"

@@ -18,7 +18,7 @@ void power_settings_scene_reboot_on_enter(void* context) {
     submenu_set_header(submenu, "Typ restartu");
     submenu_add_item(
         submenu,
-        "Aktualizace firmwaru",
+        "Aktual. FW",
         PowerSettingsRebootSubmenuIndexDfu,
         power_settings_scene_reboot_submenu_callback,
         app);

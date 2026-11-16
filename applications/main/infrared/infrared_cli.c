@@ -221,7 +221,7 @@ static void infrared_cli_start_ir_tx(PipeSide* pipe, FuriString* args) {
     if(success) {
         infrared_signal_transmit(signal);
     } else {
-        printf("Wrong arguments.\r\n");
+        printf("Nespravne argumenty.\r\n");
         infrared_cli_print_usage();
     }
 
@@ -348,7 +348,7 @@ static void infrared_cli_process_decode(PipeSide* pipe, FuriString* args) {
 
     do {
         if(!args_read_probably_quoted_string_and_trim(args, input_path)) {
-            printf("Wrong arguments.\r\n");
+            printf("Nespravne argumenty.\r\n");
             infrared_cli_print_usage();
             break;
         }
@@ -496,7 +496,8 @@ static void infrared_cli_brute_force_signals(
             fflush(stdout);
         }
 
-        infrared_brute_force_stop(brute_force);
+        // start() stops itself if the database went away between the two reads
+        if(infrared_brute_force_is_started(brute_force)) infrared_brute_force_stop(brute_force);
     } while(false);
 
     furi_string_free(remote_path);
@@ -514,7 +515,7 @@ static void infrared_cli_process_universal(PipeSide* pipe, FuriString* args) {
     } while(false);
 
     if(furi_string_empty(arg1)) {
-        printf("Wrong arguments.\r\n");
+        printf("Nespravne argumenty.\r\n");
         infrared_cli_print_usage();
     } else if(furi_string_equal_str(arg1, "list")) {
         infrared_cli_list_remote_signals(arg2);

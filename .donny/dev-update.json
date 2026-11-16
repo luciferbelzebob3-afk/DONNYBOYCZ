@@ -1,0 +1,26 @@
+{
+  "upstream_sha": "53818b18f63e105baaf37ed8eac9a7def58ec8b1",
+  "previous_upstream_sha": "2f62b3ab5d767c41e09ab17c6b5fbd175c8c4c85",
+  "fork_base_sha": "e07f0d6da79ad791b2677f06ca0a63617f0707b8",
+  "source_version": "1.0.5-dev",
+  "api": "88.27",
+  "date": "2026-11-16",
+  "status": "source_updated_not_built",
+  "firmware_build": false,
+  "github_actions_started": false,
+  "release_published": false,
+  "physical_device_test": false,
+  "animations": {
+    "collections": 12,
+    "total_frames": 320,
+    "eye_frames_reviewed": 192,
+    "blink_timing": "original"
+  },
+  "checks": {
+    "python_tests": 35,
+    "animation_metadata": "passed",
+    "native_font_widths": "passed",
+    "translation_format_parameters": "checked",
+    "git_diff_check": "passed"
+  }
+}

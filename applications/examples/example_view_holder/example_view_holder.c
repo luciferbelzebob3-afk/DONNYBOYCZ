@@ -30,10 +30,10 @@ int32_t example_view_holder_app(void* arg) {
     // Set some text so that the text box is not empty.
     text_box_set_text(
         text_box,
-        "ViewHolder is being used\n"
-        "to show this TextBox view.\n\n"
-        "Scroll down to see more.\n\n\n"
-        "Press \"Back\" to exit.");
+        "ViewHolder prave slouzi\n"
+        "k zobrazeni TextBoxu.\n\n"
+        "Dalsi text je nize.\n\n\n"
+        "Pro konec stiskni \"Zpet\".");
 
     // Create a ViewHolder instance. It will serve as an adapter to convert
     // between the View type provided by the TextBox view and the ViewPort type

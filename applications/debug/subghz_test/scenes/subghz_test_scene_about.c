@@ -21,7 +21,7 @@ void subghz_test_scene_about_on_enter(void* context) {
     furi_string_cat_printf(temp_str, "\e#%s\n", "Popis");
     furi_string_cat_printf(
         temp_str,
-        "This application is designed\nto test the functionality of the\nbuilt-in CC1101 module.\n\n");
+        "Tato aplikace slouzi\nk otestovani vestaveneho\nmodulu CC1101.\n\n");
 
     widget_add_text_box_element(
         app->widget,
@@ -41,7 +41,7 @@ void subghz_test_scene_about_on_enter(void* context) {
         14,
         AlignCenter,
         AlignBottom,
-        "\e#\e!         Sub-Ghz Test          \e!\n",
+        "\e#\e!         Test Sub-GHz          \e!\n",
         false);
     widget_add_text_scroll_element(app->widget, 0, 16, 128, 50, furi_string_get_cstr(temp_str));
     furi_string_free(temp_str);

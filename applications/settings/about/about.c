@@ -75,7 +75,7 @@ static DialogMessageButton compliance_screen(DialogsApp* dialogs, DialogMessage*
 static DialogMessageButton unleashed_info_screen(DialogsApp* dialogs, DialogMessage* message) {
     DialogMessageButton result;
 
-    const char* screen_header = "Unleashed Firmware\n";
+    const char* screen_header = "DONNY BOY CZ\n";
 
     const char* screen_text = "Je urcen pouze k experimentum\n"
                               "a nesmi byt pouzivan k\nnezakonnym ucelum. " 

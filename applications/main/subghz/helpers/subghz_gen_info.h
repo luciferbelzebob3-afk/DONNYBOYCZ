@@ -20,6 +20,7 @@ typedef enum {
     GenSecPlus2,
     GenPhoenixV2,
     GenPrastel,
+    GenBelKorn,
 } GenType;
 
 typedef struct {
@@ -31,7 +32,16 @@ typedef struct {
             const char* name;
             uint64_t key;
             uint8_t bits;
+            /* te != 0 means the protocol carries one and Advanced asks for it, within
+               te_min..te_max - the window that protocol's own loader or decoder accepts. */
             uint32_t te;
+            uint16_t te_min;
+            uint16_t te_max;
+            /* gt != 0 means the protocol carries a guard time - the gap that closes the frame,
+               counted in te - and Advanced asks for it, within gt_min..gt_max. */
+            uint32_t gt;
+            uint16_t gt_min;
+            uint16_t gt_max;
         } data;
         struct {
             uint32_t serial;
@@ -92,6 +102,10 @@ typedef struct {
             uint8_t btn;
             uint16_t cnt;
             uint16_t ic;
+            /* Receiver certificate, big endian so byte_input can write it in place.
+               cert_wanted marks the variant that asks for one. */
+            uint8_t cert[3];
+            bool cert_wanted;
             bool nice_one;
             bool o_code;
         } nice_flor_s;
@@ -114,6 +128,13 @@ typedef struct {
             uint8_t btn;
             uint16_t cnt;
         } prastel;
+        struct {
+            /* 36 bit serial (frame bits 12..47), big endian so byte_input can write it in
+               place; only the low 36 bits of the 5 bytes are used */
+            uint8_t serial[5];
+            uint8_t btn;
+            uint16_t cnt;
+        } belkorn;
     };
 } GenInfo;
 

@@ -110,13 +110,13 @@ static void render_callback(Canvas* canvas, void* context) {
         const GpsLocation* location = &app->location;
 
         canvas_set_font(canvas, FontPrimary);
-        canvas_draw_str_aligned(canvas, 32, 8, AlignCenter, AlignBottom, "Latitude");
-        canvas_draw_str_aligned(canvas, 96, 8, AlignCenter, AlignBottom, "Longitude");
-        canvas_draw_str_aligned(canvas, 21, 30, AlignCenter, AlignBottom, "Course");
-        canvas_draw_str_aligned(canvas, 64, 30, AlignCenter, AlignBottom, "Speed");
-        canvas_draw_str_aligned(canvas, 107, 30, AlignCenter, AlignBottom, "Altitude");
-        canvas_draw_str_aligned(canvas, 32, 52, AlignCenter, AlignBottom, "Satellites");
-        canvas_draw_str_aligned(canvas, 96, 52, AlignCenter, AlignBottom, "Accuracy");
+        canvas_draw_str_aligned(canvas, 32, 8, AlignCenter, AlignBottom, "Zemepisna sirka");
+        canvas_draw_str_aligned(canvas, 96, 8, AlignCenter, AlignBottom, "Zemepisna delka");
+        canvas_draw_str_aligned(canvas, 21, 30, AlignCenter, AlignBottom, "Smer");
+        canvas_draw_str_aligned(canvas, 64, 30, AlignCenter, AlignBottom, "Rychlost");
+        canvas_draw_str_aligned(canvas, 107, 30, AlignCenter, AlignBottom, "Nadmorska vyska");
+        canvas_draw_str_aligned(canvas, 32, 52, AlignCenter, AlignBottom, "Druzice");
+        canvas_draw_str_aligned(canvas, 96, 52, AlignCenter, AlignBottom, "Presnost");
 
         canvas_set_font(canvas, FontSecondary);
 

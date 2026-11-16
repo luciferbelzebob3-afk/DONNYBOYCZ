@@ -247,7 +247,7 @@ static void rpc_system_gui_virtual_display_render_callback(Canvas* canvas, void*
 
     if(!rpc_gui->virtual_display_not_empty) {
         canvas_set_font(canvas, FontPrimary);
-        canvas_draw_str_aligned(canvas, 64, 20, AlignCenter, AlignCenter, "Virtual Display");
+        canvas_draw_str_aligned(canvas, 64, 20, AlignCenter, AlignCenter, "Virtualni displej");
         canvas_draw_str_aligned(canvas, 64, 36, AlignCenter, AlignCenter, "Cekam na snimky...");
         return;
     }

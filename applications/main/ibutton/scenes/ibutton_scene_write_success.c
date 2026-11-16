@@ -17,9 +17,9 @@ void ibutton_scene_write_success_on_enter(void* context) {
     const char* chip = ibutton_worker_get_write_chip_name(ibutton->worker);
     if(chip[0] != '\0') {
         snprintf(ibutton->text_store, IBUTTON_TEXT_STORE_SIZE, "Zapsano do\n%s!", chip);
-        popup_set_text(popup, ibutton->text_store, 40, 12, AlignLeft, AlignBottom);
+        popup_set_text(popup, ibutton->text_store, 90, 1, AlignCenter, AlignTop);
     } else {
-        popup_set_text(popup, "Uspesne zapsano!", 40, 12, AlignLeft, AlignBottom);
+        popup_set_text(popup, "Uspesne\nzapsano!", 90, 1, AlignCenter, AlignTop);
     }
 
     popup_set_callback(popup, ibutton_scene_write_success_popup_callback);

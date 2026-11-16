@@ -51,7 +51,7 @@ bool infrared_scene_remote_list_on_event(void* context, SceneManagerEvent event)
                 bool wrong_file_type =
                     INFRARED_ERROR_CHECK(task_error, InfraredErrorCodeWrongFileType);
                 const char* format = wrong_file_type ?
-                                         "Soubor knihovny\n\"%s\" nelze otevrit jako ovladac" :
+                                         "Library file\n\"%s\" can't be opened as a remote" :
                                          "Nelze nacist\n\"%s\"";
 
                 infrared_show_error_message(

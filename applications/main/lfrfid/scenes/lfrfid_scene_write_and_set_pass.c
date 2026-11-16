@@ -1,26 +1,118 @@
 #include "../lfrfid_i.h"
+#include <bit_lib.h>
 #include "gui/scene_manager.h"
+
+// Every verdict but success draws the same screen with three things changed, so they are a table
+// rather than nine copies of the geometry. The order is the order they are reached in: what was
+// on the coil, then what the write made of it.
+typedef struct {
+    LFRFIDWorkerWriteResult result;
+    uint32_t event;
+    const char* header;
+    const char* text;
+    const NotificationSequence* sound;
+} LfRfidSetPassVerdict;
+
+static const LfRfidSetPassVerdict lfrfid_set_pass_verdicts[] = {
+    {LFRFIDWorkerWriteProtocolCannotBeWritten,
+     LfRfidEventWriteProtocolCannotBeWritten,
+     "Chyba",
+     "Tento protokol\nnelze zapsat\ns heslem",
+     &sequence_blink_start_red},
+    // Nothing answered a block read, and nothing answered the ordinary reader either.
+    {LFRFIDWorkerWriteTooLongToWrite,
+     LfRfidEventWriteTooLongToWrite,
+     "Stale se pokousim zapisovat...",
+     "Over, ze je\nkarta zapisovatelna\na neni\nchranena.",
+     &sequence_blink_start_yellow},
+    // Something is there, but not something whose blocks can be read back - and every step of
+    // setting a password rests on reading one back.
+    {LFRFIDWorkerWriteCannotRead,
+     LfRfidEventWriteCannotRead,
+     "Nelze precist",
+     "Cip je pritomen,\nale nelze ho cist\npo blocich. Nejdriv\nho vymaz nebo smaz\njeho heslo.",
+     &sequence_blink_start_red},
+    // Writing a protected tag needs the password it already has, which is a different job: this
+    // one only ever sends frames that carry none.
+    {LFRFIDWorkerWriteAlreadyProtected,
+     LfRfidEventWriteAlreadyProtected,
+     "Ma heslo",
+     "Nejdriv ho smaz:\nv aplikaci T5577,\nSmazat heslo",
+     &sequence_blink_start_red},
+    // Part of the key is on the tag and nothing is protected, which is a different thing to tell
+    // someone than "the card cannot be written".
+    {LFRFIDWorkerWriteKeyNotStored,
+     LfRfidEventWriteKeyNotStored,
+     "Nezapsano",
+     "Blok neprijal klic.\nNa cipu je jen cast\nklice, heslo neni\nnastaveno.",
+     &sequence_blink_start_red},
+    // Nothing was protected, so the tag is still open - which is the whole point of reading
+    // block 7 back before block 0 is touched.
+    {LFRFIDWorkerWritePasswordNotStored,
+     LfRfidEventWritePasswordNotStored,
+     "Nechraneno",
+     "Blok 7 neprijal\nheslo. Klic zapsan,\ncip zustava\nodemceny.",
+     &sequence_blink_start_red},
+    // The password is on the chip and was read back off it, so whoever turns protection on later
+    // - this tool or another - will find the tag asking for that word.
+    {LFRFIDWorkerWriteProtectionRefused,
+     LfRfidEventWriteProtectionRefused,
+     "Nechraneno",
+     "Blok 7 ma heslo,\nale cip odmitl\nzapnout jeho\nvyzadovani.",
+     &sequence_blink_start_red},
+    // Not a failure and not a success: the password is on the chip, block 0 was sent, and this
+    // reader cannot see the answer - either the tag left, or the configuration it was just given
+    // is one it does not decode.
+    {LFRFIDWorkerWriteProtectionUnchecked,
+     LfRfidEventWriteProtectionUnchecked,
+     "Nepotvrzeno",
+     "Heslo je na cipu.\nZpetnym ctenim\nnelze overit jeho\nvyzadovani.",
+     &sequence_blink_start_yellow},
+};
+
+static const LfRfidSetPassVerdict* lfrfid_set_pass_verdict_for_event(uint32_t event) {
+    for(size_t i = 0; i < COUNT_OF(lfrfid_set_pass_verdicts); i++) {
+        if(lfrfid_set_pass_verdicts[i].event == event) return &lfrfid_set_pass_verdicts[i];
+    }
+
+    return NULL;
+}
+
+// The protocol, and under it whatever the worker is on. Every stage of this is a block write
+// followed by a read of the same block, a second or more each: a popup that says nothing for that
+// long is one the user is entitled to read as hung.
+static void lfrfid_scene_write_and_set_pass_doing(LfRfid* app, const char* stage) {
+    snprintf(
+        app->text_store,
+        LFRFID_TEXT_STORE_SIZE,
+        "[%s]\n%s",
+        protocol_dict_get_name(app->dict, app->protocol_id),
+        stage);
+}
 
 static void lfrfid_write_and_set_pass_callback(LFRFIDWorkerWriteResult result, void* context) {
     LfRfid* app = context;
-    uint32_t event = 0;
 
     if(result == LFRFIDWorkerWriteOK) {
-        event = LfRfidEventWriteOK;
-    } else if(result == LFRFIDWorkerWriteProtocolCannotBeWritten) {
-        event = LfRfidEventWriteProtocolCannotBeWritten;
-    } else if(result == LFRFIDWorkerWriteFobCannotBeWritten) {
-        event = LfRfidEventWriteFobCannotBeWritten;
-    } else if(result == LFRFIDWorkerWriteTooLongToWrite) {
-        event = LfRfidEventWriteTooLongToWrite;
-    } else {
-        // Custom event 0 is not a LfRfidCustomEvent, so an unmapped result would be dropped
-        // without a trace rather than reaching a scene.
-        FURI_LOG_E("LfRfid", "Unhandled write result %d", result);
+        view_dispatcher_send_custom_event(app->view_dispatcher, LfRfidEventWriteOK);
         return;
     }
 
-    view_dispatcher_send_custom_event(app->view_dispatcher, event);
+    if(result == LFRFIDWorkerWriteStartTarget) {
+        view_dispatcher_send_custom_event(app->view_dispatcher, LfRfidEventWriteProgress);
+        return;
+    }
+
+    for(size_t i = 0; i < COUNT_OF(lfrfid_set_pass_verdicts); i++) {
+        if(lfrfid_set_pass_verdicts[i].result != result) continue;
+
+        view_dispatcher_send_custom_event(app->view_dispatcher, lfrfid_set_pass_verdicts[i].event);
+        return;
+    }
+
+    // Custom event 0 is not a LfRfidCustomEvent, so an unmapped result would be dropped without
+    // a trace rather than reaching a scene.
+    FURI_LOG_E("LfRfid", "Unhandled write result %d", result);
 }
 
 void lfrfid_scene_write_and_set_pass_on_enter(void* context) {
@@ -31,18 +123,18 @@ void lfrfid_scene_write_and_set_pass_on_enter(void* context) {
     popup_set_icon(popup, 0, 8, &I_NFC_manual_60x50);
     // Mirror the Write scene: show the protocol and the target chip. This path always writes a
     // T5577 (the only chip that supports a password), so the target is fixed.
-    snprintf(
-        app->text_store,
-        LFRFID_TEXT_STORE_SIZE,
-        "[%s]\n(T5577)",
-        protocol_dict_get_name(app->dict, app->protocol_id));
+    lfrfid_scene_write_and_set_pass_doing(app, "(T5577)");
     popup_set_text(popup, app->text_store, 94, 41, AlignCenter, AlignTop);
 
     view_dispatcher_switch_to_view(app->view_dispatcher, LfRfidViewPopup);
 
+    // Confirming the tag is still there means reading it as a reader would, which decodes into
+    // the dictionary over the key being written. It goes back on the way out.
     size_t size = protocol_dict_get_data_size(app->dict, app->protocol_id);
     protocol_dict_get_data(app->dict, app->protocol_id, app->old_key_data, size);
 
+    lfrfid_worker_set_password(
+        app->lfworker, bit_lib_bytes_to_num_be(app->password, sizeof(app->password)));
     lfrfid_worker_start_thread(app->lfworker);
     lfrfid_worker_write_and_set_pass_start(
         app->lfworker, (LFRFIDProtocol)app->protocol_id, lfrfid_write_and_set_pass_callback, app);
@@ -51,38 +143,32 @@ void lfrfid_scene_write_and_set_pass_on_enter(void* context) {
 
 bool lfrfid_scene_write_and_set_pass_on_event(void* context, SceneManagerEvent event) {
     LfRfid* app = context;
-    Popup* popup = app->popup;
-    bool consumed = false;
 
-    if(event.type == SceneManagerEventTypeCustom) {
-        if(event.event == LfRfidEventWriteOK) {
-            notification_message(app->notifications, &sequence_success);
-            scene_manager_next_scene(app->scene_manager, LfRfidSceneWriteSuccess);
-            consumed = true;
-        } else if(event.event == LfRfidEventWriteProtocolCannotBeWritten) {
-            popup_set_icon(popup, 83, 22, &I_WarningDolphinFlip_45x42);
-            popup_set_header(popup, "Chyba", 64, 3, AlignCenter, AlignTop);
-            popup_set_text(popup, "Tento protokol\nnelze zapisovat", 3, 17, AlignLeft, AlignTop);
-            notification_message(app->notifications, &sequence_blink_start_red);
-            consumed = true;
-        } else if(
-            (event.event == LfRfidEventWriteFobCannotBeWritten) ||
-            (event.event == LfRfidEventWriteTooLongToWrite)) {
-            popup_set_icon(popup, 83, 22, &I_WarningDolphinFlip_45x42);
-            popup_set_header(popup, "Stale se pokousim zapisovat...", 64, 3, AlignCenter, AlignTop);
-            popup_set_text(
-                popup,
-                "Ujisti se, ze karta\n umoznuje zapis a neni\nchranena.",
-                3,
-                17,
-                AlignLeft,
-                AlignTop);
-            notification_message(app->notifications, &sequence_blink_start_yellow);
-            consumed = true;
-        }
+    if(event.type != SceneManagerEventTypeCustom) return false;
+
+    if(event.event == LfRfidEventWriteProgress) {
+        lfrfid_scene_write_and_set_pass_doing(
+            app, lfrfid_worker_get_write_chip_name(app->lfworker));
+        // The popup holds the buffer by pointer, so rewriting it in place is the whole update.
+        popup_set_text(app->popup, app->text_store, 94, 41, AlignCenter, AlignTop);
+        return true;
     }
 
-    return consumed;
+    if(event.event == LfRfidEventWriteOK) {
+        notification_message(app->notifications, &sequence_success);
+        scene_manager_next_scene(app->scene_manager, LfRfidSceneWriteSuccess);
+        return true;
+    }
+
+    const LfRfidSetPassVerdict* verdict = lfrfid_set_pass_verdict_for_event(event.event);
+    if(!verdict) return false;
+
+    popup_set_icon(app->popup, 83, 22, &I_WarningDolphinFlip_45x42);
+    popup_set_header(app->popup, verdict->header, 64, 3, AlignCenter, AlignTop);
+    popup_set_text(app->popup, verdict->text, 3, 17, AlignLeft, AlignTop);
+    notification_message(app->notifications, verdict->sound);
+
+    return true;
 }
 
 void lfrfid_scene_write_and_set_pass_on_exit(void* context) {

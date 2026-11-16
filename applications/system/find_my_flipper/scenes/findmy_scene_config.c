@@ -84,7 +84,7 @@ void findmy_scene_config_on_enter(void* context) {
 
     item = variable_item_list_add(
         var_item_list,
-        "Matthew KuKanich, Thanks to Chapoly1305, WillyJL, OpenHaystack, Testers",
+        "Matthew KuKanich, diky Chapoly1305, WillyJL, OpenHaystack a testerum",
         1,
         NULL,
         NULL);

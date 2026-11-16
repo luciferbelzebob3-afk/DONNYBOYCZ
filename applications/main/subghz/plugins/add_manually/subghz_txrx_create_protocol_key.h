@@ -31,6 +31,7 @@ bool subghz_txrx_gen_data_protocol(
  * @param key Key
  * @param bit Bit
  * @param te Te
+ * @param gt Guard time in te, or 0 for a protocol that does not serialize one
  * @return bool True if success
  */
 bool subghz_txrx_gen_data_protocol_and_te(
@@ -40,7 +41,8 @@ bool subghz_txrx_gen_data_protocol_and_te(
     const char* protocol_name,
     uint64_t key,
     uint32_t bit,
-    uint32_t te);
+    uint32_t te,
+    uint32_t gt);
 
 /**
  * Generate data Keeloq protocol
@@ -82,7 +84,8 @@ bool subghz_txrx_gen_nice_flor_s_protocol(
     uint16_t cnt,
     bool nice_one,
     bool o_code,
-    uint16_t ic);
+    uint16_t ic,
+    uint32_t cert);
 
 bool subghz_txrx_gen_faac_slh_protocol(
     void* context,
@@ -133,6 +136,14 @@ bool subghz_txrx_gen_beninca_arc_protocol(
     uint32_t serial,
     uint8_t btn,
     uint32_t cnt);
+
+bool subghz_txrx_gen_belkorn_protocol(
+    void* context,
+    const char* preset_name,
+    uint32_t frequency,
+    const uint8_t serial[5], // 36 bit serial, big endian
+    uint8_t btn,
+    uint16_t cnt);
 
 bool subghz_txrx_gen_jarolift_protocol(
     void* context,

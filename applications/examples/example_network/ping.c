@@ -690,7 +690,7 @@ static void ping_render_callback(Canvas* canvas, void* context) {
     if(app->state == RunStateNoBridge) {
         canvas_draw_str(canvas, 0, 63, "Neni pripojeni USB/BLE");
     } else if(app->state == RunStateOpening) {
-        canvas_draw_str(canvas, 0, 63, "Opening UDP socket...");
+        canvas_draw_str(canvas, 0, 63, "Oteviram UDP spojeni...");
     } else if(app->state == RunStateDone || app->state == RunStateError) {
         uint32_t loss = ((PROBE_COUNT - app->received) * 100) / PROBE_COUNT;
         if(app->received) {

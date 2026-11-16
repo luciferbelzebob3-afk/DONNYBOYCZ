@@ -18,25 +18,25 @@ void subghz_test_scene_start_on_enter(void* context) {
 
     submenu_add_item(
         submenu,
-        "Carrier",
+        "Nosna",
         SubmenuIndexSubGhzTestCarrier,
         subghz_test_scene_start_submenu_callback,
         app);
     submenu_add_item(
         submenu,
-        "Packet",
+        "Paket",
         SubmenuIndexSubGhzTestPacket,
         subghz_test_scene_start_submenu_callback,
         app);
     submenu_add_item(
         submenu,
-        "Static",
+        "Staticky",
         SubmenuIndexSubGhzTestStatic,
         subghz_test_scene_start_submenu_callback,
         app);
     submenu_add_item(
         submenu,
-        "About",
+        "O aplikaci",
         SubmenuIndexSubGhzTestAbout,
         subghz_test_scene_start_submenu_callback,
         app);

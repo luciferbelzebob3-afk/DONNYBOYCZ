@@ -39,9 +39,9 @@ static void example_date_time_input_scene_update_view(void* context) {
         label_hour);
     dialog_ex_set_text(dialog_ex, buffer, 64, 29, AlignCenter, AlignCenter);
 
-    dialog_ex_set_left_button_text(dialog_ex, "Date");
-    dialog_ex_set_right_button_text(dialog_ex, "Time");
-    dialog_ex_set_center_button_text(dialog_ex, "Both");
+    dialog_ex_set_left_button_text(dialog_ex, "Datum");
+    dialog_ex_set_right_button_text(dialog_ex, "Cas");
+    dialog_ex_set_center_button_text(dialog_ex, "Oboji");
 
     dialog_ex_set_result_callback(
         dialog_ex, example_date_time_input_scene_confirm_dialog_callback);

@@ -44,7 +44,7 @@ static void loader_chaining_a_submenu_callback(void* context, uint32_t index) {
         loader_enqueue_launch(
             app->loader,
             furi_string_get_cstr(self_path),
-            "Hello to you from the future",
+            "Pozdrav z budoucnosti",
             LoaderDeferredLaunchFlagGui);
 
         break;
@@ -62,7 +62,7 @@ static void loader_chaining_a_submenu_callback(void* context, uint32_t index) {
         loader_enqueue_launch(
             app->loader,
             furi_string_get_cstr(self_path),
-            "Hello to you from the future",
+            "Pozdrav z budoucnosti",
             LoaderDeferredLaunchFlagGui);
         break;
     }
@@ -87,31 +87,31 @@ LoaderChainingA* loader_chaining_a_alloc(void) {
 
     submenu_add_item(
         app->submenu,
-        "Launch B",
+        "Spustit B",
         LoaderChainingASubmenuLaunchB,
         loader_chaining_a_submenu_callback,
         app);
     submenu_add_item(
         app->submenu,
-        "Launch B, then A",
+        "Spustit B, pak A",
         LoaderChainingASubmenuLaunchBThenA,
         loader_chaining_a_submenu_callback,
         app);
     submenu_add_item(
         app->submenu,
-        "Trigger error: silent",
+        "Vyvolat tichou chybu",
         LoaderChainingASubmenuLaunchNonexistentSilent,
         loader_chaining_a_submenu_callback,
         app);
     submenu_add_item(
         app->submenu,
-        "Trigger error: GUI",
+        "Vyvolat chybu GUI",
         LoaderChainingASubmenuLaunchNonexistentGui,
         loader_chaining_a_submenu_callback,
         app);
     submenu_add_item(
         app->submenu,
-        "Error, then launch A",
+        "Chyba, pak spustit A",
         LoaderChainingASubmenuLaunchNonexistentGuiThenA,
         loader_chaining_a_submenu_callback,
         app);

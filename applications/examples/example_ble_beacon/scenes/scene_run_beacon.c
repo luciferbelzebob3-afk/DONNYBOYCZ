@@ -38,7 +38,7 @@ static void update_status_text(BleBeaconApp* ble_beacon) {
 
     dialog_ex_set_icon(dialog_ex, 93, 20, &I_lighthouse_35x44);
 
-    dialog_ex_set_left_button_text(dialog_ex, "Config");
+    dialog_ex_set_left_button_text(dialog_ex, "Nastaveni");
 
     dialog_ex_set_center_button_text(dialog_ex, ble_beacon->is_beacon_active ? "Zastavit" : "Spustit");
 

@@ -82,22 +82,27 @@ static void updater_main_draw_callback(Canvas* canvas, void* _model) {
 
     if(model->failed) {
         canvas_draw_icon(canvas, 2, 22, &I_Warning_30x23);
-        canvas_draw_str_aligned(canvas, 40, 9, AlignLeft, AlignTop, "Aktualizace selhala!");
+        canvas_draw_str_aligned(canvas, 40, 9, AlignLeft, AlignTop, "Chyba aktual.");
         canvas_set_font(canvas, FontSecondary);
 
-        elements_multiline_text_aligned(
-            canvas, 75, 26, AlignCenter, AlignTop, furi_string_get_cstr(model->status));
+        elements_text_box(
+            canvas, 37, 24, 89, 26, AlignCenter, AlignTop,
+            furi_string_get_cstr(model->status), false);
 
         canvas_draw_str_aligned(
-            canvas, 18, 55, AlignLeft, AlignTop, "pro opakovani podrz       pro zruseni");
+            canvas, 18, 55, AlignLeft, AlignTop, "opakovat");
         canvas_draw_icon(canvas, 7, 54, &I_Ok_btn_9x9);
         canvas_draw_icon(canvas, 75, 55, &I_Pin_back_arrow_10x8);
+        canvas_draw_str_aligned(canvas, 88, 55, AlignLeft, AlignTop, "zrusit");
     } else {
-        canvas_draw_str_aligned(canvas, 55, 14, AlignLeft, AlignTop, "AKTUALIZACE");
+        canvas_draw_str_aligned(canvas, 55, 14, AlignLeft, AlignTop, "AKTUAL.");
         canvas_set_font(canvas, FontSecondary);
+        FuriString* status = furi_string_alloc_set(model->status);
+        elements_string_fit_width(canvas, status, 124);
         canvas_draw_str_aligned(
-            canvas, 64, 51, AlignCenter, AlignTop, furi_string_get_cstr(model->status));
-        canvas_draw_icon(canvas, 4, 5, &I_Updating_32x40);
+            canvas, 64, 51, AlignCenter, AlignTop, furi_string_get_cstr(status));
+        furi_string_free(status);
+        canvas_draw_icon(canvas, 4, 5, &I_DonnyBoy_32x40);
         elements_progress_bar(canvas, 42, 29, 80, (float)model->progress / 100);
     }
 }

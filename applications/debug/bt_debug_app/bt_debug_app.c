@@ -42,12 +42,12 @@ BtDebugApp* bt_debug_app_alloc(void) {
     app->submenu = submenu_alloc();
     submenu_add_item(
         app->submenu,
-        "Carrier test",
+        "Test nosne",
         BtDebugSubmenuIndexCarrierTest,
         bt_debug_submenu_callback,
         app);
     submenu_add_item(
-        app->submenu, "Packet test", BtDebugSubmenuIndexPacketTest, bt_debug_submenu_callback, app);
+        app->submenu, "Test paketu", BtDebugSubmenuIndexPacketTest, bt_debug_submenu_callback, app);
     view_set_previous_callback(submenu_get_view(app->submenu), bt_debug_exit);
     view_dispatcher_add_view(
         app->view_dispatcher, BtDebugAppViewSubmenu, submenu_get_view(app->submenu));

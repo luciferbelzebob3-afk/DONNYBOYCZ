@@ -77,7 +77,7 @@ void hid_scene_start_on_enter(void* context) {
         app);
     submenu_add_item(
         app->submenu,
-        "PushToTalk",
+        "Stiskem mluvit",
         HidSubmenuIndexPushToTalk,
         hid_scene_start_submenu_callback,
         app);

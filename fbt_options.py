@@ -16,10 +16,10 @@ DEBUG = 1
 
 # Suffix to add to files when building distribution
 # If OS environment has DIST_SUFFIX set, it will be used instead
-DIST_SUFFIX = "1.0.4"
+DIST_SUFFIX = "1.0.5-dev"
 
 # Version string embedded in the updater package
-UPDATE_VERSION_STRING = "1.0.4"
+UPDATE_VERSION_STRING = "1.0.5-dev"
 
 # Coprocessor firmware
 COPRO_OB_DATA = "scripts/ob.data"
@@ -78,7 +78,6 @@ FIRMWARE_APPS = {
         "updater_app",
         "radio_device_cc1101_ext",
         "unit_tests",
-        "js_app",
         "infrared",
         "archive",
     ],

@@ -46,9 +46,9 @@ static void bt_pin_code_view_port_draw_callback(Canvas* canvas, void* context) {
     Bt* bt = context;
     char pin_code_info[24];
     canvas_draw_icon(canvas, 0, 0, &I_BLE_Pairing_128x64);
-    snprintf(pin_code_info, sizeof(pin_code_info), "Pairing code\n%06lu", bt->pin_code);
+    snprintf(pin_code_info, sizeof(pin_code_info), "Parovaci kod\n%06lu", bt->pin_code);
     elements_multiline_text_aligned(canvas, 64, 4, AlignCenter, AlignTop, pin_code_info);
-    elements_button_left(canvas, "Quit");
+    elements_button_left(canvas, "Zpet");
 }
 
 static void bt_pin_code_view_port_input_callback(InputEvent* event, void* context) {
@@ -358,6 +358,8 @@ static void bt_statusbar_update(Bt* bt) {
     if(active_icon_width > 0) {
         view_port_set_width(bt->statusbar_view_port, active_icon_width);
         view_port_enabled_set(bt->statusbar_view_port, true);
+        // view_port_enabled_set() is a no-op when it was already enabled, but the icon just changed
+        view_port_update(bt->statusbar_view_port);
     } else {
         view_port_enabled_set(bt->statusbar_view_port, false);
     }
@@ -368,7 +370,7 @@ static void bt_show_warning(Bt* bt, const char* text) {
         bt->dialog_message = dialog_message_alloc();
     }
     dialog_message_set_text(bt->dialog_message, text, 64, 28, AlignCenter, AlignCenter);
-    dialog_message_set_buttons(bt->dialog_message, "Quit", NULL, NULL);
+    dialog_message_set_buttons(bt->dialog_message, "Zpet", NULL, NULL);
     dialog_message_show(bt->dialogs, bt->dialog_message);
 }
 
@@ -438,7 +440,7 @@ static void bt_change_profile(Bt* bt, BtMessage* message) {
         }
 
     } else {
-        bt_show_warning(bt, "Radio stack doesn't support this app");
+        bt_show_warning(bt, "Radiovy stack nepodporuje aplikaci");
         if(message->result) {
             *message->result = false;
         }

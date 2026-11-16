@@ -650,7 +650,7 @@ static NotificationAppSettings* alloc_settings(void) {
         item, (app->notification->settings.night_shift == 1), "Nocni rezim \nVYP!");
 
     item = variable_item_list_add(
-        app->variable_item_list, " . End", NIGHT_SHIFT_END_COUNT, night_shift_end_changed, app);
+        app->variable_item_list, " . Konec", NIGHT_SHIFT_END_COUNT, night_shift_end_changed, app);
     value_index = value_index_uint32(
         app->notification->settings.night_shift_end, night_shift_end_value, NIGHT_SHIFT_END_COUNT);
     variable_item_set_current_value_index(item, value_index);
@@ -682,13 +682,13 @@ static NotificationAppSettings* alloc_settings(void) {
     }
 
     if(furi_hal_rtc_is_flag_set(FuriHalRtcFlagStealthMode)) {
-        item = variable_item_list_add(app->variable_item_list, "Vibro", 1, NULL, app);
+        item = variable_item_list_add(app->variable_item_list, "Vibrace", 1, NULL, app);
         value_index = 0;
         variable_item_set_current_value_index(item, value_index);
         variable_item_set_current_value_text(item, "Nenapadny rezim");
     } else {
         item = variable_item_list_add(
-            app->variable_item_list, "Vibro", VIBRO_COUNT, vibro_changed, app);
+            app->variable_item_list, "Vibrace", VIBRO_COUNT, vibro_changed, app);
         value_index =
             value_index_bool(app->notification->settings.vibro_on, vibro_value, VIBRO_COUNT);
         variable_item_set_current_value_index(item, value_index);

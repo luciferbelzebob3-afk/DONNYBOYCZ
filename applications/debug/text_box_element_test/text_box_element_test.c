@@ -13,7 +13,7 @@ static void text_box_center_top_secondary_128x22(Canvas* canvas) {
 static void text_box_right_bottom_bold_128x22(Canvas* canvas) {
     canvas_draw_frame(canvas, 0, 0, 128, 22);
     elements_text_box(
-        canvas, 0, 0, 128, 22, AlignRight, AlignBottom, "\e#Bold font test\e#", false);
+        canvas, 0, 0, 128, 22, AlignRight, AlignBottom, "\e#Test tucneho pisma\e#", false);
 }
 
 static void text_box_left_center_mixed_80x50(Canvas* canvas) {
@@ -26,7 +26,7 @@ static void text_box_left_center_mixed_80x50(Canvas* canvas) {
         50,
         AlignLeft,
         AlignCenter,
-        "\e#Never\e# gonna give you up\n\e!Never\e! gonna let you down",
+        "\e#Nikdy\e# te neopustim\n\e!Nikdy\e! te nezklamu",
         false);
 }
 

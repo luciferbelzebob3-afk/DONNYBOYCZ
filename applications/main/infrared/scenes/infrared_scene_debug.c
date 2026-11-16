@@ -24,7 +24,7 @@ bool infrared_scene_debug_on_event(void* context, SceneManagerEvent event) {
 
             if(infrared_signal_is_raw(signal)) {
                 const InfraredRawSignal* raw = infrared_signal_get_raw_signal(signal);
-                infrared_debug_view_set_text(debug_view, "RAW\n%d samples\n", raw->timings_size);
+                infrared_debug_view_set_text(debug_view, "RAW\n%d vzorku\n", raw->timings_size);
 
                 printf("RAW, %zu samples:\r\n", raw->timings_size);
                 for(size_t i = 0; i < raw->timings_size; ++i) {

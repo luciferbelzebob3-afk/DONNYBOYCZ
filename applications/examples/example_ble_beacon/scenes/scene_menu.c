@@ -16,7 +16,7 @@ void ble_beacon_app_scene_menu_on_enter(void* context) {
 
     submenu_add_item(
         submenu,
-        "Set MAC",
+        "Nastavit MAC",
         SubmenuIndexSetMac,
         ble_beacon_app_scene_menu_submenu_callback,
         ble_beacon);
