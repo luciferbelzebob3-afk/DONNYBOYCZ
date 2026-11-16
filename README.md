@@ -29,6 +29,7 @@ Základ aktuálního vydání: **dev@53818b18**. [Strojově čitelná metadata](
 ## Obsah
 
 - [Co je DONNY BOY?](#co-je-donny-boy)
+- [Vzhled a animace verze 1.0.5](#vzhled-a-animace-verze-105)
 - [Hlavní cíle](#hlavni-cile)
 - [Stažení firmwaru](#stazeni-firmwaru)
 - [Instalace](#instalace)
@@ -48,29 +49,35 @@ Projekt je určen lidem, kteří si chtějí své zařízení lépe přizpůsobi
 
 **DONNY BOY 1.0.5 je aktualizované sestavení projektu.** Kompilace a distribuční soubory byly ověřeny. Fyzický test aktuální verze zatím neproběhl; dřívější test bez pozorovaných chyb se týkal verze 1.0.1. Historická vydání zůstávají dostupná v seznamu vydání.
 
-## Výchozí motiv DARK SIGNAL
+## Vzhled a animace verze 1.0.5
 
-**Od verze 1.0.3 má DONNY BOY motiv DARK SIGNAL přímo v instalačním firmwaru.**
-Po aktualizaci se zobrazí vodorovné menu, vlastní ikony, zámek s DB a hodinami
-i tmavé nabídky nastavení. **Kolekce obsahuje dvanáct animací:** osm původních
-scén a čtyři nové automobilové motivy – Noční auto, Auto v garáži, Přístrojová
-deska a Noční jízda. Vydání 1.0.3a historicky představilo prvních osm scén.
-Instalační balíček nahraje potřebné prostředky na SD automaticky. Dostupné scény
-se na ploše vybírají náhodně.
-Bez SD zůstává původní vestavěná animace jako záloha. Nová verze zatím nebyla fyzicky otestována.
+Nové logo DONNY BOY uvádí českou obrazovku po aktualizaci. Postava v pěti animacích dostala svislé oči a dál mrká v původním rytmu.
 
-![Čtyři animace Dark signál](site/assets/dark_signal_prehled.gif)
-![Čtyři animace kluka v kapuci včetně Matrixu a 3D efektu](site/assets/kapuce_prehled.gif)
+| Česká obrazovka po aktualizaci | Detail svislých očí a mrknutí |
+| :---: | :---: |
+| <img src="site/assets/donny-boy-startup.png" alt="Česká obrazovka po aktualizaci s logem DONNY BOY" width="384"> | <img src="site/assets/donny-boy-eyes.gif" alt="Svislé oči postavy DONNY BOY s původním mrkáním" width="384"> |
 
-[Podrobný přehled všech dvanácti animací a instalace](documentation/DonnyAnimations.md).
+### DARK SIGNAL
 
-![DARK SIGNAL — nativní náhled plochy, menu a zámku](site/assets/dark-signal-preview.png)
+| Kapuce | Noční vysílač | Radar | DONNY BOY |
+| :---: | :---: | :---: | :---: |
+| <img src="site/assets/1.0.5/kapuce.gif" alt="Kapuce" width="256"> | <img src="site/assets/1.0.5/nocni-vysilac.gif" alt="Noční vysílač" width="256"> | <img src="site/assets/1.0.5/radar.gif" alt="Radar" width="256"> | <img src="site/assets/1.0.5/donny-boy.gif" alt="DONNY BOY" width="256"> |
 
-Náhled pochází z nativního rastru a rendereru, není fotografií fyzického zařízení.
-[Instalace, nastavení a návrat ke starší verzi](documentation/DarkSignal.md).
+### Kluk v kapuci
 
-Pro běžnou instalaci stáhni **[flipper-z-f7-update-1.0.5.tgz](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.5/flipper-z-f7-update-1.0.5.tgz)**
-přes stránku vydání a použij qFlipper. Před aktualizací zálohuj i nastavení plochy.
+| Dech a pohled | Matrix | Kluk ve stínu | Prostorová kapuce |
+| :---: | :---: | :---: | :---: |
+| <img src="site/assets/1.0.5/dech-a-pohled.gif" alt="Dech a pohled" width="256"> | <img src="site/assets/1.0.5/matrix.gif" alt="Matrix" width="256"> | <img src="site/assets/1.0.5/kluk-ve-stinu.gif" alt="Kluk ve stínu" width="256"> | <img src="site/assets/1.0.5/prostorova-kapuce.gif" alt="Prostorová kapuce" width="256"> |
+
+### Automobilové scény
+
+| Noční auto | Auto v garáži | Přístrojová deska | Noční jízda |
+| :---: | :---: | :---: | :---: |
+| <img src="site/assets/1.0.5/nocni-auto.gif" alt="Noční auto" width="256"> | <img src="site/assets/1.0.5/auto-v-garazi.gif" alt="Auto v garáži" width="256"> | <img src="site/assets/1.0.5/pristrojova-deska.gif" alt="Přístrojová deska" width="256"> | <img src="site/assets/1.0.5/nocni-jizda.gif" alt="Noční jízda" width="256"> |
+
+GIFy vycházejí ze snímků přímo z vydání 1.0.5. Barvy simulují podsvícení displeje. Pro animace na microSD použij aktualizační balíček `.tgz`.
+
+[Instalace a přehled animací](documentation/DonnyAnimations.md) · [Vydání DONNY BOY 1.0.5](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.5)
 
 ## Hlavní cíle
 
@@ -116,9 +123,6 @@ V části **Soubory ke stažení** vyber soubor firmwaru nebo balíček sestaven
 - Zachovaných 12 animací a 320 snímků. V pěti animacích postavy upravené svislé oči, 192 zpracovaných snímků, původní pohyby i načasování mrknutí; Matrix zůstává s deštěm znaků. Zachované vlastní manifesty a výběr kolekce DONNY BOY.
 
 **Ověření vydání:** kompilace, metadata a instalační balíčky byly ověřené automaticky; fyzický test této verze zatím neproběhl. Historické fyzické ověření se týkalo 1.0.1.
-
-![Nová česká obrazovka DONNY BOY](site/assets/donny-boy-startup.png)
-![Svislé oči a mrknutí](site/assets/donny-boy-eyes.gif)
 
 **[Otevřít vydání 1.0.5](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.5)** · [Úplné poznámky k verzi](documentation/Release-1.0.5.md)
 

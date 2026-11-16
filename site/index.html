@@ -12,7 +12,7 @@
 <meta property="og:locale" content="cs_CZ">
 <meta property="og:site_name" content="DONNY BOY">
 <meta property="og:title" content="DONNY BOY — český firmware pro Flipper Zero">
-<meta property="og:description" content="Komunitní firmware pro Flipper Zero se zaměřením na české uživatelské rozhraní bez diakritiky. Výchozí motiv DARK SIGNAL, české rozhraní a vydání 1.0.5.">
+<meta property="og:description" content="Komunitní firmware pro Flipper Zero se zaměřením na české uživatelské rozhraní bez diakritiky. Nové logo, česká obrazovka po aktualizaci a GIFy ze sestavení 1.0.5.">
 <meta property="og:url" content="https://luciferbelzebob3-afk.github.io/DONNYBOYCZ/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DONNY BOY — český firmware pro Flipper Zero">
@@ -62,6 +62,14 @@ footer div+div{margin-top:8px}
 @media(hover:none){a:hover{text-decoration:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 table th,table td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}#novinky li{margin:12px 0;line-height:1.65}
+.release-gallery h3{margin:24px 0 10px;color:var(--green);font-size:1rem}
+.preview-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.preview-featured{grid-template-columns:repeat(2,minmax(0,1fr))}
+.preview-grid figure{margin:0;min-width:0;border:1px solid var(--line);background:var(--panel);overflow:hidden;border-radius:8px}
+.preview-grid img{display:block;width:100%;height:auto;image-rendering:pixelated}
+.preview-grid figcaption{padding:8px 10px;color:var(--muted);font-size:.82rem}
+@media(max-width:760px){.preview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.preview-featured{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -70,16 +78,45 @@ table th,table td{padding:10px;border-bottom:1px solid var(--line);vertical-alig
 <header>
 <div class="tag">ČESKÝ KOMUNITNÍ FIRMWARE · VERZE 1.0.5</div>
 <h1>DONNY <span>BOY</span></h1>
-<p class="lead">Vlastní sestavení firmwaru pro Flipper Zero. DARK SIGNAL: vlastní menu, dvanáct animací včetně čtyř automobilových scén a tmavé rozhraní. České prostředí a otevřený vývoj.</p>
+<p class="lead">Český komunitní firmware pro Flipper Zero. Ve verzi 1.0.5 najdeš nové logo DONNY BOY, českou obrazovku po aktualizaci a upravené animace plochy.</p>
 <div class="actions">
 <a class="btn primary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.5">⬇ STÁHNOUT FIRMWARE</a>
 <a class="btn secondary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ">ZOBRAZIT ZDROJOVÝ KÓD</a>
+<a class="btn secondary" href="#animace">PROHLÉDNOUT GIFY</a>
 </div>
 <div class="status"><b>[ STAV VYDÁNÍ ]</b> DONNY BOY 1.0.5 · vydání je dostupné · kompilace a balíčky ověřeny · fyzický test této verze zatím neproběhl.</div>
 </header>
 <main>
-<section class="section" id="animace"><h2>Dvanáct animací plochy</h2><p>Kolekce obsahuje osm původních scén motivu DARK SIGNAL a čtyři nové automobilové motivy: Noční auto, Auto v garáži, Přístrojovou desku a Noční jízdu. Každá vybraná scéna se přehrává 12 sekund; výběr je náhodný. Potřebné SD soubory obsahuje aktualizační balíček; bez SD zůstává původní vestavěná záloha.</p><p class="small">Prvních osm animací bylo představeno ve vydání 1.0.3a. Náhledy zachovávají starší přehled kolekcí; aktuální podobu svislých očí a nové logo najdeš v přehledu verze níže.</p><figure><img src="assets/dark_signal_prehled.gif" alt="Animovaný přehled Kapuce, Noční vysílač, Radar a DONNY BOY" style="width:100%;height:auto;image-rendering:pixelated" loading="lazy"></figure><figure><img src="assets/kapuce_prehled.gif" alt="Animovaný přehled Dech a pohled, Matrix, Kluk ve stínu a Prostorová kapuce" style="width:100%;height:auto;image-rendering:pixelated" loading="lazy"></figure><p class="small">Náhledy simulují podsvícení; displej je monochromatický. Fyzický test této verze zatím neproběhl. <a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/blob/dev/documentation/DonnyAnimations.md">Přehled a instalace animací</a>.</p></section>
-<section class="section" id="dark-signal"><h2>DARK SIGNAL je přímo ve firmwaru</h2><p>Od verze 1.0.3 používá DONNY BOY výchozí motiv DARK SIGNAL: vodorovné menu s velkou ikonou, vlastní symboly aplikací, postavu u terminálu, zámek s DB a hodinami i tmavé nastavení. Motiv je součástí instalace; nemusíš ho ručně kopírovat na SD kartu.</p><figure style="margin:24px 0"><img src="assets/dark-signal-preview.png" width="1120" height="710" alt="Nativní pixelový náhled motivu DARK SIGNAL: plocha s postavou, menu NFC, zámek DB a menu Sub-GHz" style="display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:8px" loading="lazy"><figcaption class="small">Náhled z nativních pixelů a kódu vykreslování; nejde o fotografii fyzického Flipperu. Displej zařízení je monochromatický.</figcaption></figure><p><a class="btn primary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/download/v1.0.5/flipper-z-f7-update-1.0.5.tgz">⬇ INSTALAČNÍ BALÍČEK 1.0.5 (.TGZ)</a></p><p class="small"><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/blob/dev/documentation/DarkSignal.md">Podrobnosti instalace a návratu ke starší verzi</a>. Před aktualizací zálohuj data i nastavení plochy. Fyzický test tohoto vydání zatím neproběhl.</p></section>
+<section class="section release-gallery" id="animace" aria-labelledby="dark-signal">
+<h2 id="dark-signal">Vzhled a animace verze 1.0.5</h2>
+<p>Nové logo DONNY BOY uvádí českou obrazovku po aktualizaci. Postava v pěti animacích dostala svislé oči a dál mrká v původním rytmu.</p>
+<div class="preview-grid preview-featured">
+<figure><img src="assets/donny-boy-startup.png" width="512" height="256" alt="Česká obrazovka po aktualizaci s logem DONNY BOY" loading="lazy" decoding="async"><figcaption>Česká obrazovka po aktualizaci</figcaption></figure>
+<figure><img src="assets/donny-boy-eyes.gif" width="512" height="256" alt="Svislé oči postavy DONNY BOY s původním mrkáním" loading="lazy" decoding="async"><figcaption>Detail svislých očí a mrknutí</figcaption></figure>
+</div>
+<h3>DARK SIGNAL</h3>
+<div class="preview-grid">
+<figure><img src="assets/1.0.5/kapuce.gif" width="384" height="192" alt="Animace plochy Kapuce" loading="lazy" decoding="async"><figcaption>Kapuce</figcaption></figure>
+<figure><img src="assets/1.0.5/nocni-vysilac.gif" width="384" height="192" alt="Animace plochy Noční vysílač" loading="lazy" decoding="async"><figcaption>Noční vysílač</figcaption></figure>
+<figure><img src="assets/1.0.5/radar.gif" width="384" height="192" alt="Animace plochy Radar" loading="lazy" decoding="async"><figcaption>Radar</figcaption></figure>
+<figure><img src="assets/1.0.5/donny-boy.gif" width="384" height="192" alt="Animace plochy DONNY BOY" loading="lazy" decoding="async"><figcaption>DONNY BOY</figcaption></figure>
+</div>
+<h3>Kluk v kapuci</h3>
+<div class="preview-grid">
+<figure><img src="assets/1.0.5/dech-a-pohled.gif" width="384" height="192" alt="Animace plochy Dech a pohled" loading="lazy" decoding="async"><figcaption>Dech a pohled</figcaption></figure>
+<figure><img src="assets/1.0.5/matrix.gif" width="384" height="192" alt="Animace plochy Matrix" loading="lazy" decoding="async"><figcaption>Matrix</figcaption></figure>
+<figure><img src="assets/1.0.5/kluk-ve-stinu.gif" width="384" height="192" alt="Animace plochy Kluk ve stínu" loading="lazy" decoding="async"><figcaption>Kluk ve stínu</figcaption></figure>
+<figure><img src="assets/1.0.5/prostorova-kapuce.gif" width="384" height="192" alt="Animace plochy Prostorová kapuce" loading="lazy" decoding="async"><figcaption>Prostorová kapuce</figcaption></figure>
+</div>
+<h3>Automobilové scény</h3>
+<div class="preview-grid">
+<figure><img src="assets/1.0.5/nocni-auto.gif" width="384" height="192" alt="Animace plochy Noční auto" loading="lazy" decoding="async"><figcaption>Noční auto</figcaption></figure>
+<figure><img src="assets/1.0.5/auto-v-garazi.gif" width="384" height="192" alt="Animace plochy Auto v garáži" loading="lazy" decoding="async"><figcaption>Auto v garáži</figcaption></figure>
+<figure><img src="assets/1.0.5/pristrojova-deska.gif" width="384" height="192" alt="Animace plochy Přístrojová deska" loading="lazy" decoding="async"><figcaption>Přístrojová deska</figcaption></figure>
+<figure><img src="assets/1.0.5/nocni-jizda.gif" width="384" height="192" alt="Animace plochy Noční jízda" loading="lazy" decoding="async"><figcaption>Noční jízda</figcaption></figure>
+</div>
+<p class="small">GIFy vycházejí ze snímků přímo z vydání 1.0.5. Barvy simulují podsvícení displeje. Pro animace na microSD použij aktualizační balíček <code>.tgz</code>. <a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/blob/dev/documentation/DonnyAnimations.md">Přehled a instalace animací</a>.</p>
+</section>
 
 <div class="grid">
 <article class="card"><div class="num">01 // STAŽENÍ</div><h2>Stažení firmwaru</h2><p>Vydání obsahuje soubory firmwaru a balíčky sestavení. Před instalací ověř, že vybíráš správný soubor pro své zařízení. Soubory aktuální verze prošly automatickou kontrolou. Fyzický test starší verze 1.0.1 proběhl bez pozorovaných chyb.</p><p style="margin-top:16px"><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.5">Otevřít dostupná vydání →</a></p></article>
@@ -94,8 +131,6 @@ table th,table td{padding:10px;border-bottom:1px solid var(--line);vertical-alig
 <tr><td>Freezer</td><td>24 bitů</td><td>Nový dekodér a enkodér</td></tr>
 <tr><td>Proteco</td><td>24 bitů</td><td>Nový dekodér a enkodér</td></tr>
 </tbody></table></div><ul><li>Přepracované Přidat ručně: jedna položka pro systém, frekvence a modulace v dalším kroku, obvyklá pásma systému na začátku seznamu. Pokročilé zadání TE pro Princeton, ZKTeco a FAAC TM; guard time pro Princeton a ZKTeco; discriminator Ds pro DEA Mio.</li><li>Čtení Sub-GHz zobrazuje konkrétní rozpoznaný systém u CAME, Nice FloR-S, FAAC SLH a KeeLoq. Opravená signalizace při zaplnění seznamu a mazání starých signálů; oprava interního rádia v CLI.</li><li>Nová aplikace Analyzátor ovladačů: čtení posledního signálu, analýza frekvence, dekódování uloženého RAW, hledání modulace a přelaďování. Navíc podporuje Crypt, Crypt Lite, Hormann BiSecur, KCE6xxx, Life Fido, Nero Intro II a PC4. BelGate je nově součástí hlavního protokolu BelKorn.</li><li>Nová aplikace T5577: čtení a ukládání bloků, úprava konfigurace a výpisů, zápis, test zapisovatelných bloků, vymazání a správa hesel. Navazující změny RFID zahrnují přehlednější výsledky zápisu a reorganizaci příslušných scén.</li><li>Oprava rozložení MfUltralightData pro kompatibilitu předkompilovaných NFC aplikací s NTAG/Ultralight; řeší také chybné hlášení hesla ve Weebo. Další převzaté opravy NFC, archivu, iButton, IR, GUI, úložiště a JavaScriptu.</li><li>Obnovené a doplněné české texty bez diakritiky v nových i změněných obrazovkách; kompletní český návod analyzátoru ovladačů. Zachované technické názvy a klíče souborových formátů.</li><li>Kratší hlášky PAMET PLNA a AKTUAL.; dlouhé stavové texty aktualizátoru a T5577 se omezují podle dostupné šířky displeje.</li><li>Nové monochromatické logo DONNY BOY a česká obrazovka po aktualizaci. Při běžném restartu krátké uvítání na 1,2 sekundy; český průvodce prvním spuštěním má přednost.</li><li>Zachovaných 12 animací a 320 snímků. V pěti animacích postavy upravené svislé oči, 192 zpracovaných snímků, původní pohyby i načasování mrknutí; Matrix zůstává s deštěm znaků. Zachované vlastní manifesty a výběr kolekce DONNY BOY.</li></ul>
-<figure><img src="assets/donny-boy-startup.png" width="512" height="256" alt="Nová česká obrazovka po aktualizaci s logem DONNY BOY" style="max-width:100%;height:auto;image-rendering:pixelated" loading="lazy"></figure>
-<figure><img src="assets/donny-boy-eyes.gif" width="512" height="256" alt="Svislé oči DONNY BOY s původním mrkáním" style="max-width:100%;height:auto;image-rendering:pixelated" loading="lazy"></figure>
 <p>Úspěšná kompilace a kontrola instalačních souborů. <strong>Fyzický test nové verze zatím neproběhl.</strong></p>
 <p><a class="btn primary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.5">⬇ STÁHNOUT DONNY BOY 1.0.5</a></p><p class="small"><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/blob/dev/documentation/Release-1.0.5.md">Úplné poznámky a instalace</a> · <a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases">Starší vydání</a></p></section>
 <section class="section"><h2>Rychlá instalace</h2><ol><li>Nejdřív zazálohuj důležitá data a vlastní soubory v zařízení.</li><li>Otevři <a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.5">vydání DONNY BOY 1.0.5</a> a vyber soubor určený pro Flipper Zero.</li><li>Řiď se oficiálním postupem aktualizace a pokyny projektu. Nezaměňuj DFU, update balíček a SDK.</li><li>Po aktualizaci ověř start zařízení a základní funkce.</li></ol><p class="small">Pokud si nejsi jistý, který soubor zvolit, nepokračuj naslepo — nejprve si ověř typ souboru a způsob instalace.</p></section>
