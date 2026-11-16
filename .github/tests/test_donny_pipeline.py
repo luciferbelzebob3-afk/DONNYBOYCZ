@@ -78,6 +78,38 @@ class LocalizationTests(unittest.TestCase):
                 with self.assertRaises(RuntimeError): pipeline.translate()
             self.assertEqual(source.read_text(),'puts("Save");')
 
+    def test_development_release_does_not_reimport_included_stable(self):
+        from types import SimpleNamespace
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'completed.json').write_text(json.dumps(dict(upstream_sha='newer-dev', version='1.0.5')))
+            (root / 'pending.json').write_text(json.dumps(dict(version='1.0.5')))
+            def git(*args, **kwargs):
+                return 'stable' if args == ('rev-parse', 'FETCH_HEAD^{commit}') else 'released-source'
+            latest = dict(tag_name='unlshd-094', draft=False, prerelease=False)
+            with patch.object(pipeline, 'ROOT', root), patch.object(pipeline, 'git', side_effect=git), patch.object(pipeline, 'api', return_value=latest) as api, patch.object(pipeline, 'run', return_value=SimpleNamespace(returncode=0)), patch.object(pipeline, 'output') as out:
+                pipeline.prepare()
+                out.assert_called_once_with(changed=False, already_included=True)
+                self.assertEqual(api.call_count, 1)
+
+    def test_older_automation_candidate_cannot_replace_newer_release(self):
+        from types import SimpleNamespace
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'completed.json').write_text(json.dumps(dict(upstream_sha='dev', version='1.0.5')))
+            (root / 'pending.json').write_text(json.dumps(dict(version='1.0.5')))
+            older = json.dumps(dict(version='1.0.4', upstream_sha='old-stable'))
+            def api(path):
+                if path.endswith('/releases/latest'):
+                    return dict(tag_name='unlshd-095', draft=False, prerelease=False)
+                if '/branches/' in path:
+                    return dict(commit=dict(sha='old-candidate'))
+                raise RuntimeError('fresh release lookup reached')
+            with patch.object(pipeline, 'ROOT', root), patch.object(pipeline, 'git', return_value='new-stable'), patch.object(pipeline, 'run', return_value=SimpleNamespace(returncode=1)), patch.object(pipeline, 'api', side_effect=api), patch.object(pipeline, 'read', return_value=older), patch.object(pipeline, 'find_release', side_effect=AssertionError('old release must not resume')):
+                # Stop at the next read-only phase, before any integration or version reservation.
+                with self.assertRaisesRegex(RuntimeError, 'fresh release lookup reached'):
+                    pipeline.prepare()
+
     def test_completed_release_is_noop(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)

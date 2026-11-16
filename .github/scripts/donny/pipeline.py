@@ -184,12 +184,30 @@ def prepare():
     if state.get('upstream_sha') == target:
         output(changed=False)
         return
+    # A development-based DONNY release can already include the latest stable tag.
+    # Do not allocate a new version merely because completed.json names the newer dev SHA.
+    current = load(ROOT / 'pending.json', {})
+    if state.get('version') and state['version'] == current.get('version'):
+        included = run('git', 'merge-base', '--is-ancestor', target, base, check=False)
+        if included.returncode == 0:
+            output(changed=False, already_included=True)
+            return
+        if included.returncode != 1:
+            raise RuntimeError('Nelze overit, zda uz je upstream vydani zaclenene')
     # An unfinished candidate reserves its version and source across retries.
     branch = api(f'/repos/{REPO}/branches/{BRANCH}')
     if branch:
         git('fetch', '--no-tags', 'origin', BRANCH)
         pending_text = read('FETCH_HEAD', '.donny/pending.json')
         pending = json.loads(pending_text) if pending_text else None
+        if pending and state.get('version'):
+            def version_key(value):
+                match = re.fullmatch(r'(\d+)\.(\d+)\.(\d+)(a)?', value)
+                if not match:
+                    raise RuntimeError('Neplatna verze v evidenci vydani')
+                return (*map(int, match.groups()[:3]), bool(match.group(4)))
+            if version_key(pending['version']) < version_key(state['version']):
+                pending = None  # an older completed automation branch cannot replace a newer release
         release = find_release(pending['version']) if pending else None
         candidate_sha = git('rev-parse', 'FETCH_HEAD')
         unfinished = pending and state.get('version') != pending['version']

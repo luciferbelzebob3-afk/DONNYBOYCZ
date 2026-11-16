@@ -48,7 +48,7 @@ void t5577_app_scene_restore_result_on_enter(void* context) {
                 snprintf(
                     app->progress,
                     sizeof(app->progress),
-                    "Heslo odeslano,\nbez odpovedi. Over\nblok 0");
+                    "Heslo odeslano\nbez odpovedi\nOver blok 0");
                 break;
             case T5577RestoreReadBackSilent:
                 snprintf(

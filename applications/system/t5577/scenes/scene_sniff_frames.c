@@ -34,7 +34,7 @@ static void t5577_app_scene_sniff_frames_label(const T5577SniffFrame* frame, cha
         snprintf(
             label,
             T5577_SNIFF_LABEL_MAX,
-            "Cist heslo b%u %08lX",
+            "Cist H b%u %08lX",
             frame->block,
             (unsigned long)frame->password);
         return;
@@ -42,7 +42,7 @@ static void t5577_app_scene_sniff_frames_label(const T5577SniffFrame* frame, cha
         snprintf(
             label,
             T5577_SNIFF_LABEL_MAX,
-            "Zapis heslo b%u %08lX",
+            "Zapis H b%u %08lX",
             frame->block,
             (unsigned long)frame->password);
         return;
@@ -95,7 +95,7 @@ void t5577_app_scene_sniff_frames_on_enter(void* context) {
         snprintf(
             header,
             sizeof(header),
-            "%u/%u nact. +%u ztr.",
+            "%u/%u +%u",
             decoded,
             result->frames,
             result->dropped);

@@ -180,7 +180,7 @@ bool t5577_app_scene_sniff_on_event(void* context, SceneManagerEvent event) {
     } else if(endless) {
         strlcpy(status, "Prilis mnoho sumu", sizeof(status));
     } else if(progress.bursts > 0) {
-        snprintf(status, sizeof(status), "Prijato %lu vysilani", (unsigned long)progress.bursts);
+        snprintf(status, sizeof(status), "Prijato %lu", (unsigned long)progress.bursts);
     } else {
         strlcpy(status, "Zatim nic neprijato", sizeof(status));
     }

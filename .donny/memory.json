@@ -26899,7 +26899,7 @@
     "id": "84c0c7d9b75fe10842e877d80354c349f482d07badfae8edbbc46499b28c420c",
     "path": "applications/system/t5577/scenes/scene_restore_result.c",
     "source": "\"Password sent,\\nno answer. Check\\nblock 0\"",
-    "translation": "\"Heslo odeslano,\\nbez odpovedi. Over\\nblok 0\"",
+    "translation": "\"Heslo odeslano\\nbez odpovedi\\nOver blok 0\"",
     "context": ": snprintf ( app - > progress , sizeof ( app - > progress ) , <TEXT> ) ; break ; case T5577RestoreReadBackSilent : snprintf",
     "origin": "dev-reviewed-2026-11-16"
   },
@@ -27011,7 +27011,7 @@
     "id": "bb49971f9cdad2e9b762e5b0f7f188a168524670a27a71ddab0bfb5f8e53254b",
     "path": "applications/system/t5577/scenes/scene_sniff.c",
     "source": "\"Heard %lu bursts\"",
-    "translation": "\"Prijato %lu vysilani\"",
+    "translation": "\"Prijato %lu\"",
     "context": "progress . bursts > 0 ) { snprintf ( status , sizeof ( status ) , <TEXT> , ( unsigned long ) progress . bursts",
     "origin": "dev-reviewed-2026-11-16"
   },
@@ -27219,7 +27219,7 @@
     "id": "2f30f5886990f3a5f40a740d61a0676ea99770af268a23abe24dec6255339c2e",
     "path": "applications/system/t5577/scenes/scene_sniff_frames.c",
     "source": "\"Read pw b%u %08lX\"",
-    "translation": "\"Cist heslo b%u %08lX\"",
+    "translation": "\"Cist H b%u %08lX\"",
     "context": "- > data ) ; return ; case T5577SniffFramePasswordedRead : snprintf ( label , T5577_SNIFF_LABEL_MAX , <TEXT> , frame - > block , ( unsigned",
     "origin": "dev-reviewed-2026-11-16"
   },
@@ -27227,7 +27227,7 @@
     "id": "2ff85d89fae0154924298845ff725e5a3224002daf80d78f5238380319334b4a",
     "path": "applications/system/t5577/scenes/scene_sniff_frames.c",
     "source": "\"Write pw b%u %08lX\"",
-    "translation": "\"Zapis heslo b%u %08lX\"",
+    "translation": "\"Zapis H b%u %08lX\"",
     "context": "- > password ) ; return ; case T5577SniffFramePasswordedWrite : snprintf ( label , T5577_SNIFF_LABEL_MAX , <TEXT> , frame - > block , ( unsigned",
     "origin": "dev-reviewed-2026-11-16"
   },
@@ -27243,7 +27243,7 @@
     "id": "42295c6c18c47e1b274f4ecf836ec29a1180f77068922d313209ccc76224141e",
     "path": "applications/system/t5577/scenes/scene_sniff_frames.c",
     "source": "\"%u/%u read +%u lost\"",
-    "translation": "\"%u/%u nact. +%u ztr.\"",
+    "translation": "\"%u/%u +%u\"",
     "context": "- > dropped > 0 ) { snprintf ( header , sizeof ( header ) , <TEXT> , decoded , result - > frames ,",
     "origin": "dev-reviewed-2026-11-16"
   },
