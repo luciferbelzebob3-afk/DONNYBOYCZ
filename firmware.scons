@@ -45,7 +45,7 @@ env = ENV.Clone(
     FW_LIB_OPTS={
         "Default": {
             "CCFLAGS": [
-                "-Os",
+                "-Oz" if ENV["COMPACT"] and not ENV["DEBUG"] else "-Os",
             ],
             "CPPDEFINES": [
                 "NDEBUG",
@@ -58,7 +58,7 @@ env = ENV.Clone(
         # for furi_check to respect build type
         "furi": {
             "CCFLAGS": [
-                "-Os",
+                "-Oz" if ENV["COMPACT"] and not ENV["DEBUG"] else "-Os",
             ],
             "CPPDEFINES": [
                 "NDEBUG",
@@ -68,7 +68,7 @@ env = ENV.Clone(
         },
         "flipper_application": {
             "CCFLAGS": [
-                "-Os",
+                "-Oz" if ENV["COMPACT"] and not ENV["DEBUG"] else "-Os",
             ],
             "CPPDEFINES": [
                 "NDEBUG",

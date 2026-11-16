@@ -20,7 +20,7 @@ elif ENV["COMPACT"]:
             "LOGS_RELEASE_BUILD",
         ],
         CCFLAGS=[
-            "-Os",
+            "-Oz",
         ],
     )
 else:
