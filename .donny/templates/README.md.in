@@ -92,12 +92,35 @@ V části **Soubory ke stažení** vyber soubor firmwaru nebo balíček sestaven
 
 ## Aktualizace DONNY BOY {{VERSION}}
 
-- **Dvanáct animací plochy**, včetně čtyř nových automobilových scén; kolekce zahrnuje Matrix a prostorovou kapuci.
-- **Oprava univerzálních IR ovladačů:** interní názvy signálů znovu odpovídají dodávaným databázím pro klimatizace, audio, projektory, ventilátory a LED. Obsah samotných databází se touto opravou nemění.
-- **Další české texty** v nabídkách a hlášeních, mimo jiné u NFC, RFID a Sub-GHz. Překlad zůstává průběžnou prací.
-- **Ověření:** kompilace a distribuční soubory byly ověřeny automaticky. Nová verze zatím nebyla fyzicky otestována. Fyzický test bez pozorovaných chyb se týkal starší verze 1.0.1.
-- Test na jednom zařízení nenahrazuje ověření všech funkcí, příslušenství a konfigurací.
-- **[Otevřít vydání {{VERSION}}]({{RELEASE_URL}})**
+**Základ: Unleashed dev z 16. 11. 2026 (`53818b18`), API 88.27.** Vydání navazuje na vývojovou větev upstreamu.
+
+### Nové protokoly Sub-GHz
+
+| Protokol | Formát | Co přibylo |
+|---|---|---|
+| BelKorn | 118 bitů, plovoucí kód | Korn / BelGate / Furniteh, vlastní tlačítka, ruční přidání |
+| FAAC TM | 12 bitů | Čtení, ukládání, vysílání a zadání TE |
+| Freezer | 24 bitů | Nový dekodér a enkodér |
+| Proteco | 24 bitů | Nový dekodér a enkodér |
+
+### Změny ovládání, aplikací a vzhledu
+
+- Přepracované Přidat ručně: jedna položka pro systém, frekvence a modulace v dalším kroku, obvyklá pásma systému na začátku seznamu. Pokročilé zadání TE pro Princeton, ZKTeco a FAAC TM; guard time pro Princeton a ZKTeco; discriminator Ds pro DEA Mio.
+- Čtení Sub-GHz zobrazuje konkrétní rozpoznaný systém u CAME, Nice FloR-S, FAAC SLH a KeeLoq. Opravená signalizace při zaplnění seznamu a mazání starých signálů; oprava interního rádia v CLI.
+- Nová aplikace Analyzátor ovladačů: čtení posledního signálu, analýza frekvence, dekódování uloženého RAW, hledání modulace a přelaďování. Navíc podporuje Crypt, Crypt Lite, Hormann BiSecur, KCE6xxx, Life Fido, Nero Intro II a PC4. BelGate je nově součástí hlavního protokolu BelKorn.
+- Nová aplikace T5577: čtení a ukládání bloků, úprava konfigurace a výpisů, zápis, test zapisovatelných bloků, vymazání a správa hesel. Navazující změny RFID zahrnují přehlednější výsledky zápisu a reorganizaci příslušných scén.
+- Oprava rozložení MfUltralightData pro kompatibilitu předkompilovaných NFC aplikací s NTAG/Ultralight; řeší také chybné hlášení hesla ve Weebo. Další převzaté opravy NFC, archivu, iButton, IR, GUI, úložiště a JavaScriptu.
+- Obnovené a doplněné české texty bez diakritiky v nových i změněných obrazovkách; kompletní český návod analyzátoru ovladačů. Zachované technické názvy a klíče souborových formátů.
+- Kratší hlášky PAMET PLNA a AKTUAL.; dlouhé stavové texty aktualizátoru a T5577 se omezují podle dostupné šířky displeje.
+- Nové monochromatické logo DONNY BOY a česká obrazovka po aktualizaci. Při běžném restartu krátké uvítání na 1,2 sekundy; český průvodce prvním spuštěním má přednost.
+- Zachovaných 12 animací a 320 snímků. V pěti animacích postavy upravené svislé oči, 192 zpracovaných snímků, původní pohyby i načasování mrknutí; Matrix zůstává s deštěm znaků. Zachované vlastní manifesty a výběr kolekce DONNY BOY.
+
+**Ověření vydání:** kompilace, metadata a instalační balíčky byly ověřené automaticky; fyzický test této verze zatím neproběhl. Historické fyzické ověření se týkalo 1.0.1.
+
+![Nová česká obrazovka DONNY BOY](site/assets/donny-boy-startup.png)
+![Svislé oči a mrknutí](site/assets/donny-boy-eyes.gif)
+
+**[Otevřít vydání {{VERSION}}]({{RELEASE_URL}})** · [Úplné poznámky k verzi](documentation/Release-1.0.5.md)
 
 ## Instalace
 

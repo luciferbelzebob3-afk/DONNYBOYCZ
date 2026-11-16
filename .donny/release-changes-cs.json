@@ -1,7 +1,14 @@
 [
-  "Čtyři nové automobilové animace: Noční jízda, Garáž, Budíky a Jízda. Na ploše je celkem dvanáct scén a 320 snímků; aktualizační balíček obsahuje potřebné prostředky pro SD kartu.",
-  "Opraven výběr plochy tak, aby se nové automobilové scény vybíraly spolu s dřívějšími animacemi DONNY BOY.",
-  "Opraveno párování příkazů univerzálních IR ovladačů klimatizace, audia, ventilátorů, LED a projektorů s databází. Signály a databázové klíče nebyly přepsány.",
-  "Doplněny české texty v aplikacích NFC, RFID, Sub-GHz, IR, nastavení a dalších vybraných obrazovkách. České uživatelské rozhraní se dále průběžně překládá.",
-  "Základem zůstává stabilní Unleashed unlshd-094; při kontrole nebylo dostupné novější stabilní vydání."
+  "Základ Unleashed dev k 16. listopadu 2026, commit 53818b18, firmware API 88.27. Jde o vydání DONNY BOY nad vývojovou větví upstreamu.",
+  "Nový Sub-GHz protokol BelKorn: 118 bitů, plovoucí kód bez šifrování, 36bitové sériové číslo a vlastní tlačítka. Zahrnuje označení Korn, BelGate, Furniteh a další příbuzné systémy; dostupný i přes Přidat ručně.",
+  "Další nově převzaté protokoly: FAAC TM (12 bitů), Freezer (24 bitů) a Proteco (24 bitů). Registrace a příslušné dekodéry/enkodéry odpovídají novému upstreamu.",
+  "Přepracované Přidat ručně: jedna položka pro systém, frekvence a modulace v dalším kroku, obvyklá pásma systému na začátku seznamu. Pokročilé zadání TE pro Princeton, ZKTeco a FAAC TM; guard time pro Princeton a ZKTeco; discriminator Ds pro DEA Mio.",
+  "Čtení Sub-GHz zobrazuje konkrétní rozpoznaný systém u CAME, Nice FloR-S, FAAC SLH a KeeLoq. Opravená signalizace při zaplnění seznamu a mazání starých signálů; oprava interního rádia v CLI.",
+  "Nová aplikace Analyzátor ovladačů: čtení posledního signálu, analýza frekvence, dekódování uloženého RAW, hledání modulace a přelaďování. Navíc podporuje Crypt, Crypt Lite, Hormann BiSecur, KCE6xxx, Life Fido, Nero Intro II a PC4. BelGate je nově součástí hlavního protokolu BelKorn.",
+  "Nová aplikace T5577: čtení a ukládání bloků, úprava konfigurace a výpisů, zápis, test zapisovatelných bloků, vymazání a správa hesel. Navazující změny RFID zahrnují přehlednější výsledky zápisu a reorganizaci příslušných scén.",
+  "Oprava rozložení MfUltralightData pro kompatibilitu předkompilovaných NFC aplikací s NTAG/Ultralight; řeší také chybné hlášení hesla ve Weebo. Další převzaté opravy NFC, archivu, iButton, IR, GUI, úložiště a JavaScriptu.",
+  "Obnovené a doplněné české texty bez diakritiky v nových i změněných obrazovkách; kompletní český návod analyzátoru ovladačů. Zachované technické názvy a klíče souborových formátů.",
+  "Kratší hlášky PAMET PLNA a AKTUAL.; dlouhé stavové texty aktualizátoru a T5577 se omezují podle dostupné šířky displeje.",
+  "Nové monochromatické logo DONNY BOY a česká obrazovka po aktualizaci. Při běžném restartu krátké uvítání na 1,2 sekundy; český průvodce prvním spuštěním má přednost.",
+  "Zachovaných 12 animací a 320 snímků. V pěti animacích postavy upravené svislé oči, 192 zpracovaných snímků, původní pohyby i načasování mrknutí; Matrix zůstává s deštěm znaků. Zachované vlastní manifesty a výběr kolekce DONNY BOY."
 ]

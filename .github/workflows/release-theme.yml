@@ -1,4 +1,4 @@
-name: DONNY BOY CZ – vydat vlastní motiv
+name: DONNY BOY CZ – sestavit a vydat firmware
 
 on:
   workflow_dispatch:
@@ -99,13 +99,13 @@ jobs:
           assert m['version']==os.environ['EXPECTED_VERSION']
           assert m['upstream']['theme']=='DARK SIGNAL'
           PY
-      - name: Publikovat vydání s motivem DARK SIGNAL
+      - name: Publikovat ověřené vydání DONNY BOY
         env:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ needs.prepare.outputs.version }}
         run: |
           python .github/scripts/donny/pipeline.py publish
-          gh release edit "v$VERSION" --repo "$GITHUB_REPOSITORY" --title "DONNY BOY CZ $VERSION – DARK SIGNAL a animace"
+          gh release edit "v$VERSION" --repo "$GITHUB_REPOSITORY" --title "DONNY BOY CZ $VERSION – nové protokoly a české UI"
 
   website:
     needs: [prepare, publish]
