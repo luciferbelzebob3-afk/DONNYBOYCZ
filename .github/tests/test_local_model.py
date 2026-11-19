@@ -155,7 +155,7 @@ class LocalModelTests(unittest.TestCase):
             if path.endswith('/releases/latest'):return dict(tag_name='unlshd-094',draft=False,prerelease=False)
             if '/branches/' in path:return dict(commit=dict(sha='candidate'))
             raise AssertionError(path)
-        with patch.object(pipeline,'ROOT',self.root),patch.object(pipeline,'git',side_effect=git),patch.object(pipeline,'api',side_effect=api),patch.object(pipeline,'find_release',return_value=None),patch.object(pipeline,'read',side_effect=read),patch.object(pipeline,'push_candidate') as push,patch.object(pipeline,'output') as out:
+        with patch.object(pipeline,'ROOT',self.root),patch.object(pipeline,'git',side_effect=git),patch.object(pipeline,'api',side_effect=api),patch.object(pipeline,'find_release',return_value=None),patch.object(pipeline,'read',side_effect=read),patch.object(pipeline,'candidate_has_no_source_changes',return_value=False),patch.object(pipeline,'push_candidate') as push,patch.object(pipeline,'output') as out:
             pipeline.prepare()
             out.assert_called_once_with(changed=False,deferred=True,retry_at=deferred['retry_at'])
             push.assert_not_called()

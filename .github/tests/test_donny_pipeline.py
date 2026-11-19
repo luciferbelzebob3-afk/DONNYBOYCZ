@@ -196,4 +196,147 @@ class LocalizationTests(unittest.TestCase):
             self.assertFalse(result['draft'])
             self.assertEqual(run_mock.call_count,1)
 
+class PrepareCandidateTests(unittest.TestCase):
+    def setUp(self):
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        previous = os.getcwd()
+        self.addCleanup(os.chdir, previous)
+        os.chdir(tmp.name)
+        self.root = Path('.donny')
+        self.root.mkdir()
+        self.g('init', '-q')
+        self.g('config', 'user.name', 'Test')
+        self.g('config', 'user.email', 'test@example.invalid')
+        Path('firmware.c').write_text('int value = 1;\n')
+        self.upstream = self.commit('Upstream release')
+        pipeline.save(self.root / 'completed.json', {'version': '1.0.5', 'upstream_sha': self.upstream})
+        self.base = self.commit('Released DONNY BOY')
+        # The upstream stable tag is on a release branch, not an ancestor of dev.
+        self.g('checkout', '--detach', self.upstream)
+        self.g('commit', '--allow-empty', '-m', 'Stable upstream tag')
+        self.stable = self.g('rev-parse', 'HEAD')
+        self.latest = self.stable
+        self.tag = 'unlshd-095'
+        self.release = None
+
+    @staticmethod
+    def g(*args):
+        return subprocess.check_output(['git', *args], text=True, stderr=subprocess.PIPE).strip()
+
+    def commit(self, message):
+        self.g('add', '-A')
+        self.g('commit', '-qm', message)
+        return self.g('rev-parse', 'HEAD')
+
+    def setup_candidate(self, with_source_change=False):
+        self.g('checkout', '--detach', self.base)
+        self.g('merge', '--no-ff', '--no-edit', self.stable)
+        if with_source_change:
+            Path('firmware.c').write_text('int value = 2;\n')
+        pipeline.save(self.root / 'pending.json', {
+            'version': '1.0.6', 'base_sha': self.base, 'upstream_sha': self.stable,
+        })
+        pipeline.save(self.root / 'model-cache.json', {'previous': 'verified'})
+        self.candidate = self.commit('Saved candidate')
+        self.g('checkout', '--detach', self.base)
+        Path('README.md').write_text('Aktualni galerie\n')
+        Path('site').mkdir()
+        (Path('site') / 'new.gif').write_bytes(b'GIF89a')
+        self.dev = self.commit('New gallery on dev')
+
+    def call_prepare(self, *, expected_error=None):
+        def git(*args, **kwargs):
+            if args[:2] == ('fetch', '--no-tags'):
+                dest = self.candidate if args[2] == 'origin' else self.latest
+                Path('.git/FETCH_HEAD').write_text(dest + '\n')
+                return ''
+            return self.g(*args)
+
+        def api(path):
+            if path.endswith('/releases/latest'):
+                return dict(tag_name=self.tag, draft=False, prerelease=False, id=12, html_url='stable')
+            if '/branches/' in path:
+                return {'commit': {'sha': self.candidate}} if self.candidate else None
+            if '/git/ref/' in path:
+                return None
+            if '/releases?' in path:
+                return [{'tag_name': 'v1.0.5'}]
+            raise AssertionError(path)
+
+        with patch.object(pipeline, 'git', side_effect=git), patch.object(pipeline, 'api', side_effect=api), \
+                patch.object(pipeline, 'find_release', return_value=self.release), \
+                patch.object(pipeline, 'push_candidate') as push, patch.object(pipeline, 'output') as out:
+            if expected_error:
+                with self.assertRaisesRegex(RuntimeError, expected_error):
+                    pipeline.prepare()
+                out.assert_not_called()
+            else:
+                pipeline.prepare()
+            return out.call_args.kwargs if out.called else None, push.call_count
+
+    def test_unpublished_noop_preserves_saved_candidate_and_new_gallery(self):
+        self.setup_candidate()
+        out, pushes = self.call_prepare()
+        self.assertEqual(out, dict(changed=False, no_source_changes=True, upstream_tag=self.tag))
+        self.assertEqual(pushes, 0)
+        self.assertEqual(self.g('rev-parse', 'HEAD'), self.dev)
+        self.assertEqual(Path('README.md').read_text(), 'Aktualni galerie\n')
+        self.assertIn('verified', self.g('show', self.candidate + ':.donny/model-cache.json'))
+
+    def test_new_candidate_without_source_delta_is_recorded_on_automation_branch_only(self):
+        self.setup_candidate()
+        self.candidate = None
+        out, pushes = self.call_prepare()
+        self.assertEqual(out, dict(changed=False, no_source_changes=True, upstream_tag=self.tag))
+        self.assertEqual(pushes, 1)
+        self.assertEqual(Path('firmware.c').read_text(), 'int value = 1;\n')
+        self.assertEqual(pipeline.load(self.root / 'pending.json')['base_sha'], self.dev)
+
+    def test_real_candidate_keeps_its_work_and_absorbs_web_changes(self):
+        self.setup_candidate(with_source_change=True)
+        out, pushes = self.call_prepare()
+        self.assertEqual(out, dict(changed=True, sha=self.g('rev-parse', 'HEAD'),
+                                   version='1.0.6', published=False))
+        self.assertEqual(pushes, 1)
+        self.assertEqual(pipeline.load(self.root / 'pending.json')['base_sha'], self.dev)
+        self.g('merge-base', '--is-ancestor', self.dev, out['sha'])
+        self.g('merge-base', '--is-ancestor', self.candidate, out['sha'])
+        self.assertEqual(Path('firmware.c').read_text(), 'int value = 2;\n')
+        self.assertEqual((Path('site') / 'new.gif').read_bytes(), b'GIF89a')
+        self.assertEqual(pipeline.load(self.root / 'model-cache.json'), {'previous': 'verified'})
+
+    def test_concurrent_firmware_edits_still_block_nonempty_candidate(self):
+        self.setup_candidate(with_source_change=True)
+        Path('firmware.c').write_text('int value = 9;\n')
+        self.dev = self.commit('Changed firmware on dev')
+        _, pushes = self.call_prepare(expected_error='nedokonceny kandidat s jinym zakladem')
+        self.assertEqual(pushes, 0)
+        self.assertEqual(self.g('rev-parse', 'HEAD'), self.dev)
+
+    def test_existing_draft_prevents_noop_or_reintegration(self):
+        self.setup_candidate()
+        self.release = {'draft': True}
+        _, pushes = self.call_prepare(expected_error='nedokonceny kandidat s jinym zakladem')
+        self.assertEqual(pushes, 0)
+        self.assertEqual(self.g('rev-parse', 'HEAD'), self.dev)
+
+    def test_new_upstream_leaves_redundant_candidate_in_history(self):
+        self.setup_candidate()
+        self.g('checkout', '--detach', self.stable)
+        Path('firmware.c').write_text('int value = 3;\n')
+        self.latest = self.commit('Genuine firmware changes in next stable release')
+        self.tag = 'unlshd-096'
+        self.g('checkout', '--detach', self.dev)
+        out, pushes = self.call_prepare()
+        self.assertEqual(out, dict(changed=True, sha=self.g('rev-parse', 'HEAD'),
+                                   version='1.0.6', published=False))
+        self.assertEqual(pushes, 1)
+        self.g('merge-base', '--is-ancestor', self.candidate, out['sha'])
+        self.g('merge-base', '--is-ancestor', self.dev, out['sha'])
+        self.g('merge-base', '--is-ancestor', self.latest, out['sha'])
+        self.assertEqual(Path('firmware.c').read_text(), 'int value = 3;\n')
+        self.assertEqual(pipeline.load(self.root / 'pending.json')['upstream_sha'], self.latest)
+
+
 if __name__=='__main__': unittest.main()

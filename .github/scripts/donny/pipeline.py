@@ -92,6 +92,54 @@ def controls_only(source, head):
                or x == '.donny/README.md' for x in paths)
 
 
+PREPARATION_FILES = frozenset({
+    '.donny/pending.json', '.donny/memory.json', '.donny/model-cache.json',
+    '.donny/deferred.json', '.donny/analysis.json', '.donny/translation-report.json',
+    '.donny/release-changes-cs.json',
+})
+
+
+def is_ancestor(older, newer):
+    result = run('git', 'merge-base', '--is-ancestor', older, newer, check=False)
+    if result.returncode not in (0, 1):
+        raise RuntimeError('Nelze overit historii kandidata')
+    return result.returncode == 0
+
+
+def changed_paths(older, newer):
+    diff = run('git', 'diff', '--name-only', '-z', '--no-renames', older, newer, '--')
+    return set(diff.stdout.split('\0')) - {''}
+
+
+def candidate_has_no_source_changes(pending, candidate):
+    return (is_ancestor(pending['base_sha'], candidate)
+            and is_ancestor(pending['upstream_sha'], candidate)
+            and changed_paths(pending['base_sha'], candidate) <= PREPARATION_FILES)
+
+
+def presentation_only(older, newer):
+    return is_ancestor(older, newer) and all(
+        path in ('README.md', '.donny/README.md') or path.startswith('site/')
+        for path in changed_paths(older, newer)
+    )
+
+
+def integrate_presentation_changes(pending, candidate, base):
+    """Keep unpublished work and newer web edits without rewriting either branch."""
+    git('checkout', '--detach', candidate)
+    merged = run('git', 'merge', '--no-ff', '--no-edit', base, check=False)
+    if merged.returncode:
+        conflicts = git('diff', '--name-only', '--diff-filter=U').splitlines()
+        save(OUT / 'conflicts.json', {'paths': conflicts, 'stderr': merged.stderr})
+        run('git', 'merge', '--abort', check=False)
+        raise RuntimeError('Zmeny webu nelze bez konfliktu pripojit ke kandidatu; kandidat zachovan')
+    saved = dict(pending, base_sha=base)
+    save(ROOT / 'pending.json', saved)
+    sha = commit('Zahrnout novejsi zmeny webu do kandidata', ['.donny/pending.json'])
+    push_candidate()
+    return saved, sha
+
+
 def recover_draft(release, pending, source):
     """Finish only a complete, previously verified draft; do not upload or rebuild."""
     if release['target_commitish'] != source:
@@ -195,6 +243,7 @@ def prepare():
         if included.returncode != 1:
             raise RuntimeError('Nelze overit, zda uz je upstream vydani zaclenene')
     # An unfinished candidate reserves its version and source across retries.
+    redundant_candidate = None
     branch = api(f'/repos/{REPO}/branches/{BRANCH}')
     if branch:
         git('fetch', '--no-tags', 'origin', BRANCH)
@@ -211,10 +260,22 @@ def prepare():
         release = find_release(pending['version']) if pending else None
         candidate_sha = git('rev-parse', 'FETCH_HEAD')
         unfinished = pending and state.get('version') != pending['version']
+        if (unfinished and release is None and candidate_has_no_source_changes(pending, candidate_sha)
+                and is_ancestor(pending['base_sha'], base)):
+            if pending['upstream_sha'] == target:
+                output(changed=False, no_source_changes=True, upstream_tag=tag)
+                return
+            # New upstream: keep the old candidate in history, but start from current dev.
+            redundant_candidate = candidate_sha
+            pending = None
         can_resume = pending and (base in (pending['base_sha'], candidate_sha) or
                                   (release and not release['draft']) or controls_only(candidate_sha, base))
+        if (pending and unfinished and not can_resume and release is None
+                and presentation_only(pending['base_sha'], base)):
+            pending, candidate_sha = integrate_presentation_changes(pending, candidate_sha, base)
+            can_resume = True
         if pending and (pending['upstream_sha'] == target or unfinished) and can_resume:
-            deferred_text = read('FETCH_HEAD', '.donny/deferred.json')
+            deferred_text = read(candidate_sha, '.donny/deferred.json')
             deferred = json.loads(deferred_text) if deferred_text else {}
             import time
             if deferred.get('retry_at', 0) > time.time():
@@ -222,7 +283,7 @@ def prepare():
                 return
             if release and release['draft'] and controls_only(candidate_sha, base):
                 release = recover_draft(release, pending, candidate_sha)
-            git('checkout', '--detach', 'FETCH_HEAD')
+            git('checkout', '--detach', candidate_sha)
             if deferred_text:
                 (ROOT / 'deferred.json').unlink()
                 commit('Obnovit odlozeny beh lokalniho modelu', ['.donny/deferred.json'])
@@ -292,9 +353,9 @@ def prepare():
     for path in PROTECTED:
         if run('git', 'ls-tree', 'HEAD', '--', path, check=False).stdout:
             git('restore', '--source=' + base, '--staged', '--worktree', '--', path)
-    changed_paths = git('diff', '--cached', '--name-only').splitlines()
+    staged_paths = git('diff', '--cached', '--name-only').splitlines()
     reused = 0
-    for path in changed_paths:
+    for path in staged_paths:
         file = Path(path)
         if file.suffix in SOURCE_EXT and file.is_file():
             text, count = apply_memory(path, file.read_text(), memory)
@@ -310,7 +371,16 @@ def prepare():
     save(ROOT / 'memory.json', memory)
     save(ROOT / 'pending.json', pending)
     sha = commit(f'Pripravit DONNY BOY CZ {version}', ['.donny'])
+    if redundant_candidate:
+        # Preserve the redundant candidate as a parent so the automation ref can
+        # advance without restoring stale source, metadata, or translation cache.
+        git('merge', '--no-ff', '--no-edit', '-s', 'ours', redundant_candidate)
+        sha = git('rev-parse', 'HEAD')
+    no_source_changes = candidate_has_no_source_changes(pending, sha)
     push_candidate()
+    if no_source_changes:
+        output(changed=False, no_source_changes=True, upstream_tag=tag)
+        return
     output(changed=True, sha=sha, version=version, published=False)
 
 

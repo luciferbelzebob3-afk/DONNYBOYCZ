@@ -27,8 +27,16 @@ proto jsou návaznosti vyjádřené přes `needs` a `workflow_call`.
 Integrační větev `automation/stable-release` uchovává nedokončený výsledek.
 Při selhání se vydání neoznačí za dokončené. Opakovaný běh navazuje na stejnou
 verzi. Po publikaci se opakuje pouze aktualizace webu, bez nového buildu.
-Pokud se během přípravy změnila větev dev, publikace se zastaví; existující
-kandidát zůstane zachován pro novou integraci a ověření.
+Pokud do větve `dev` přibyly jen změny README nebo webu, příprava je při
+dalším běhu připojí k dosud nezveřejněnému kandidátovi bez konceptu vydání,
+pokud se dají sloučit bez konfliktu. Změny zdrojů nebo konflikt vyžadují nové
+ověření. Staré koncepty a publikovaná vydání se tím nepřepisují.
+
+Pokud stabilní tag proti základu nezměnil žádný soubor mimo evidenci přípravy,
+příprava vypíše `no_source_changes=true` a úspěšně skončí bez analýzy, překladu,
+buildu nebo nového releasu. Záznam zůstává na integrační větvi. Další odlišné
+stabilní vydání se zpracuje z aktuální větve `dev` a předchozí kandidát zůstane
+v historii.
 
 ## Překlad přímo na serveru GitHubu
 
