@@ -43,24 +43,22 @@ def verify():
     assert magic == 0x53445348 and revision == 1
     payload = heatshrink2.decompress(compressed[7:], window_sz2=window, lookahead_sz2=lookahead)
     results = []
-    tv = 'L1_Tv_128x47'
     with tarfile.open(fileobj=io.BytesIO(payload), mode='r:') as resources:
         members = {m.name.lstrip('./'): m for m in resources.getmembers() if m.isfile()}
         def data(name):
             assert name in members, 'Chybi soubor v instalaci: ' + name
             return resources.extractfile(members[name]).read()
         manifest = data('dolphin/manifest.txt').decode()
-        assert manifest.splitlines().count('Name: ' + tv) == 1
+        names = [line[6:] for line in manifest.splitlines() if line.startswith('Name: ')]
+        assert len(names) == len(ANIMATIONS) and set(names) == set(ANIMATIONS), \
+            'SD manifest musi obsahovat jen vychozi kolekci DONNY BOY'
+        bundled_names = {name.split('/')[1] for name in members
+                         if name.startswith('dolphin/') and len(name.split('/')) > 2}
+        assert bundled_names == set(ANIMATIONS), \
+            'V SD balicku zustaly puvodni nebo nezname animace'
         internal = Path('assets/dolphin/internal/manifest.txt').read_text()
         internal_names = {line[6:] for line in internal.splitlines() if line.startswith('Name: ')}
-        assert tv not in internal_names
         assert {'DB_DarkSignal_128x51', 'L1_NoSd_128x49', 'L1_BadBattery_128x47'} <= internal_names
-        tv_meta = fields(data(f'dolphin/{tv}/meta.txt').decode())
-        assert (tv_meta['Width'], tv_meta['Height']) == ('128', '47')
-        assert (tv_meta['Passive frames'], tv_meta['Active frames']) == ('6', '2')
-        tv_frames = {f'dolphin/{tv}/frame_{frame}.bm' for frame in range(8)}
-        assert {name for name in members if name.startswith(f'dolphin/{tv}/frame_')} == tv_frames
-        assert all(data(name) for name in tv_frames)
         for name, (count, fps) in ANIMATIONS.items():
             assert manifest.splitlines().count('Name: ' + name) == 1
             source = Path('assets/dolphin/external') / name

@@ -95,7 +95,7 @@ static void updater_main_draw_callback(Canvas* canvas, void* _model) {
         canvas_draw_icon(canvas, 75, 55, &I_Pin_back_arrow_10x8);
         canvas_draw_str_aligned(canvas, 88, 55, AlignLeft, AlignTop, "zrusit");
     } else {
-        canvas_draw_str_aligned(canvas, 55, 14, AlignLeft, AlignTop, "AKTUAL.");
+        canvas_draw_str_aligned(canvas, 82, 14, AlignCenter, AlignTop, "NAHRAVAM");
         canvas_set_font(canvas, FontSecondary);
         FuriString* status = furi_string_alloc_set(model->status);
         elements_string_fit_width(canvas, status, 124);

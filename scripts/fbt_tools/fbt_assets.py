@@ -6,6 +6,7 @@ from SCons.Action import Action
 from SCons.Builder import Builder
 from SCons.Errors import StopError
 from SCons.Node.FS import File
+from SCons.Script import Delete
 
 
 def _icons_emitter(target, source, env):
@@ -200,18 +201,24 @@ def generate(env):
                 emitter=_dolphin_emitter,
             ),
             "DolphinExtBuilder": Builder(
-                action=Action(
-                    [
+                # This directory contains generated SD animations only. Remove
+                # obsolete output before exporting the current manifest, so an
+                # incremental build cannot repackage deleted upstream scenes.
+                action=[
+                    Delete("${_DOLPHIN_OUT_DIR}"),
+                    Action(
                         [
-                            "${PYTHON3}",
-                            "${ASSETS_COMPILER}",
-                            "dolphin",
-                            "${_DOLPHIN_SRC_DIR}",
-                            "${_DOLPHIN_OUT_DIR}",
+                            [
+                                "${PYTHON3}",
+                                "${ASSETS_COMPILER}",
+                                "dolphin",
+                                "${_DOLPHIN_SRC_DIR}",
+                                "${_DOLPHIN_OUT_DIR}",
+                            ],
                         ],
-                    ],
-                    "${DOLPHINCOMSTR}",
-                ),
+                        "${DOLPHINCOMSTR}",
+                    ),
+                ],
                 emitter=_dolphin_emitter,
             ),
             "ProtoVerBuilder": Builder(

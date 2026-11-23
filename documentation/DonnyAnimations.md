@@ -1,7 +1,7 @@
 # DONNY BOY CZ — dvanáct animací
 
-Kolekce rozšiřuje motiv DARK SIGNAL o čtyři scény inspirované automobily a zachovává
-dosavadní animace, české rozhraní, menu, zámek a nastavení.
+Výchozí kolekce motivu DARK SIGNAL obsahuje osm scén Donny Boye a čtyři
+automobilové scény. Původní kolekce animací Unleashed se už nebalí.
 
 | Název | Složka v `/ext/dolphin` | Snímky / rychlost |
 | --- | --- | --- |
@@ -40,11 +40,11 @@ Barva náhledů pouze napodobuje podsvícení. Skutečný displej je monochromat
 3. Použij aktualizaci ze souboru přes qFlipper. Aktualizační balíček obsahuje
    firmware, aktualizátor a SD prostředky se všemi dvanácti animacemi.
 4. Nech dokončit i instalaci SD prostředků. Samotné nahrání DFU animace na SD
-   nedoplní. Po restartu se na ploše přednostně vybírají nové animace.
+   nedoplní. Po restartu jsou naše animace výchozí, bez dalšího nastavování.
 
 Při použití vlastního manifestu jej zálohuj a případné vlastní záznamy po
 aktualizaci sluč s novým manifestem; aktualizátor spravuje systémové prostředky.
-Původní vestavěná animace zůstává dostupná bez SD a jako záloha při chybě načtení.
+Vestavěný DONNY BOY DARK SIGNAL zůstává dostupný bez SD a při chybě načtení.
 Systémová upozornění a zvýšení úrovně mají nadále přednost před běžnou plochou.
 Zamykací obrazovka a PIN se nemění.
 
@@ -56,13 +56,18 @@ firmware před motivem DARK SIGNAL dodrž i [obnovu nastavení plochy](https://g
 Zdrojové PNG a metadata jsou přímo v `assets/dolphin/external`. Standardní
 `DolphinExtBuilder` je při sestavení převede do `.bm` a zahrne do SD prostředků.
 Výběr plochy již nevrací vždy jednu původní animaci: pokud jsou v manifestu
-dostupné nové scény, přednostně losuje mezi nimi. Bez této kolekce funguje
-původní mechanismus výběru a záložního načtení.
+dostupné nové scény, přednostně losuje mezi nimi. Instalační manifest nyní
+obsahuje pouze těchto dvanáct scén. Při chybě načtení použije vestavěného Donnyho.
+
+Aktualizátor odstraňuje staré systémové soubory podle `/ext/Manifest`.
+Pokud byl manifest ztracen nebo se staré animace kopírovaly ručně, jejich
+soubory mohou zůstat na SD, ale nový výchozí manifest je nevybírá.
 
 Build ověřuje všech dvanáct animací přímo v dokončeném `.tgz`: rozbalí
 `resources.ths`, zkontroluje manifest, metadata a přítomnost 320 bitmap a každou
 dekóduje a porovná se zdrojovým PNG po jednotlivých pixelech. Výsledný report je
 součástí souborů vydání jako `animace-overeni.json`.
+Kontrola zároveň odmítne původní animace navíc v manifestu nebo SD balíčku.
 
 Úspěšné sestavení a kontrola souborů nejsou fyzický test zařízení. Nová verze
 zatím nebyla fyzicky otestována; dřívější testy se na ni automaticky nevztahují.

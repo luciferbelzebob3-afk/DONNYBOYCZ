@@ -9,10 +9,9 @@ Emulace a vysílání mají ruční vysílač, příjem opačný směr šipky.
   a ústa, úroveň počet značek na mikině.
 - Obě animace zvýšení úrovně, úvodní průvodce, Bluetooth, U2F,
   DFU, reset PINu a odpojení USB.
-- Původní animace plochy, blokující stavy a vestavěné záložní animace
-  mají kapuci s mrkáním a pohybem. Vybrané scény používají počítač,
-  knihu, hudební noty nebo vysílač. Původní autorské scény `DB_*`
-  zůstávají zachované.
+- Plocha používá výchozí kolekci dvanácti scén `DB_*`. Starých 38 složek
+  animací je ze zdrojů odstraněných a do SD balíčku se nezahrnují.
+  Blokující stavy a vestavěné záložní animace mají kapuci s mrkáním a pohybem.
 - Soukromé kopie obrázků v přibalených aplikacích HID, T5577,
   testu Sub-GHz a ukázce obrázků jsou upravené také.
 
@@ -31,10 +30,12 @@ python scripts/donny_mascot_assets.py
 Částečně upravované obrázky čte ze zdrojového commitu `4443f37e0`, aby
 opakované spuštění nepoškodilo původní text. Tento commit musí být dostupný
 v místní historii. Skript nespouští sestavení ani GitHub Actions.
-Úplný seznam 1 036 bitmap je v `documentation/DonnyMascotAssets.json`.
+Seznam 93 generovaných bitmap je v `documentation/DonnyMascotAssets.json`.
+Dalších 320 snímků výchozí kolekce `DB_*` a dvě bitmapy vestavěné
+animace DARK SIGNAL jsou samostatné původní zdroje DONNY BOY.
 
-Zůstávají původní názvy souborů a SDK symbolů, rozměry, manifesty,
-pořadí snímků a časování. Služba `dolphin` dál spravuje původní zkušenosti
+Zůstávají názvy sdílených ikon a SDK symbolů, rozměry a časování
+ponechaných animací. Služba `dolphin` dál spravuje původní zkušenosti
 a náladu; uložený postup ani logika úrovní se nemění.
 
 Ověřeny byly jednobitový formát, rozměry proti předchozím souborům,
@@ -45,3 +46,22 @@ Změny se projeví až po budoucím sestavení a instalaci firmwaru včetně
 odpovídajících SD prostředků a přibalených FAP aplikací. Samostatné cizí
 FAP soubory a vlastní animace již uložené na SD mohou mít vlastní grafiku;
 jejich binární obsah tato úprava zdrojů nemění.
+
+## Aktualizace a výchozí prostředky
+
+Aktualizátor zobrazuje nad průběhem nápis `NAHRAVAM` vedle Donnyho kapuce.
+Po instalaci SD prostředků je výchozí manifest složený pouze z našich
+dvanácti scén; ruční kopírování ani přepínání motivu není potřeba.
+Bez SD karty zůstává vestavěný DONNY BOY DARK SIGNAL.
+
+Existující aktualizátor před rozbalením nových prostředků maže soubory
+evidované starým `/ext/Manifest` a odstraňuje prázdné systémové složky.
+Původní evidované animace se tak odstraní a nový balíček je nevrací.
+Při přípravě SD prostředků se navíc čistí generovaný výstup animací,
+aby staré soubory nezůstaly ani po inkrementálním sestavení.
+Kontrola hotového balíčku odmítne jinou než výchozí kolekci `DB_*`.
+
+Soubory mimo starý instalační manifest se hromadně nemažou. Pokud manifest
+chybí nebo byly animace kopírované ručně, jejich staré soubory mohou na SD
+zůstat; nový výchozí manifest je ale nevybírá. Uživatelské záznamy NFC,
+RFID, Sub-GHz, IR a iButton tato změna neupravuje.
