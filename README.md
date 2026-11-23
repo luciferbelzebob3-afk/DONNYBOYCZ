@@ -1,19 +1,19 @@
 <div align="center">
 
-# ☠ DONNY BOY 1.0.5
+# ☠ DONNY BOY 1.0.6
 ### DARK SIGNAL · ČESKÝ FIRMWARE · FLIPPER ZERO
 
 Základ aktuálního vydání: **dev@53818b18**. [Strojově čitelná metadata](site/release.json).
 
 **Vlastní sestavení firmwaru pro Flipper Zero s cílem přinést české prostředí a přehlednější používání.**
 
-[![Verze](https://img.shields.io/badge/verze-DONNY%20BOY%201.0.5-39ff14?style=for-the-badge&labelColor=080b0a)](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.5)
+[![Verze](https://img.shields.io/badge/verze-DONNY%20BOY%201.0.6-39ff14?style=for-the-badge&labelColor=080b0a)](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.6)
 [![Jazyk](https://img.shields.io/badge/jazyk-%C4%8De%C5%A1tina-39ff14?style=flat-square&labelColor=080b0a)](#cesky-preklad)
 [![Licence](https://img.shields.io/badge/licence-GPL--3.0-39ff14?style=flat-square&labelColor=080b0a)](LICENSE)
 
 <br>
 
-[ **⬇ STÁHNOUT DONNY BOY 1.0.5** ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.5) ·
+[ **⬇ STÁHNOUT DONNY BOY 1.0.6** ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.6) ·
 [ Zdrojový kód ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ) ·
 [ Nahlásit chybu ](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues) ·
 [ Web projektu ](https://luciferbelzebob3-afk.github.io/DONNYBOYCZ/)
@@ -22,14 +22,14 @@ Základ aktuálního vydání: **dev@53818b18**. [Strojově čitelná metadata](
 
 ---
 
-> `[ SYSTÉM ONLINE ]`  `[ CÍL: FLIPPER ZERO ]`  `[ SESTAVENÍ: DONNY BOY 1.0.5 ]`
+> `[ SYSTÉM ONLINE ]`  `[ CÍL: FLIPPER ZERO ]`  `[ SESTAVENÍ: DONNY BOY 1.0.6 ]`
 >
 > **Nejde o oficiální firmware Flipper Devices.** DONNY BOY je komunitní fork založený na projektu Unleashed Firmware. Používej ho zodpovědně a pouze v souladu se zákony.
 
 ## Obsah
 
 - [Co je DONNY BOY?](#co-je-donny-boy)
-- [Vzhled a animace verze 1.0.5](#vzhled-a-animace-verze-105)
+- [Vzhled a animace verze 1.0.6](#vzhled-a-animace-verze-106)
 - [Hlavní cíle](#hlavni-cile)
 - [Stažení firmwaru](#stazeni-firmwaru)
 - [Instalace](#instalace)
@@ -47,11 +47,26 @@ Základ aktuálního vydání: **dev@53818b18**. [Strojově čitelná metadata](
 
 Projekt je určen lidem, kteří si chtějí své zařízení lépe přizpůsobit, zajímají se o elektroniku, vestavěné systémy, bezdrátové technologie a vývoj open-source softwaru.
 
-**DONNY BOY 1.0.5 je aktualizované sestavení projektu.** Kompilace a distribuční soubory byly ověřeny. Fyzický test aktuální verze zatím neproběhl; dřívější test bez pozorovaných chyb se týkal verze 1.0.1. Historická vydání zůstávají dostupná v seznamu vydání.
+**DONNY BOY 1.0.6 je aktualizované sestavení projektu.** Kompilace a distribuční soubory byly ověřeny. Fyzický test aktuální verze zatím neproběhl; dřívější test bez pozorovaných chyb se týkal verze 1.0.1. Historická vydání zůstávají dostupná v seznamu vydání.
 
-## Vzhled a animace verze 1.0.5
+## Novinky DONNY BOY 1.0.6
 
-Nové logo DONNY BOY uvádí českou obrazovku po aktualizaci. Postava v pěti animacích dostala svislé oči a dál mrká v původním rytmu.
+- Donny Boy se svislýma očima nahrazuje delfína při emulaci, příjmu a čtení signálů i ve sdílených výsledkových a varovných obrázcích NFC, RFID, Sub-GHz, iButton a infraportu.
+- Devět nových portrétů pasu rozlišuje tři nálady a tři úrovně. Donnyho mají také obě animace zvýšení úrovně, úvodní průvodce, Bluetooth, U2F, DFU, reset PINu a odpojení USB.
+- Aktualizátor zobrazuje přesný nápis NAHRAVAM vedle Donnyho kapuce; průběh a stavové hlášky zůstávají čitelné.
+- Výchozí SD kolekci tvoří pouze 12 scén DONNY BOY / DARK SIGNAL včetně čtyř automobilových scén, celkem 320 snímků. Je přímo v aktualizačním balíčku a nevyžaduje ruční kopírování ani přepínání motivu.
+- Ze zdrojů a nového SD balíčku je odstraněno 38 původních složek animací. Před přípravou SD prostředků se čistí generovaný výstup, aby se staré animace nevracely při inkrementálním sestavení.
+- Staré systémové prostředky aktualizátor odstraňuje podle dosavadního instalačního manifestu. Ručně kopírované soubory mimo manifest se hromadně nemažou a nový výchozí manifest je nevybírá.
+- Vestavěný DONNY BOY DARK SIGNAL funguje bez SD i při chybě načtení. Donnyho mají také blokující a záložní animace; uložená nálada, zkušenosti a úroveň zůstávají zachované.
+- Nahrazené jsou i samostatné kopie obrázků přibalených aplikací HID, T5577, testu Sub-GHz a ukázky obrázků. Soubory cizích FAP aplikací mohou mít vlastní grafiku.
+- Web a README mají přehled změn, aktuální galerii dvanácti GIFů a nové náhledy emulace, příjmu a nálad. Kontrola distribučního balíčku odmítá původní animace navíc.
+- Základ zůstává Unleashed dev 53818b18 z 16. listopadu 2026, API 88.27. Tato verze nepřidává nový upstream ani nové rádiové protokoly; zachovává funkce z DONNY BOY CZ 1.0.5.
+
+![Donny při emulaci, příjmu a v pasu](site/assets/donny-mascot-preview.png)
+
+## Vzhled a animace verze 1.0.6
+
+Našich dvanáct scén je výchozí součást aktualizačního balíčku. Donny Boy má svislé oči a původní mrkání.
 
 | Česká obrazovka po aktualizaci | Detail svislých očí a mrknutí |
 | :---: | :---: |
@@ -61,23 +76,23 @@ Nové logo DONNY BOY uvádí českou obrazovku po aktualizaci. Postava v pěti a
 
 | Kapuce | Noční vysílač | Radar | DONNY BOY |
 | :---: | :---: | :---: | :---: |
-| <img src="site/assets/1.0.5/kapuce.gif" alt="Kapuce" width="256"> | <img src="site/assets/1.0.5/nocni-vysilac.gif" alt="Noční vysílač" width="256"> | <img src="site/assets/1.0.5/radar.gif" alt="Radar" width="256"> | <img src="site/assets/1.0.5/donny-boy.gif" alt="DONNY BOY" width="256"> |
+| <img src="site/assets/1.0.6/kapuce.gif" alt="Kapuce" width="256"> | <img src="site/assets/1.0.6/nocni-vysilac.gif" alt="Noční vysílač" width="256"> | <img src="site/assets/1.0.6/radar.gif" alt="Radar" width="256"> | <img src="site/assets/1.0.6/donny-boy.gif" alt="DONNY BOY" width="256"> |
 
 ### Kluk v kapuci
 
 | Dech a pohled | Matrix | Kluk ve stínu | Prostorová kapuce |
 | :---: | :---: | :---: | :---: |
-| <img src="site/assets/1.0.5/dech-a-pohled.gif" alt="Dech a pohled" width="256"> | <img src="site/assets/1.0.5/matrix.gif" alt="Matrix" width="256"> | <img src="site/assets/1.0.5/kluk-ve-stinu.gif" alt="Kluk ve stínu" width="256"> | <img src="site/assets/1.0.5/prostorova-kapuce.gif" alt="Prostorová kapuce" width="256"> |
+| <img src="site/assets/1.0.6/dech-a-pohled.gif" alt="Dech a pohled" width="256"> | <img src="site/assets/1.0.6/matrix.gif" alt="Matrix" width="256"> | <img src="site/assets/1.0.6/kluk-ve-stinu.gif" alt="Kluk ve stínu" width="256"> | <img src="site/assets/1.0.6/prostorova-kapuce.gif" alt="Prostorová kapuce" width="256"> |
 
 ### Automobilové scény
 
 | Noční auto | Auto v garáži | Přístrojová deska | Noční jízda |
 | :---: | :---: | :---: | :---: |
-| <img src="site/assets/1.0.5/nocni-auto.gif" alt="Noční auto" width="256"> | <img src="site/assets/1.0.5/auto-v-garazi.gif" alt="Auto v garáži" width="256"> | <img src="site/assets/1.0.5/pristrojova-deska.gif" alt="Přístrojová deska" width="256"> | <img src="site/assets/1.0.5/nocni-jizda.gif" alt="Noční jízda" width="256"> |
+| <img src="site/assets/1.0.6/nocni-auto.gif" alt="Noční auto" width="256"> | <img src="site/assets/1.0.6/auto-v-garazi.gif" alt="Auto v garáži" width="256"> | <img src="site/assets/1.0.6/pristrojova-deska.gif" alt="Přístrojová deska" width="256"> | <img src="site/assets/1.0.6/nocni-jizda.gif" alt="Noční jízda" width="256"> |
 
-GIFy vycházejí ze snímků přímo z vydání 1.0.5. Barvy simulují podsvícení displeje. Pro animace na microSD použij aktualizační balíček `.tgz`.
+GIFy vycházejí ze snímků přímo z vydání 1.0.6. Barvy simulují podsvícení displeje. Pro animace na microSD použij aktualizační balíček `.tgz`.
 
-[Instalace a přehled animací](documentation/DonnyAnimations.md) · [Vydání DONNY BOY 1.0.5](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.5)
+[Instalace a přehled animací](documentation/DonnyAnimations.md) · [Vydání DONNY BOY 1.0.6](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.6)
 
 ## Hlavní cíle
 
@@ -91,17 +106,17 @@ GIFy vycházejí ze snímků přímo z vydání 1.0.5. Barvy simulují podsvíce
 
 ### Nejjednodušší cesta
 
-➡️ **[Otevřít stránku vydání a stáhnout dostupné soubory](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.5)**
+➡️ **[Otevřít stránku vydání a stáhnout dostupné soubory](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.6)**
 
 V části **Soubory ke stažení** vyber soubor firmwaru nebo balíček sestavení. Pokud chceš pouze zdrojové kódy, použij tlačítko **Code → Download ZIP** nebo si repozitář naklonuj.
 
 **Důležité:** artefakt z GitHub Actions je balíček sestavení; nemusí to být samostatný instalační program pro každou metodu aktualizace. Před instalací si přečti pokyny níže a ověř, že vybraný soubor odpovídá tvému zařízení.
 
-## Aktualizace DONNY BOY 1.0.5
+## Zachované funkce z DONNY BOY 1.0.5
 
 **Základ: Unleashed dev z 16. 11. 2026 (`53818b18`), API 88.27.** Vydání navazuje na vývojovou větev upstreamu.
 
-### Nové protokoly Sub-GHz
+### Protokoly převzaté ve verzi 1.0.5
 
 | Protokol | Formát | Co přibylo |
 |---|---|---|
@@ -118,13 +133,13 @@ V části **Soubory ke stažení** vyber soubor firmwaru nebo balíček sestaven
 - Nová aplikace T5577: čtení a ukládání bloků, úprava konfigurace a výpisů, zápis, test zapisovatelných bloků, vymazání a správa hesel. Navazující změny RFID zahrnují přehlednější výsledky zápisu a reorganizaci příslušných scén.
 - Oprava rozložení MfUltralightData pro kompatibilitu předkompilovaných NFC aplikací s NTAG/Ultralight; řeší také chybné hlášení hesla ve Weebo. Další převzaté opravy NFC, archivu, iButton, IR, GUI, úložiště a JavaScriptu.
 - Obnovené a doplněné české texty bez diakritiky v nových i změněných obrazovkách; kompletní český návod analyzátoru ovladačů. Zachované technické názvy a klíče souborových formátů.
-- Kratší hlášky PAMET PLNA a AKTUAL.; dlouhé stavové texty aktualizátoru a T5577 se omezují podle dostupné šířky displeje.
+- Kratší hlášky PAMET PLNA a NAHRAVAM; dlouhé stavové texty aktualizátoru a T5577 se omezují podle dostupné šířky displeje.
 - Nové monochromatické logo DONNY BOY a česká obrazovka po aktualizaci. Při běžném restartu krátké uvítání na 1,2 sekundy; český průvodce prvním spuštěním má přednost.
-- Zachovaných 12 animací a 320 snímků. V pěti animacích postavy upravené svislé oči, 192 zpracovaných snímků, původní pohyby i načasování mrknutí; Matrix zůstává s deštěm znaků. Zachované vlastní manifesty a výběr kolekce DONNY BOY.
+- Zachovaných 12 animací a 320 snímků. V pěti animacích postavy upravené svislé oči, 192 zpracovaných snímků, původní pohyby i načasování mrknutí; Matrix zůstává s deštěm znaků. Výchozí manifest obsahuje jen kolekci DONNY BOY.
 
 **Ověření vydání:** kompilace, metadata a instalační balíčky byly ověřené automaticky; fyzický test této verze zatím neproběhl. Historické fyzické ověření se týkalo 1.0.1.
 
-**[Otevřít vydání 1.0.5](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.5)** · [Úplné poznámky k verzi](documentation/Release-1.0.5.md)
+**[Otevřít vydání 1.0.6](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.6)** · [Úplné poznámky k verzi](documentation/Release-1.0.6.md)
 
 ## Instalace
 
@@ -137,7 +152,7 @@ V části **Soubory ke stažení** vyber soubor firmwaru nebo balíček sestaven
 Užitečné odkazy:
 - [Oficiální dokumentace Flipper Zero](https://docs.flipper.net/)
 - [Návod k instalaci v projektu Unleashed](https://github.com/DarkFlippers/unleashed-firmware/blob/dev/documentation/HowToInstall.md)
-- [Vydání tohoto forku](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.5)
+- [Vydání tohoto forku](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.6)
 
 Pokud si nejsi jistý, který soubor vybrat, neinstaluj ho naslepo. Nejprve otevři issue a uveď model zařízení, název souboru a postup, který chceš použít.
 
@@ -153,7 +168,7 @@ Při překladu dodržujeme několik pravidel:
 - Nepřidávat diakritiku do textů určených pro firmware, pokud by mohla způsobit problém se zobrazením.
 - Po změně textů kontrolovat kompilaci, protože i zdánlivě drobná změna může odhalit chybu v kódu.
 
-Překlad se vyvíjí postupně. **Vydání 1.0.5 neznamená, že je každá obrazovka firmwaru již kompletně přeložená.** Pokud narazíš na anglický text v uživatelském rozhraní, můžeš ho nahlásit v [hlášení problémů](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues) včetně názvu nabídky nebo aplikace.
+Překlad se vyvíjí postupně. **Vydání 1.0.6 neznamená, že je každá obrazovka firmwaru již kompletně přeložená.** Pokud narazíš na anglický text v uživatelském rozhraní, můžeš ho nahlásit v [hlášení problémů](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues) včetně názvu nabídky nebo aplikace.
 
 ## Funkce a možnosti
 
@@ -178,18 +193,18 @@ Ne všechny funkce vyžadují nebo podporují externí příslušenství. Před 
 - Používání vestavěných aplikací a kompatibilních doplňků.
 - Možnost sledovat změny zdrojového kódu a sestavovat vlastní varianty.
 
-Tento seznam popisuje oblasti funkcí základního projektu, nikoli záruku, že každá jednotlivá funkce byla samostatně otestována v DONNY BOY 1.0.5.
+Tento seznam popisuje oblasti funkcí základního projektu, nikoli záruku, že každá jednotlivá funkce byla samostatně otestována v DONNY BOY 1.0.6.
 
 ## Stav projektu a sestavení
 
 | Položka | Stav |
 |---|---|
 | Projekt | DONNY BOY |
-| Verze sestavení | 1.0.5 |
+| Verze sestavení | 1.0.6 |
 | Cílové zařízení | Flipper Zero |
 | Větev vývoje | `dev` |
 | Fyzický test aktuální verze | Zatím neproveden; starší 1.0.1 byla fyzicky otestována |
-| Sestavení 1.0.5 | Úspěšné; vydání je zveřejněné |
+| Sestavení 1.0.6 | Úspěšné; vydání je zveřejněné |
 | Automatická kompilace a kontroly | Spouštění podle nastavení pracovního postupu |
 | Automatické nasazení webu | Povoleno |
 | Zdrojový commit sestavení | `d4063a4dbb37526771a088aeef828df08c7e96e9` |
@@ -210,7 +225,7 @@ Tyto odkazy slouží jako záznam dřívějších běhů. Stav současných prac
 - Nepřerušuj aktualizaci a neodpojuj zařízení v průběhu zápisu.
 
 ### V menu zůstává angličtina
-Překlad není ve verzi 1.0.5 kompletní. Otevři issue a připoj přesný text, název aplikace a cestu v menu, kde se zobrazuje.
+Překlad není ve verzi 1.0.6 kompletní. Otevři issue a připoj přesný text, název aplikace a cestu v menu, kde se zobrazuje.
 
 ### Kompilace selže
 1. Otevři kartu **Actions** a vyber neúspěšný běh.
@@ -255,11 +270,11 @@ Tento fork je nezávislý komunitní projekt. Ochranné známky a názvy přísl
 
 <div align="center">
 
-**DONNY BOY 1.0.5 — DARK SIGNAL pro Flipper Zero.**
+**DONNY BOY 1.0.6 — DARK SIGNAL pro Flipper Zero.**
 
 `ZŮSTAŇ ZVĚDAVÝ · TESTUJ ODPOVĚDNĚ · PODPORUJ OTEVŘENÝ KÓD`
 
-[⬇ Stáhnout vydání](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.5) ·
+[⬇ Stáhnout vydání](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.6) ·
 [Prohlédnout zdrojový kód](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ) ·
 [Nahlásit chybu](https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/issues)
 
