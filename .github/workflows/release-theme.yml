@@ -26,7 +26,9 @@ jobs:
         with:
           ref: ${{ github.sha }}
       - name: Ověřit publikační logiku na Linuxu
-        run: python -m unittest discover -s .github/tests -p 'test_*.py' -v
+        run: |
+          python -m unittest discover -s .github/tests -p 'test_*.py' -v
+          python -m unittest discover -s scripts/tests -p 'test_donny_animation_selection.py' -v
       - name: Ověřit nové číslo a neměnný zdroj
         id: check
         env:
@@ -105,7 +107,8 @@ jobs:
           VERSION: ${{ needs.prepare.outputs.version }}
         run: |
           python .github/scripts/donny/pipeline.py publish
-          gh release edit "v$VERSION" --repo "$GITHUB_REPOSITORY" --title "DONNY BOY CZ $VERSION – nové protokoly a české UI"
+          title=$(python -c 'import json; c=json.load(open(".donny/theme-release.json")); print(c.get("release_title", "DONNY BOY CZ "+c["version"]))')
+          gh release edit "v$VERSION" --repo "$GITHUB_REPOSITORY" --title "$title"
 
   website:
     needs: [prepare, publish]

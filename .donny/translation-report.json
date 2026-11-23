@@ -1,12 +1,10 @@
 {
   "upstream_sha": "53818b18f63e105baaf37ed8eac9a7def58ec8b1",
-  "new": 349,
-  "translated": 349,
-  "reused": 120,
+  "new": 0,
+  "translated": 0,
+  "reused": 0,
   "technical": 0,
   "ambiguous": 0,
   "errors": 0,
-  "memory_added": 469,
-  "manual_review": true,
-  "summary": "České texty obnovené a doplněné v nových i změněných obrazovkách; překladová paměť rozšířená o 469 posouzených záznamů. Nevyřešené položky tohoto posouzení: 0."
+  "summary": "Vydání zachovává české texty předchozí verze a nepřebírá nový upstream. Nový nadpis aktualizátoru je NAHRAVAM; úplnost překladu celého firmwaru se tím nemění."
 }
