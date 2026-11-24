@@ -70,6 +70,23 @@ table th,table td{padding:10px;border-bottom:1px solid var(--line);vertical-alig
 .preview-grid figcaption{padding:8px 10px;color:var(--muted);font-size:.82rem}
 @media(max-width:760px){.preview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:420px){.preview-featured{grid-template-columns:1fr}}
+
+.android-app{margin:24px 0 42px;padding:clamp(20px,4vw,36px);border:1px solid #3b3022;background:#08090b;color:#eef0f4}
+.android-app .tag{color:#ff9700;border-color:#624020;background:#161109}
+.android-app h2{margin:14px 0 8px;font-size:clamp(1.45rem,3vw,2rem);line-height:1.25}
+.android-app p,.android-app li{color:#b9bec8}
+.android-app a{color:#ffae47}
+.android-app .app-intro{display:grid;grid-template-columns:100px minmax(0,1fr);gap:20px;align-items:center}
+.android-app .app-icon{display:block;width:100%;height:auto}
+.android-app .actions{justify-content:flex-start;margin-top:20px}
+.android-app .app-download{background:#ff9700;border-color:#ff9700;color:#08090b}
+.android-app .secondary{border-color:#5a4328;background:#111013;color:#ffae47}
+.android-app .app-notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:24px}
+.android-app h3{font-size:1rem;color:#eef0f4;margin:0 0 8px}
+.android-app ul{padding-left:20px;margin:0}
+.android-app .app-note{padding:16px;border:1px solid #30343d;background:#101216;min-width:0}
+.android-app .small{line-height:1.65}
+@media(max-width:600px){.android-app .app-notes{grid-template-columns:1fr}.android-app .app-intro{grid-template-columns:64px minmax(0,1fr);gap:12px}}
 </style>
 </head>
 <body>
@@ -83,10 +100,41 @@ table th,table td{padding:10px;border-bottom:1px solid var(--line);vertical-alig
 <a class="btn primary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/releases/tag/v1.0.6">⬇ STÁHNOUT FIRMWARE</a>
 <a class="btn secondary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ">ZOBRAZIT ZDROJOVÝ KÓD</a>
 <a class="btn secondary" href="#animace">PROHLÉDNOUT GIFY</a>
+<a class="btn secondary" href="#android">APLIKACE PRO ANDROID</a>
 </div>
 <div class="status"><b>[ STAV VYDÁNÍ ]</b> DONNY BOY 1.0.6 · vydání je dostupné · kompilace a balíčky ověřeny · fyzický test této verze zatím neproběhl.</div>
 </header>
 <main>
+
+<section class="android-app" id="android" aria-labelledby="android-title">
+<div class="app-intro">
+<img class="app-icon" src="https://raw.githubusercontent.com/luciferbelzebob3-afk/DONNYBOYCZAPK/e77ea17261c99d4e6a402468ac5286d3b215ee1d/assets/img/donnyboy_icon.png" width="1254" height="1254" alt="Ikona DonnyBoy: kluk v kapuci s tenkou černou konturou" loading="lazy" decoding="async">
+<div><span class="tag">ANDROID APLIKACE · 1.0.1 · NQLSH</span>
+<h2 id="android-title">DonnyBoy pro Android</h2>
+<p>Flipper, soubory a aktualizace na jednom místě. Aplikace se otevře rovnou na panelu instalace a aktualizace DONNY BOY CZ. Nový vzhled má černý podklad, stříbrný text a oranžové detaily.</p></div>
+</div>
+<div class="actions">
+<a class="btn app-download" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZAPK/releases/download/v1.0.1/DonnyBoy-1.0.1.apk">⬇ STÁHNOUT APK 1.0.1</a>
+<a class="btn secondary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZAPK/releases/tag/v1.0.1">POZNÁMKY K VYDÁNÍ</a>
+<a class="btn secondary" href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZAPK/tree/dev">ZDROJOVÝ KÓD APLIKACE</a>
+</div>
+<p class="small">Android 10 a novější · APK 106,6 MB · vydáno 24. listopadu 2026. Aplikace 1.0.1 a firmware 1.0.6 mají vlastní číslování verzí.</p>
+<div class="app-notes">
+<div class="app-note"><h3>Co je nového v 1.0.1</h3><ul>
+<li>Start přímo na panelu firmwaru, bez úvodní vstupní stránky.</li>
+<li>Pouze instalace a aktualizace DONNY BOY CZ. Ostatní firmwary ani vlastní archiv „Custom“ už v nabídce nejsou.</li>
+<li>Nová ikona kluka v kapuci, přepracované menu, ikony, karty, formuláře a horní lišty.</li>
+<li>Navigace Panel, Trezor, Aplikace a Dílna. Správa souborů, nástroje i připojení přes Bluetooth a USB zůstávají zachované.</li>
+</ul></div>
+<div class="app-note"><h3>Upozornění na nový firmware</h3>
+<p>Na panelu otevři <strong>ⓘ → Zapnout oznámení</strong> a povol oznámení v Androidu. Aplikace pak na pozadí sleduje nová stabilní vydání DONNY BOY CZ.</p>
+<p>První kontrola uloží současnou verzi; upozorní až na další. Android plánuje kontroly přibližně po 15 minutách a úspora baterie je může odložit. Sledování můžeš ve stejném místě vypnout.</p>
+</div>
+</div>
+<p class="small">APK je podepsané stejným klíčem jako verze 1.0.0, takže ho lze nainstalovat jako aktualizaci. U starého preview s jiným podpisem může Android vyžadovat odinstalování; tím se smažou místní data aplikace. Před vydáním prošla analýza kódu a všech 6 testů; ověřený je podpis a kontrolní součet. Připojení k fyzickému Flipperu zatím nebylo ověřené.</p>
+<p class="small"><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZAPK/releases/download/v1.0.1/SHA256SUMS">Kontrolní součet SHA-256</a> · <a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZAPK/issues">Nahlásit chybu aplikace</a></p>
+</section>
+
 <section class="section" id="novinky-verze"><h2>Novinky DONNY BOY 1.0.6</h2><p>Vydání navazuje na 1.0.5 a sjednocuje výchozí grafiku celého systému.</p><ul><li>Donny Boy se svislýma očima nahrazuje delfína při emulaci, příjmu a čtení signálů i ve sdílených výsledkových a varovných obrázcích NFC, RFID, Sub-GHz, iButton a infraportu.</li><li>Devět nových portrétů pasu rozlišuje tři nálady a tři úrovně. Donnyho mají také obě animace zvýšení úrovně, úvodní průvodce, Bluetooth, U2F, DFU, reset PINu a odpojení USB.</li><li>Aktualizátor zobrazuje přesný nápis NAHRAVAM vedle Donnyho kapuce; průběh a stavové hlášky zůstávají čitelné.</li><li>Výchozí SD kolekci tvoří pouze 12 scén DONNY BOY / DARK SIGNAL včetně čtyř automobilových scén, celkem 320 snímků. Je přímo v aktualizačním balíčku a nevyžaduje ruční kopírování ani přepínání motivu.</li><li>Ze zdrojů a nového SD balíčku je odstraněno 38 původních složek animací. Před přípravou SD prostředků se čistí generovaný výstup, aby se staré animace nevracely při inkrementálním sestavení.</li><li>Staré systémové prostředky aktualizátor odstraňuje podle dosavadního instalačního manifestu. Ručně kopírované soubory mimo manifest se hromadně nemažou a nový výchozí manifest je nevybírá.</li><li>Vestavěný DONNY BOY DARK SIGNAL funguje bez SD i při chybě načtení. Donnyho mají také blokující a záložní animace; uložená nálada, zkušenosti a úroveň zůstávají zachované.</li><li>Nahrazené jsou i samostatné kopie obrázků přibalených aplikací HID, T5577, testu Sub-GHz a ukázky obrázků. Soubory cizích FAP aplikací mohou mít vlastní grafiku.</li><li>Web a README mají přehled změn, aktuální galerii dvanácti GIFů a nové náhledy emulace, příjmu a nálad. Kontrola distribučního balíčku odmítá původní animace navíc.</li><li>Základ zůstává Unleashed dev 53818b18 z 16. listopadu 2026, API 88.27. Tato verze nepřidává nový upstream ani nové rádiové protokoly; zachovává funkce z DONNY BOY CZ 1.0.5.</li></ul><figure><img src="assets/donny-mascot-preview.png" width="1536" height="400" alt="Donny Boy při emulaci a příjmu, portréty nálad a český průvodce" style="display:block;width:100%;height:auto;image-rendering:pixelated" loading="lazy"></figure><p><a href="https://github.com/luciferbelzebob3-afk/DONNYBOYCZ/blob/dev/documentation/Release-1.0.6.md">Úplné poznámky k vydání a instalace</a></p></section>
 <section class="section release-gallery" id="animace" aria-labelledby="dark-signal">
 <h2 id="dark-signal">Vzhled a animace verze 1.0.6</h2>
