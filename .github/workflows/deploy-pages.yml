@@ -42,7 +42,7 @@ jobs:
         run: |
           for attempt in $(seq 1 12); do
             count=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts?per_page=100" --jq "[.artifacts[] | select(.name == \"$ARTIFACT_NAME\")] | length")
-            if [[ "$count" == "1" ]]; then exit 0; fi
+            if [[ "$count" == "1" ]]; then sleep 15; exit 0; fi
             sleep 5
           done
           echo "Uploaded site metadata did not become available." >&2
