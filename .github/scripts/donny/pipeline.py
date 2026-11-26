@@ -255,8 +255,12 @@ def prepare():
                 if not match:
                     raise RuntimeError('Neplatna verze v evidenci vydani')
                 return (*map(int, match.groups()[:3]), bool(match.group(4)))
-            if version_key(pending['version']) < version_key(state['version']):
-                pending = None  # an older completed automation branch cannot replace a newer release
+            if version_key(pending['version']) <= version_key(state['version']):
+                # A completed version is immutable, even if an unrelated automation
+                # candidate reserved the same number before a manual release.
+                # Keep its history when advancing the automation branch.
+                redundant_candidate = git('rev-parse', 'FETCH_HEAD')
+                pending = None
         release = find_release(pending['version']) if pending else None
         candidate_sha = git('rev-parse', 'FETCH_HEAD')
         unfinished = pending and state.get('version') != pending['version']
