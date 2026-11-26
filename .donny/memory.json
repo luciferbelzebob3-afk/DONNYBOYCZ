@@ -28230,5 +28230,597 @@
     "translation": "\"Cert:%06lX zbyva %u\\r\\n\"",
     "context": "& & ( instance - > cert_cnt < NICE_O_CERT_SENDS ) ) { furi_string_cat_printf ( output , <TEXT> , instance - > cert , NICE_O_CERT_SENDS -",
     "origin": "dev-reviewed-2026-11-16"
+  },
+  {
+    "id": "c4e382803910aa12b9dbaa106be5fa58445ea9c5a79c2d64ba5931ee19deec41",
+    "path": "applications/debug/lfrfid_debug/views/lfrfid_debug_view_tune.c",
+    "source": "\"Fine\"",
+    "translation": "\"Jemne\"",
+    "context": "; } canvas_draw_str_aligned ( canvas , 128 - 2 , 2 , AlignRight , AlignTop , <TEXT> ) ; canvas_set_color ( canvas , ColorBlack )",
+    "origin": "existing"
+  },
+  {
+    "id": "3499a3250dfc859232014161d9773eca9e56a06be502fe1e47d6e2c31a79eadf",
+    "path": "applications/debug/loader_chaining_a/loader_chaining_a.c",
+    "source": "\"Hello to you from the future\"",
+    "translation": "\"Pozdrav z budoucnosti\"",
+    "context": ", LoaderDeferredLaunchFlagGui ) ; loader_enqueue_launch ( app - > loader , furi_string_get_cstr ( self_path ) , <TEXT> , LoaderDeferredLaunchFlagGui ) ; break ; case LoaderChainingASubmenuLaunchNonexistentSilent",
+    "origin": "existing"
+  },
+  {
+    "id": "b152078bed187cb52f0f3a8b2dd34a24da1410cae500601921330f8940b8cb19",
+    "path": "applications/debug/loader_chaining_a/loader_chaining_a.c",
+    "source": "\"Hello to you from the future\"",
+    "translation": "\"Pozdrav z budoucnosti\"",
+    "context": ", LoaderDeferredLaunchFlagGui ) ; loader_enqueue_launch ( app - > loader , furi_string_get_cstr ( self_path ) , <TEXT> , LoaderDeferredLaunchFlagGui ) ; break ; } furi_string_free",
+    "origin": "existing"
+  },
+  {
+    "id": "cb212cd7b643bc0793cb78d11c3f55f2b24cc13168569f1cda690ddf499d3ec1",
+    "path": "applications/debug/subghz_test/scenes/subghz_test_scene_about.c",
+    "source": "\"This application is designed\\nto test the functionality of the\\nbuilt-in CC1101 module.\\n\\n\"",
+    "translation": "\"Tato aplikace slouzi\\nk otestovani vestaveneho\\nmodulu CC1101.\\n\\n\"",
+    "context": "SUBGHZ_TEST_GITHUB ) ; furi_string_cat_printf ( temp_str , , ) ; furi_string_cat_printf ( temp_str , <TEXT> ) ; widget_add_text_box_element ( app - > widget",
+    "origin": "existing"
+  },
+  {
+    "id": "498bc05021bfcd4947835dd496c8637120429a73e8bc1be9d296fc89fbc77cf9",
+    "path": "applications/main/archive/views/archive_browser_view.c",
+    "source": "\"Info\"",
+    "translation": "\"Informace\"",
+    "context": ", , ArchiveBrowserEventFileMenuRun ) ; archive_menu_add_item ( menu_array_push_raw ( model - > context_menu ) , <TEXT> , ArchiveBrowserEventFileMenuInfo ) ; if ( archive_file_type_is_showable (",
+    "origin": "existing"
+  },
+  {
+    "id": "f6122f5dd92efe684a10f3469fa7d72818d6abad557c0f364ac4642ce20f12ae",
+    "path": "applications/main/archive/views/archive_browser_view.c",
+    "source": "\"Info\"",
+    "translation": "\"Informace\"",
+    "context": ", item_pin , ArchiveBrowserEventFileMenuPin ) ; archive_menu_add_item ( menu_array_push_raw ( model - > context_menu ) , <TEXT> , ArchiveBrowserEventFileMenuInfo ) ; if ( archive_file_type_is_showable (",
+    "origin": "existing"
+  },
+  {
+    "id": "afc175237c8d3c4cd488c3be9b4c5e559bb3e7f9ebea3783d60f944fec8c0df4",
+    "path": "applications/main/lfrfid/scenes/lfrfid_scene_enter_password.c",
+    "source": "\"Enter the password in hex\"",
+    "translation": "\"Zadej heslo v sestnactkove soustave\"",
+    "context": ", T5577_DICT_PATH ) ; } keys_dict_free ( dict ) ; } byte_input_set_header_text ( byte_input , <TEXT> ) ; byte_input_set_result_callback ( byte_input , lfrfid_text_input_callback ,",
+    "origin": "existing"
+  },
+  {
+    "id": "158e366badae1e43e133c63c09e64fd057090aabf3126930b9482969ffc103b9",
+    "path": "applications/main/lfrfid/scenes/lfrfid_scene_write_and_set_pass.c",
+    "source": "\"A tag is there, but\\nnot one this can read\\nblock by block. Wipe\\nit first, or clear\\nits password.\"",
+    "translation": "\"Cip je pritomen,\\nale nelze ho cist\\npo blocich. Nejdriv\\nho vymaz nebo smaz\\njeho heslo.\"",
+    "context": ", , , & sequence_blink_start_yellow } , { LFRFIDWorkerWriteCannotRead , LfRfidEventWriteCannotRead , , <TEXT> , & sequence_blink_start_red } , { LFRFIDWorkerWriteAlreadyProtected ,",
+    "origin": "existing"
+  },
+  {
+    "id": "d9ef5e9851f7b7f13e44af2183504f9471e7556254f73a20af2c6c4b5fff3117",
+    "path": "applications/main/lfrfid/views/lfrfid_view_read.c",
+    "source": "\"Reading\"",
+    "translation": "\"Cteni\"",
+    "context": "i ] ) ; } } else { canvas_draw_str ( canvas , 72 , 16 , <TEXT> ) ; if ( model - > read_mode",
+    "origin": "existing"
+  },
+  {
+    "id": "b541e59a46f3bb925363cd77728270d43b51e2854e9281de27488859a198b1ba",
+    "path": "applications/main/nfc/helpers/nfc_key_dict.c",
+    "source": "\"MIFARE Classic Keys\"",
+    "translation": "\"Klice MIFARE Classic\"",
+    "context": "const NfcKeyDict nfc_key_dicts [ NfcKeyDictTypeNum ] = { [ NfcKeyDictTypeMfClassic ] = { . title = <TEXT> , . system_path = NFC_APP_MF_CLASSIC_DICT_SYSTEM_PATH , . user_path",
+    "origin": "existing"
+  },
+  {
+    "id": "93aa3bbe9d3497708f9425a1998e15a2baa9c65a332d6f8b9f2be898d92317d0",
+    "path": "applications/main/nfc/helpers/nfc_key_dict.c",
+    "source": "\"MIFARE Plus Keys\"",
+    "translation": "\"Klice MIFARE Plus\"",
+    "context": "= sizeof ( MfClassicKey ) , } , [ NfcKeyDictTypeMfPlus ] = { . title = <TEXT> , . system_path = NFC_APP_MF_PLUS_DICT_SYSTEM_PATH , . user_path",
+    "origin": "existing"
+  },
+  {
+    "id": "66cd8f3caea31b9200ea14da04744fc491faf9ca0219dadf444f4807b9f43982",
+    "path": "applications/main/nfc/helpers/nfc_key_dict.c",
+    "source": "\"MIFARE Ultralight C Keys\"",
+    "translation": "\"Klice MIFARE UL C\"",
+    "context": "= sizeof ( MfPlusKey ) , } , [ NfcKeyDictTypeMfUltralightC ] = { . title = <TEXT> , . system_path = NFC_APP_MF_ULTRALIGHT_C_DICT_SYSTEM_PATH , . user_path",
+    "origin": "existing"
+  },
+  {
+    "id": "e40621e85e23e4edf098b9fdb15512f4fa86f2df1a49525be2f4b0d6881c03a7",
+    "path": "applications/main/nfc/helpers/nfc_key_dict.c",
+    "source": "\"MIFARE UL AES Keys\"",
+    "translation": "\"Klice MIFARE UL AES\"",
+    "context": "= sizeof ( MfUltralightC3DesAuthKey ) , } , [ NfcKeyDictTypeMfUltralightAes ] = { . title = <TEXT> , . system_path = NFC_APP_MF_ULTRALIGHT_AES_DICT_SYSTEM_PATH , . user_path",
+    "origin": "existing"
+  },
+  {
+    "id": "aefe9126435d7278474bd0666e72fe5102472cea26622210739f417fd0309c8f",
+    "path": "applications/main/nfc/plugins/supported_cards/aic.c",
+    "source": "\"Decrypted serial number:\\n%02d%02d%02d%02d%02d%02d\\n\"",
+    "translation": "\"Desifrovane seriove cislo:\\n%02d%02d%02d%02d%02d%02d\\n\"",
+    "context": "n ] ] [ decrypted [ n ] ] ; } } furi_string_cat_printf ( parsed_data , <TEXT> , decrypted [ 0 ] , decrypted [",
+    "origin": "existing"
+  },
+  {
+    "id": "597472c6387f519a8095b1a79c1b40a892bd6e60c0a5c403c7375ad0b05b66d7",
+    "path": "applications/main/nfc/plugins/supported_cards/banapass.c",
+    "source": "\"\\nValue: %08lX\"",
+    "translation": "\"\\nHodnota: %08lX\"",
+    "context": "& value , & addr ) ; if ( value_found ) { furi_string_cat_printf ( parsed_data , <TEXT> , value ) ; } else { furi_string_cat_str",
+    "origin": "existing"
+  },
+  {
+    "id": "a69e6f35d30067de555f92edce5d68efb81f447eedde2b11696096f65f98a7be",
+    "path": "applications/main/nfc/plugins/supported_cards/banapass.c",
+    "source": "\"\\nChecksum:\\n\"",
+    "translation": "\"\\nKontrolni soucet:\\n\"",
+    "context": "( parsed_data , , magic_bytes [ i ] ) ; } furi_string_cat_str ( parsed_data , <TEXT> ) ; for ( int i = 0",
+    "origin": "existing"
+  },
+  {
+    "id": "bff29c557a4128a127884c3232cbeb0d768e2b65cb5e420b204aeddada44b498",
+    "path": "applications/main/nfc/plugins/supported_cards/clipper.c",
+    "source": "\"Never\"",
+    "translation": "\"Nikdy\"",
+    "context": "parsed_data , , , info . last_updated_tm_1900 ) ; else furi_string_cat_str ( parsed_data , <TEXT> ) ; furi_string_cat_printf ( parsed_data ,",
+    "origin": "existing"
+  },
+  {
+    "id": "070a576473dfdc867873dcb4ec37ed6790d47e8c12ddeec3fac59cef318bc243",
+    "path": "applications/main/nfc/plugins/supported_cards/hworld.c",
+    "source": "\"VIP card\"",
+    "translation": "\"VIP karta\"",
+    "context": "; furi_string_cat_printf ( parsed_data , ) ; furi_string_cat_printf ( parsed_data , , is_hworld_vip ? <TEXT> : ) ; furi_string_cat_printf ( parsed_data ,",
+    "origin": "existing"
+  },
+  {
+    "id": "81ffc92a61cdee725b21e7dd9617ac82633b2a184d9ed85922709c7dbe29428a",
+    "path": "applications/main/nfc/plugins/supported_cards/hworld.c",
+    "source": "\"Standard room key\"",
+    "translation": "\"Standardni klic pokoje\"",
+    "context": "( parsed_data , ) ; furi_string_cat_printf ( parsed_data , , is_hworld_vip ? : <TEXT> ) ; furi_string_cat_printf ( parsed_data , ,",
+    "origin": "existing"
+  },
+  {
+    "id": "cb1aa6f031d6c99cf9bc665c6f9ee8deac3d09de3f302c86f9f8b21207e5a002",
+    "path": "applications/main/nfc/plugins/supported_cards/hworld.c",
+    "source": "\"Room Num: %u%02u\\n\"",
+    "translation": "\"Cislo pokoje: %u%02u\\n\"",
+    "context": "( parsed_data , , is_hworld_vip ? : ) ; furi_string_cat_printf ( parsed_data , <TEXT> , room_floor , room_num ) ; furi_string_cat_printf (",
+    "origin": "existing"
+  },
+  {
+    "id": "18fa160d6f448140539071ce1196888d406f30967a64e2b64374c96729767673",
+    "path": "applications/main/nfc/plugins/supported_cards/hworld.c",
+    "source": "\"Check-in Date: \\n%04u-%02d-%02d\\n%02d:%02d:00\\n\"",
+    "translation": "\"Datum prijezdu: \\n%04u-%02d-%02d\\n%02d:%02d:00\\n\"",
+    "context": "; furi_string_cat_printf ( parsed_data , , room_floor , room_num ) ; furi_string_cat_printf ( parsed_data , <TEXT> , check_in_year , check_in_month , check_in_day , check_in_hour",
+    "origin": "existing"
+  },
+  {
+    "id": "26470a0c3660c451068bdaaa89248a1968dfa1a933cbf86e12780f4ff00f26d7",
+    "path": "applications/main/nfc/plugins/supported_cards/hworld.c",
+    "source": "\"Expiration Date: \\n%04u-%02d-%02d\\n%02d:%02d:00\"",
+    "translation": "\"Platnost do: \\n%04u-%02d-%02d\\n%02d:%02d:00\"",
+    "context": ", check_in_year , check_in_month , check_in_day , check_in_hour , check_in_minute ) ; furi_string_cat_printf ( parsed_data , <TEXT> , expire_year , expire_month , expire_day , expire_hour",
+    "origin": "existing"
+  },
+  {
+    "id": "6a090c73e0e4f041a05a2f3cb62916f90a0a0a27a2e264beaf53fb3855687d87",
+    "path": "applications/main/nfc/plugins/supported_cards/microel.c",
+    "source": "\"\\nCurrent Credit: %d.%02d E \\n\"",
+    "translation": "\"\\nAktualni kredit: %d.%02d E \\n\"",
+    "context": "; } if ( mf_classic_parser_block_has_data ( data , 4 ) ) { furi_string_cat_printf ( parsed_data , <TEXT> , balance / 100 , balance % 100",
+    "origin": "existing"
+  },
+  {
+    "id": "71fa42e03a01c2a353d8bd4f2bcb6e9c4693cbcf99ce74a7b285514e9e7e60b7",
+    "path": "applications/main/nfc/plugins/supported_cards/microel.c",
+    "source": "\"Previous Credit: %d.%02d E \\n\"",
+    "translation": "\"Predchozi kredit: %d.%02d E \\n\"",
+    "context": "; } if ( mf_classic_parser_block_has_data ( data , 5 ) ) { furi_string_cat_printf ( parsed_data , <TEXT> , previous_balance / 100 , previous_balance % 100",
+    "origin": "existing"
+  },
+  {
+    "id": "ee8fdd8ad1f8cb53daba74e8714e603a9bdb7dfcace3ec0cfb7c6b43c50b5fe9",
+    "path": "applications/main/nfc/plugins/supported_cards/mizip.c",
+    "source": "\"\\nCurrent Credit: %d.%02d E \\n\"",
+    "translation": "\"\\nAktualni kredit: %d.%02d E \\n\"",
+    "context": "uid [ i ] ) ; } if ( credit_read ) { furi_string_cat_printf ( parsed_data , <TEXT> , balance / 100 , balance % 100",
+    "origin": "existing"
+  },
+  {
+    "id": "cc466476a7f10ed840805e43b49f9400e719f83f7902c0b8b939c51ece11a3e0",
+    "path": "applications/main/nfc/plugins/supported_cards/mizip.c",
+    "source": "\"Previous Credit: %d.%02d E \\n\"",
+    "translation": "\"Predchozi kredit: %d.%02d E \\n\"",
+    "context": "( parsed_data , ) ; } if ( previous_credit_read ) { furi_string_cat_printf ( parsed_data , <TEXT> , previous_balance / 100 , previous_balance % 100",
+    "origin": "existing"
+  },
+  {
+    "id": "b27f838b30445cfc086f7faece15e78648687a5f569d6d900452125b62bcfa69",
+    "path": "applications/main/nfc/plugins/supported_cards/mykey.c",
+    "source": "\"Serial#: %08lX\\n\"",
+    "translation": "\"Seriove cislo: %08lX\\n\"",
+    "context": "return true ; } bool is_blank = mykey_is_blank ( data ) ; furi_string_cat_printf ( parsed_data , <TEXT> , ( uint32_t ) __bswap32 ( data -",
+    "origin": "existing"
+  },
+  {
+    "id": "460e7c8be0f64f605bf3eb2a0a6e1fbf0d137b1396c3ea822edff4c91eb540e7",
+    "path": "applications/main/nfc/plugins/supported_cards/mykey.c",
+    "source": "\"Prod. date: %02X/%02X/%04X\\n\"",
+    "translation": "\"Datum vyroby: %02X/%02X/%04X\\n\"",
+    "context": "__bswap32 ( data - > blocks [ 7 ] ) ) ; furi_string_cat_printf ( parsed_data , <TEXT> , mfg_day , mfg_month , mfg_year ) ;",
+    "origin": "existing"
+  },
+  {
+    "id": "a46613cfb61cdd64c133ae118ea13e0b06e0b165cde72c950a10109cfff07beb",
+    "path": "applications/main/nfc/plugins/supported_cards/mykey.c",
+    "source": "\"maybe\"",
+    "translation": "\"mozna\"",
+    "context": ": ) ; furi_string_cat_printf ( parsed_data , , mykey_has_lockid ( data ) ? <TEXT> : ) ; if ( ! is_blank",
+    "origin": "existing"
+  },
+  {
+    "id": "e2c47567eda7a1ab27c0b9c17832392bead1966cc8e34fd20a6318206e688e64",
+    "path": "applications/main/nfc/plugins/supported_cards/mykey.c",
+    "source": "\"no\"",
+    "translation": "\"ne\"",
+    "context": ") ; furi_string_cat_printf ( parsed_data , , mykey_has_lockid ( data ) ? : <TEXT> ) ; if ( ! is_blank ) {",
+    "origin": "existing"
+  },
+  {
+    "id": "3e79e0146d32b681d8bfb97205811c4e4a5e6eeb30eeea4012a621efe2c2e0b6",
+    "path": "applications/main/nfc/plugins/supported_cards/mykey.c",
+    "source": "\"\\nOp. count: %zu\\n\"",
+    "translation": "\"\\nPocet operaci: %zu\\n\"",
+    "context": "? : ) ; if ( ! is_blank ) { furi_string_cat_printf ( parsed_data , <TEXT> , ( size_t ) __bswap32 ( data -",
+    "origin": "existing"
+  },
+  {
+    "id": "690ea682e1a662b0c18e6b87a7dbe490364bd6244b330b1d06331c92caefa811",
+    "path": "applications/main/nfc/plugins/supported_cards/opal.c",
+    "source": "\" at \"",
+    "translation": "\" v \"",
+    "context": ") , ) ; furi_string_cat ( parsed_data , timestamp_str ) ; furi_string_cat ( parsed_data , <TEXT> ) ; locale_format_time ( timestamp_str , & timestamp",
+    "origin": "existing"
+  },
+  {
+    "id": "44101f0b44d24a422fda93d37724c9b31dc6786d3059736dcd4be83cf02c8745",
+    "path": "applications/main/nfc/plugins/supported_cards/opal.c",
+    "source": "\"\\nWeekly journeys: %hhu, Txn #%hu\\n\"",
+    "translation": "\"\\nJizdy v tydnu: %hhu, transakce #%hu\\n\"",
+    "context": "furi_string_cat ( parsed_data , timestamp_str ) ; furi_string_free ( timestamp_str ) ; furi_string_cat_printf ( parsed_data , <TEXT> , opal_file - > weekly_journeys , opal_file -",
+    "origin": "existing"
+  },
+  {
+    "id": "80dab1db4817083821a65bf012c5dbc150da1f47ce5556504c54eb1bac9bdbc3",
+    "path": "applications/main/nfc/plugins/supported_cards/opal.c",
+    "source": "\"Auto-topup enabled\\n\"",
+    "translation": "\"Automaticke dobijeni zapnuto\\n\"",
+    "context": "> txn_number ) ; if ( opal_file - > auto_topup ) { furi_string_cat_str ( parsed_data , <TEXT> ) ; } if ( opal_file - >",
+    "origin": "existing"
+  },
+  {
+    "id": "9ecbda79fea7c3f3545366bb7fc88a52a2480c560e50ae4778a4cc18157eb92a",
+    "path": "applications/main/nfc/plugins/supported_cards/opal.c",
+    "source": "\"Card blocked\\n\"",
+    "translation": "\"Karta blokovana\\n\"",
+    "context": ") ; } if ( opal_file - > blocked ) { furi_string_cat_str ( parsed_data , <TEXT> ) ; } parsed = true ; }",
+    "origin": "existing"
+  },
+  {
+    "id": "f2f144a4e8159fec539b0f61253a4636505ec4b61b6df51d9c6ecfd927a1f95f",
+    "path": "applications/main/nfc/plugins/supported_cards/plantain.c",
+    "source": "\"\\nNumber: %s\\nBalance: %ld RUB\\nMetro Trips: %d\\nGround Trips: %d\\nLast Trip: %02d.%02d.%04d %02d:%02d\"",
+    "translation": "\"\\nCislo: %s\\nZustatek: %ld RUB\\nJizdy metrem: %d\\nPozemni jizdy: %d\\nPosledni jizda: %02d.%02d.%04d %02d:%02d\"",
+    "context": "PlantainData * purse ) { furi_string_printf ( parsed_data , ) ; furi_string_cat_printf ( parsed_data , <TEXT> , furi_string_get_cstr ( purse - > card_number_str )",
+    "origin": "existing"
+  },
+  {
+    "id": "50446bd4ba8fe9b8ad0ed62bc3d33a7e907dd36401f05ef0a5728311feb84ff3",
+    "path": "applications/main/nfc/plugins/supported_cards/plantain.c",
+    "source": "\"Type:> 2 rides (Sat.-Mon.\"",
+    "translation": "\"Typ:> 2 jizdy (so-po)\"",
+    "context": "( parsed_data , ) ; break ; case 0 x36 : furi_string_cat_printf ( parsed_data , <TEXT> ) ; break ; default : furi_string_cat_printf (",
+    "origin": "existing"
+  },
+  {
+    "id": "2afeb60a22f7afb9c125f3deb8a4d576233132cd2d56858ab820bd088f38f3fa",
+    "path": "applications/main/nfc/plugins/supported_cards/saflok.c",
+    "source": "\"weekdays\"",
+    "translation": "\"pracovni dny\"",
+    "context": "; } } if ( restricted_weekday = = 0 b01111100 ) { furi_string_printf ( restricted_weekday_string , <TEXT> ) ; } else if ( restricted_weekday =",
+    "origin": "existing"
+  },
+  {
+    "id": "a7af63e963338a7815f49996dfcdd294eba5ad5fac98492fd73f689106c0e39c",
+    "path": "applications/main/nfc/plugins/supported_cards/saflok.c",
+    "source": "\"weekends\"",
+    "translation": "\"vikendy\"",
+    "context": "; } else if ( restricted_weekday = = 0 b00000011 ) { furi_string_printf ( restricted_weekday_string , <TEXT> ) ; } else if ( restricted_weekday =",
+    "origin": "existing"
+  },
+  {
+    "id": "390b910686df6d61f2c7347b10cf537562ec30ffa57e3b16152331fc24ebc612",
+    "path": "applications/main/nfc/plugins/supported_cards/sk_tk.c",
+    "source": "\"Type: Unknown, 0x%02X\\n\"",
+    "translation": "\"Typ: neznamy, 0x%02X\\n\"",
+    "context": ": furi_string_cat_printf ( parsed_data , ) ; break ; default : furi_string_cat_printf ( parsed_data , <TEXT> , ticket - > first_ticket_marker ) ; }",
+    "origin": "existing"
+  },
+  {
+    "id": "c8fae33b26454af5a23930a43e493bdb2f1fca83526d26d59715cf7e32e6584d",
+    "path": "applications/main/nfc/plugins/supported_cards/social_moscow.c",
+    "source": "\"Valid for: %02x/%02x %02x%02x\\n\"",
+    "translation": "\"Platnost: %02x/%02x %02x%02x\\n\"",
+    "context": "; } else { furi_string_cat ( parsed_data , ) ; } furi_string_cat_printf ( parsed_data , <TEXT> , month , year , data - >",
+    "origin": "existing"
+  },
+  {
+    "id": "9e72c8e3489bfde050f1396b4ca2db7afa9eeee6c69f00c36bef351fb481bdf8",
+    "path": "applications/main/nfc/plugins/supported_cards/trt.c",
+    "source": "\"Single-Use Ticket\\n\"",
+    "translation": "\"Jednorazovy listek\\n\"",
+    "context": "= balance % 100 ; furi_string_cat_printf ( parsed_data , ) ; furi_string_cat_printf ( parsed_data , <TEXT> ) ; furi_string_cat_printf ( parsed_data , ,",
+    "origin": "existing"
+  },
+  {
+    "id": "0a5e33811535f41faa8afedd058463613954e1ddbe10f226313e0fc6f5046289",
+    "path": "applications/main/nfc/plugins/supported_cards/trt.c",
+    "source": "\"Balance: %u.%02u RMB\\n\"",
+    "translation": "\"Zustatek: %u.%02u RMB\\n\"",
+    "context": "parsed_data , ) ; furi_string_cat_printf ( parsed_data , ) ; furi_string_cat_printf ( parsed_data , <TEXT> , balance_yuan , balance_cent ) ; furi_string_cat_printf (",
+    "origin": "existing"
+  },
+  {
+    "id": "4ebd6ce31d27e19893d66b5aca95a173b4516c8c4d5c377c8f4abdf5a213deba",
+    "path": "applications/main/nfc/plugins/supported_cards/trt.c",
+    "source": "\"Sale Date: \\n%04u-%02d-%02d %02d:%02d\"",
+    "translation": "\"Datum prodeje: \\n%04u-%02d-%02d %02d:%02d\"",
+    "context": "; furi_string_cat_printf ( parsed_data , , balance_yuan , balance_cent ) ; furi_string_cat_printf ( parsed_data , <TEXT> , sale_year , sale_month , sale_day , sale_hour",
+    "origin": "existing"
+  },
+  {
+    "id": "5a831d6b06b0be155a06ebec257cd0529a535de246db006ebd70da0354a27b63",
+    "path": "applications/main/nfc/plugins/supported_cards/umarsh.c",
+    "source": "\"\\nExpires: %s\"",
+    "translation": "\"\\nVyprsi: %s\"",
+    "context": ", refill_counter , balance_rub , balance_kop ) ; if ( is_expiry_datetime_valid ) furi_string_cat_printf ( parsed_data , <TEXT> , furi_string_get_cstr ( expiry_datetime_str ) ) ; if",
+    "origin": "existing"
+  },
+  {
+    "id": "8e4b811ecdc6c89607beb6661b4c51cb787d0adbd5ad7b98ab4c050c82bc3478",
+    "path": "applications/main/nfc/plugins/supported_cards/umarsh.c",
+    "source": "\"\\nValid to: %s\"",
+    "translation": "\"\\nPlatnost do: %s\"",
+    "context": ", furi_string_get_cstr ( expiry_datetime_str ) ) ; if ( is_valid_to_datetime_valid ) furi_string_cat_printf ( parsed_data , <TEXT> , furi_string_get_cstr ( valid_to_datetime_str ) ) ; if",
+    "origin": "existing"
+  },
+  {
+    "id": "eebde9be4284dee301f275eadd184b9560945abcfa80d7c46e9dca137298f21d",
+    "path": "applications/main/nfc/plugins/supported_cards/umarsh.c",
+    "source": "\"\\nLast refill: %s\"",
+    "translation": "\"\\nPosledni dobiti: %s\"",
+    "context": ", furi_string_get_cstr ( valid_to_datetime_str ) ) ; if ( is_last_refill_datetime_valid ) furi_string_cat_printf ( parsed_data , <TEXT> , furi_string_get_cstr ( last_refill_datetime_str ) ) ; furi_string_free",
+    "origin": "existing"
+  },
+  {
+    "id": "990b6a1b03ea11e2916ee287b4ee6e6c36ff4ce08c8abde789d6f65bcfda7dde",
+    "path": "applications/main/nfc/plugins/supported_cards/zolotaya_korona.c",
+    "source": "\"\\nLast refill amount: %lu.%02u RUR\\nRefill counter: %u\\nLast refill: %s at %s\\nRefill machine id: %u\"",
+    "translation": "\"\\nPosledni dobiti: %lu.%02u RUR\\nPocet dobiti: %u\\nDobito: %s v %s\\nID dobijeciho stroje: %u\"",
+    "context": ", region_number , balance_rub , balance_kop , prev_balance_rub , prev_balance_kop ) ; furi_string_cat_printf ( parsed_data , <TEXT> , last_refill_amount_rub , last_refill_amount_kop , refill_counter , furi_string_get_cstr",
+    "origin": "existing"
+  },
+  {
+    "id": "9e71a0e6980e6b7e058b0f60fd6d7624d009550eddfa8fafd03a39bbe1c3b9a8",
+    "path": "applications/main/nfc/plugins/supported_cards/zolotaya_korona.c",
+    "source": "\"\\nLast trip: %s at %s\\nTrack number: %u\\nValidator: %c%06lu\"",
+    "translation": "\"\\nPosledni jizda: %s v %s\\nCislo trasy: %u\\nValidator: %c%06lu\"",
+    "context": "( last_refill_date_str ) , furi_string_get_cstr ( last_refill_time_str ) , refill_machine_id ) ; furi_string_cat_printf ( parsed_data , <TEXT> , furi_string_get_cstr ( last_trip_date_str ) , furi_string_get_cstr (",
+    "origin": "existing"
+  },
+  {
+    "id": "851088c05b0e2705b57a34fe2ec51a2b206f040d94bf929ee0d0d9c999f33219",
+    "path": "applications/main/nfc/plugins/supported_cards/zolotaya_korona.c",
+    "source": "\"\\nStatus: %u\\nSequence num: %u\\nDiscount code: %u\"",
+    "translation": "\"\\nStav: %u\\nCislo sekvence: %u\\nKod slevy: %u\"",
+    "context": ", validator_id ) ; if ( furi_hal_rtc_is_flag_set ( FuriHalRtcFlagDebug ) ) { furi_string_cat_printf ( parsed_data , <TEXT> , status , sequence_number , discount_code ) ;",
+    "origin": "existing"
+  },
+  {
+    "id": "8d765b04a1a0f1230926393f176239d5316aa75ed1260814e348f71cd5606bcd",
+    "path": "applications/main/nfc/views/dict_attack.c",
+    "source": "\"Reuse key check for sector: %d\"",
+    "translation": "\"Overeni klice: sektor %d\"",
+    "context": "( m - > is_key_attack ) { snprintf ( draw_str , sizeof ( draw_str ) , <TEXT> , m - > key_attack_current_sector ) ; }",
+    "origin": "existing"
+  },
+  {
+    "id": "ed866e744b5b8edf049bdb77e1f95d46a80a63b17a3354619e2c26c104cf6b78",
+    "path": "applications/main/subghz/plugins/add_manually/subghz_scene_set_key.c",
+    "source": "\"Enter KEY in hex\"",
+    "translation": "\"Zadejte klic HEX\"",
+    "context": "0 ) ; ByteInput * byte_input = subghz - > byte_input ; byte_input_set_header_text ( byte_input , <TEXT> ) ; byte_input_set_result_callback ( byte_input , subghz_scene_set_key_byte_input_callback ,",
+    "origin": "existing"
+  },
+  {
+    "id": "380fdbd80ee0a9f042e36e3bdf391363776ad45bd549d9bd9049205db59692a9",
+    "path": "applications/main/subghz/subghz_history.c",
+    "source": "\"   Memory is FULL\"",
+    "translation": "\"PAMET PLNA\"",
+    "context": ", type ) ) { if ( output ! = NULL ) furi_string_printf ( output , <TEXT> ) ; return true ; } if (",
+    "origin": "existing"
+  },
+  {
+    "id": "a2a75e496e0d7f1cd1a33433ddc33aa194db9c4294bcd1b241ec1513cf7c03b0",
+    "path": "applications/main/subghz/views/subghz_read_raw.c",
+    "source": "\"0 spl.\"",
+    "translation": "\"0 vz.\"",
+    "context": "0 ; model - > not_showing_samples = true ; furi_string_set ( model - > sample_write , <TEXT> ) ; furi_string_reset ( model - > file_name",
+    "origin": "existing"
+  },
+  {
+    "id": "a0a53a56a003feaf16b5246cbfe0303f9f8478d9efee6125056dd02e168fed09",
+    "path": "applications/main/subghz/views/subghz_read_raw.c",
+    "source": "\"0 spl.\"",
+    "translation": "\"0 vz.\"",
+    "context": "; furi_string_reset ( model - > file_name ) ; furi_string_set ( model - > sample_write , <TEXT> ) ; model - > raw_threshold_rssi = raw_threshold_rssi",
+    "origin": "existing"
+  },
+  {
+    "id": "9801034890d8d3a5a817ee3df4a9390c7434e38fca3afc1c22f9080189abf5ea",
+    "path": "applications/services/bt/bt_service/bt.c",
+    "source": "\"Radio stack doesn't support this app\"",
+    "translation": "\"Radiovy stack nepodporuje aplikaci\"",
+    "context": "bt - > current_profile ! = NULL ; } } else { bt_show_warning ( bt , <TEXT> ) ; if ( message - > result",
+    "origin": "existing"
+  },
+  {
+    "id": "23c17df025eb870657390a9a6590aac5e4394c26e7511a00b9ece14817ee611a",
+    "path": "applications/services/desktop/animations/animation_manager.c",
+    "source": "\"L1_Tv_128x47\"",
+    "translation": "\"DB_DarkSignal_128x51\"",
+    "context": "# include # include # include # define TAG # define HARDCODED_ANIMATION_NAME <TEXT> # define NO_SD_ANIMATION_NAME # define BAD_BATTERY_ANIMATION_NAME",
+    "origin": "existing"
+  },
+  {
+    "id": "7cda8f12efa32c3c351acfa9be6b68c798f66c6cd0bc0fecfb12ac14dd855f96",
+    "path": "applications/system/hid_app/views/hid_mouse_clicker.c",
+    "source": "\"%d clicks/s\"",
+    "translation": "\"%d kliku/s\"",
+    "context": "( model - > rate ) { snprintf ( label , sizeof ( label ) , <TEXT> , model - > rate ) ; }",
+    "origin": "existing"
+  },
+  {
+    "id": "f24426567a6e94a642454e354a02e82af434be48517b6202920c5384ef1ab6ee",
+    "path": "applications/system/nice_o_code/nice_o_code.c",
+    "source": "\"Exit\"",
+    "translation": "\"Odejit\"",
+    "context": "NiceOSceneMenu : { static const char * items [ ] = { , , <TEXT> } ; for ( uint8_t i = 0",
+    "origin": "existing"
+  },
+  {
+    "id": "cd9dbc6c95d4d4b6b7dca579ecbeb45683439a1831e5a3f348c41d44b0cb118e",
+    "path": "applications/system/remote_analyzer/application.fam",
+    "source": "\"Remote Analyzer\"",
+    "translation": "\"Analyzator ovladacu\"",
+    "context": "App ( appid = , name = <TEXT> , apptype = FlipperAppType . EXTERNAL , targets",
+    "origin": "existing"
+  },
+  {
+    "id": "83756044ffb8cbaa77302701051a40b3bca585c340c61cee91d42f63b572be3c",
+    "path": "applications/system/seed_capturer/seed_capturer.c",
+    "source": "\"Exit\"",
+    "translation": "\"Konec\"",
+    "context": "static const char * const seed_menu [ ] = { , , , <TEXT> , } ; static void seed_draw_menu ( Canvas",
+    "origin": "existing"
+  },
+  {
+    "id": "324130bc518d0636870a62eed0604dd00f1da0b9e9f295960c616d7f2d31d510",
+    "path": "applications/system/seed_capturer/seed_capturer.c",
+    "source": "\"Reset\"",
+    "translation": "\"Resetovat\"",
+    "context": "canvas , ) ; elements_button_left ( canvas , app - > from_raw ? : <TEXT> ) ; break ; case SeedSceneWipeConfirm : elements_multiline_text_aligned",
+    "origin": "existing"
+  },
+  {
+    "id": "1d8413b3bdc6eb347bb714022f9582286adadf2a0ae1b4366263db75b328e66c",
+    "path": "applications/system/t5577/application.fam",
+    "source": "\"Read a T5577's blocks and save them, edit any block or compose its configuration, write a saved dump back, test which blocks take a write, wipe the tag or clear its password, and recover a password off the air by listening to a reader or cloner writing a tag\"",
+    "translation": "\"Cteni a zapis bloku T5577, uprava nastaveni a vypisu, test zapisu, vymazani cipu, sprava hesel a jejich zachyt pri praci s vlastni cteckou.\"",
+    "context": ", fap_category = , fap_author = , fap_version = , fap_description = <TEXT> , )",
+    "origin": "existing"
+  },
+  {
+    "id": "ffcbec245807655c798eb9617c6d32706d7ce8b50eceef1abbb06682bcbf76b4",
+    "path": "applications/system/t5577/scenes/scene_clear.c",
+    "source": "\"Last look\"",
+    "translation": "\"Kontrola\"",
+    "context": "attempt > = t5577_app_clear_attempts ( app ) ) { t5577_work_view_set_status ( app - > work_view , <TEXT> , app - > candidates ) ; app",
+    "origin": "existing"
+  },
+  {
+    "id": "208e6dc4ee7bd587050c6b87fef56d9384925c1b512c06c874d7f5719ed7b979",
+    "path": "applications/system/t5577/scenes/scene_edit_config.c",
+    "source": "\"Bit rate\"",
+    "translation": "\"Bitova rychlost\"",
+    "context": "; app - > config_item [ ConfigItemBitrate ] = variable_item_list_add ( app - > config_list , <TEXT> , COUNT_OF ( t5577_app_bitrates ) , t5577_app_scene_edit_config_change ,",
+    "origin": "existing"
+  },
+  {
+    "id": "7fa4d9bbea08fdc684f13f2dcab94cbf062416cfccfc925782c5f0f1412a99ca",
+    "path": "applications/system/t5577/scenes/scene_start.c",
+    "source": "\"Saved\"",
+    "translation": "\"Ulozene\"",
+    "context": ", StartIndexTest , t5577_app_scene_start_callback , app ) ; submenu_add_item ( app - > submenu , <TEXT> , StartIndexSaved , t5577_app_scene_start_callback , app ) ;",
+    "origin": "existing"
+  },
+  {
+    "id": "5ca0f13dc78e31ed4994c4067d04485095ba75063ea8727d0951128c5fd9c046",
+    "path": "lib/ibutton/protocols/misc/protocol_metakom.c",
+    "source": "\"Invalid Metakom key:\\nodd parity in byte %zu\"",
+    "translation": "\"Neplatny klic Metakom:\\nlicha parita v bajtu %zu\"",
+    "context": "( data ) ; if ( odd_parity_byte > = 0 ) { furi_string_cat_printf ( result , <TEXT> , ( size_t ) odd_parity_byte ) ; }",
+    "origin": "existing"
+  },
+  {
+    "id": "044a03ad22b8c7c41e46cb6471dc2058005b7595673b1c243abb6beeca95ce0f",
+    "path": "lib/lfrfid/lfrfid_worker_modes.c",
+    "source": "\"Writing the key\"",
+    "translation": "\"Zapisuji klic\"",
+    "context": "block0 = data - > block [ 0 ] | LFRFID_T5577_PWD ; lfrfid_worker_t5577_doing ( worker , <TEXT> ) ; for ( uint8_t block = 1",
+    "origin": "existing"
+  },
+  {
+    "id": "3a82052b2670dff02a53d559f56db948b96e0c0120887883da43bafbc1023b76",
+    "path": "lib/lfrfid/lfrfid_worker_modes.c",
+    "source": "\"Storing pass\"",
+    "translation": "\"Ukladam heslo\"",
+    "context": "block [ block ] ) ) { return LFRFIDWorkerWriteKeyNotStored ; } } lfrfid_worker_t5577_doing ( worker , <TEXT> ) ; t5577_write_block ( 0 , LFRFID_T5577_PASSWORD_BLOCK ,",
+    "origin": "existing"
+  },
+  {
+    "id": "97319e94b1eb19ae2d73da3c6fc18ec91c14bd9409fc3a4705f72889555208ab",
+    "path": "lib/lfrfid/lfrfid_worker_modes.c",
+    "source": "\"Turning it on\"",
+    "translation": "\"Zapinam ochranu\"",
+    "context": "open , LFRFID_T5577_PASSWORD_BLOCK , password ) ) { return LFRFIDWorkerWritePasswordNotStored ; } lfrfid_worker_t5577_doing ( worker , <TEXT> ) ; t5577_write_block ( 0 , 0 ,",
+    "origin": "existing"
+  },
+  {
+    "id": "f30f38756c7e15d93e370f0fad2edd26a759b7036ff01bdde5b222cd8a232f8c",
+    "path": "lib/lfrfid/protocols/protocol_fdx_b.c",
+    "source": "\"Unknown\"",
+    "translation": "\"Nezname\"",
+    "context": ", country_code , national_code , country_code , ( country_found ) ? furi_string_get_cstr ( country_full_name ) : <TEXT> ) ; float temperature ; if ( protocol_fdx_b_get_temp",
+    "origin": "existing"
+  },
+  {
+    "id": "cdca16fcf75f38e55e388960cbcae6a6b55d65c159afe8aec770577e7aa3fd47",
+    "path": "lib/lfrfid/protocols/protocol_fdx_b.c",
+    "source": "\"Unknown\"",
+    "translation": "\"Nezname\"",
+    "context": ", country_code , national_code , country_code , ( country_found ) ? furi_string_get_cstr ( country_two_letter ) : <TEXT> ) ; float temperature ; if ( protocol_fdx_b_get_temp",
+    "origin": "existing"
+  },
+  {
+    "id": "a767b1d4353654a88a89b0f004f755430d67ffb5d9e85d109e1950561348c80c",
+    "path": "lib/lfrfid/protocols/protocol_hid_ex_generic.c",
+    "source": "\"Data: Unknown\"",
+    "translation": "\"Data: Neznama\"",
+    "context": ", FuriString * result ) { UNUSED ( protocol ) ; furi_string_set ( result , <TEXT> ) ; } const ProtocolBase protocol_hid_ex_generic = {",
+    "origin": "existing"
+  },
+  {
+    "id": "61740af6b80b128366a5f41617afd038f6ca4092da899c87733fc198d1eb5cdc",
+    "path": "lib/lfrfid/protocols/protocol_nexwatch.c",
+    "source": "\"Unknown\"",
+    "translation": "\"Nezname\"",
+    "context": "type = m_idx < COUNT_OF ( magic_items ) ? magic_items [ m_idx ] . desc : <TEXT> ; if ( brief ) { furi_string_printf (",
+    "origin": "existing"
   }
 ]
